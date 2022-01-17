@@ -1,4 +1,4 @@
-
+import urllib.request
 
 def xlsx(fname):
     import zipfile
@@ -23,7 +23,9 @@ def xlsx(fname):
             rows.append(row)
             row = {}
     return rows
-	
+
+
+urllib.request.urlretrieve("https://bourse.societegenerale.fr/EmcWebApi/api/ProductSearch/Export?PageNum=1&ProductClassificationId=8", "import.xlsx")
 with open('import2.csv', 'w') as file_csv:
 	rows = xlsx('import.xlsx');
 	for row in rows:
