@@ -26,7 +26,7 @@ def xlsx(fname):
 
 
 urllib.request.urlretrieve("https://bourse.societegenerale.fr/EmcWebApi/api/ProductSearch/Export?PageNum=1&ProductClassificationId=8", "import.xlsx")
-with open('import2.csv', 'w') as file_csv:
+with open('import-sg.csv', 'w') as file_csv:
 	rows = xlsx('import.xlsx');
 	for row in rows:
 		file_csv.write(row['A']+';'+row['B']+';'+row['C']+';'+row['D']+';'+row['E']+';'+row['F']+';'+row['G']+';'+row['H']+';'+row['J']+'\n')
