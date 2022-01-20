@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # Fichiers csv et Excel
-.xls
-.xlsx
-.csv
-.json
+*.xls
+*.xlsx
+*.csv
+*.json
