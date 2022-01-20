@@ -18,7 +18,7 @@ def formatNumber(value: float):
 def transformRow(row):
     maturite = row['Maturité'].partition(' ')[0]
     maturitedate = datetime.strptime(maturite, '%d/%m/%Y')
-    maturitejours = (maturitedate - datetime.today()).days
+    maturitejours = (maturitedate - datetime.today()).days + 1
 
     borneBasse = toNumber(row['Barrière'])
     borneHaute = toNumber(row['Borne haute'])
@@ -48,9 +48,8 @@ def transformRow(row):
     }
     return newRow
 
-
 lines = []
-with open('import.csv', newline='') as readcsvfile:
+with open('import-sg.csv', newline='') as readcsvfile:
     reader = csv.DictReader(readcsvfile, delimiter=';')
     for row in reader:
         lines.append(transformRow(row))
