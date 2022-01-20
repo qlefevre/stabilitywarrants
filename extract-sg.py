@@ -1,37 +1,16 @@
+from datetime import datetime
 import urllib.request
+import utils
 
 """
 Download stability warrants from Société Générale 
 """
 url = 'https://bourse.societegenerale.fr/EmcWebApi/api/ProductSearch/Export?PageNum=1&ProductClassificationId=8'
 
-def xlsx(fname):
-    import zipfile
-    from xml.etree.ElementTree import iterparse
-    z = zipfile.ZipFile(fname)
-    strings = [el.text for e, el in iterparse(z.open('xl/sharedStrings.xml')) if el.tag.endswith('}t')]
-    rows = []
-    row = {}
-    value = ''
-    for e, el in iterparse(z.open('xl/worksheets/sheet1.xml')):
-        if el.tag.endswith('}v'):  # <v>84</v>
-            value = el.text
-        if el.tag.endswith('}c'):  # <c r="A3" t="s"><v>84</v></c>
-            if el.attrib.get('t') == 's':
-                value = strings[int(value)]
-            letter = el.attrib['r'] # AZ22
-            while letter[-1].isdigit():
-                letter = letter[:-1]
-            row[letter] = value
-            value = ''
-        if el.tag.endswith('}row'):
-            rows.append(row)
-            row = {}
-    return rows
-
-
-urllib.request.urlretrieve(url, "import-sg.xlsx")
-with open('import-sg.csv', 'w') as file_csv:
-	rows = xlsx('import.xlsx');
+urllib.request.urlretrieve(url, 'stabilitywarrants-sg.xlsx')
+with open('stabilitywarrants-sg.csv', 'w') as file_csv:
+	rows = utils.xlsx('stabilitywarrants-sg.xlsx');
 	for row in rows:
-		file_csv.write(row['A']+';'+row['B']+';'+row['C']+';'+row['D']+';'+row['E']+';'+row['F']+';'+row['G']+';'+row['H']+';'+row['J']+'\n')
+		file_csv.write(row['A']+';'+row['B']+';'+row['C']+';'+row['D']+';'+row['E']+';'+row['F']+';'+row['G']+';'+row['H']+';'+row['I']+';'+row['J']+'\n')
+utils.upload_file('stabilitywarrants-sg.xlsx','raw/sg/xlsx/'+datetime.today().strftime('%Y/%m')+'/stabilitywarrants-sg-'+datetime.today().strftime('%Y-%m-%d')+'.xslx')
+utils.upload_file('stabilitywarrants-sg.csv','raw/sg/csv/'+datetime.today().strftime('%Y/%m')+'/stabilitywarrants-sg-'+datetime.today().strftime('%Y-%m-%d')+'.csv')

@@ -1,6 +1,8 @@
+from datetime import datetime
 import urllib.parse
 import urllib.request
 import gzip
+import utils
 
 """
 Download stability warrants from Unicredit
@@ -44,7 +46,8 @@ values = {
 }
 data = urllib.parse.urlencode(values).encode('ascii')
 req = urllib.request.Request(url, data, headers)
-with open('import-uc.csv', 'w') as file_csv:
+with open('stabilitywarrants-uc.csv', 'w') as file_csv:
     with urllib.request.urlopen(req) as response:
         content = gzip.decompress(response.read())
         file_csv.write(content.decode('iso-8859-1').replace('\r\n', '\r'))
+utils.upload_file('stabilitywarrants-uc.csv','raw/uc/csv/'+datetime.today().strftime('%Y/%m')+'/stabilitywarrants-uc-'+datetime.today().strftime('%Y-%m-%d')+'.csv')
