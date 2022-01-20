@@ -1,8 +1,8 @@
-from datetime import datetime
 import logging
+import os
+from datetime import datetime
 import boto3
 from botocore.exceptions import ClientError
-import os
 
 def xlsx(fname):
     import zipfile
@@ -18,7 +18,7 @@ def xlsx(fname):
         if el.tag.endswith('}c'):  # <c r="A3" t="s"><v>84</v></c>
             if el.attrib.get('t') == 's':
                 value = strings[int(value)]
-            letter = el.attrib['r'] # AZ22
+            letter = el.attrib['r']  # AZ22
             while letter[-1].isdigit():
                 letter = letter[:-1]
             row[letter] = value
@@ -41,16 +41,18 @@ def upload_file(file_name, object_name=None):
     if object_name is None:
         object_name = os.path.basename(file_name)
 
+    # Replace year, month and day
+    object_name = datetime.today().strftime(object_name)
+
     # Upload the file
     s3_client = boto3.client('s3',
-                  region_name='nl-ams',
-                  endpoint_url='https://s3.nl-ams.scw.cloud',
-                  aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-                  aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'))
+                             region_name='nl-ams',
+                             endpoint_url='https://s3.nl-ams.scw.cloud',
+                             aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                             aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'))
     try:
         response = s3_client.upload_file(file_name, 'testqle', object_name)
     except ClientError as e:
         logging.error(e)
         return False
     return True
-	

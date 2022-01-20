@@ -1,4 +1,3 @@
-from datetime import datetime
 import urllib.request
 import utils
 
@@ -9,8 +8,10 @@ url = 'https://bourse.societegenerale.fr/EmcWebApi/api/ProductSearch/Export?Page
 
 urllib.request.urlretrieve(url, 'stabilitywarrants-sg.xlsx')
 with open('stabilitywarrants-sg.csv', 'w') as file_csv:
-	rows = utils.xlsx('stabilitywarrants-sg.xlsx');
-	for row in rows:
-		file_csv.write(row['A']+';'+row['B']+';'+row['C']+';'+row['D']+';'+row['E']+';'+row['F']+';'+row['G']+';'+row['H']+';'+row['I']+';'+row['J']+'\n')
-utils.upload_file('stabilitywarrants-sg.xlsx','raw/sg/xlsx/'+datetime.today().strftime('%Y/%m')+'/stabilitywarrants-sg-'+datetime.today().strftime('%Y-%m-%d')+'.xslx')
-utils.upload_file('stabilitywarrants-sg.csv','raw/sg/csv/'+datetime.today().strftime('%Y/%m')+'/stabilitywarrants-sg-'+datetime.today().strftime('%Y-%m-%d')+'.csv')
+    rows = utils.xlsx('stabilitywarrants-sg.xlsx');
+    for row in rows:
+        file_csv.write(
+            row['A'] + ';' + row['B'] + ';' + row['C'] + ';' + row['D'] + ';' + row['E'] + ';' + row['F'] + ';' + row[
+                'G'] + ';' + row['H'] + ';' + row['I'] + ';' + row['J'] + '\n')
+utils.upload_file('stabilitywarrants-sg.xlsx', 'raw/sg/xlsx/%Y/%m/stabilitywarrants-sg-%Y-%m-%d.xslx')
+utils.upload_file('stabilitywarrants-sg.csv', 'raw/sg/csv/%Y/%m/stabilitywarrants-sg-%Y-%m-%d.csv')
