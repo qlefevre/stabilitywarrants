@@ -1,5 +1,10 @@
 import urllib.request
 
+"""
+Download stability warrants from Société Générale 
+"""
+url = 'https://bourse.societegenerale.fr/EmcWebApi/api/ProductSearch/Export?PageNum=1&ProductClassificationId=8'
+
 def xlsx(fname):
     import zipfile
     from xml.etree.ElementTree import iterparse
@@ -25,7 +30,7 @@ def xlsx(fname):
     return rows
 
 
-urllib.request.urlretrieve("https://bourse.societegenerale.fr/EmcWebApi/api/ProductSearch/Export?PageNum=1&ProductClassificationId=8", "import.xlsx")
+urllib.request.urlretrieve(url, "import-sg.xlsx")
 with open('import-sg.csv', 'w') as file_csv:
 	rows = xlsx('import.xlsx');
 	for row in rows:
