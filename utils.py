@@ -1,8 +1,11 @@
 import logging
 import os
+import tempfile
 from datetime import datetime
+
 import boto3
 from botocore.exceptions import ClientError
+
 
 def xlsx(fname):
     import zipfile
@@ -27,6 +30,7 @@ def xlsx(fname):
             rows.append(row)
             row = {}
     return rows
+
 
 def upload_file(file_name, object_name=None):
     """Upload a file to an S3 bucket
@@ -56,3 +60,9 @@ def upload_file(file_name, object_name=None):
         logging.error(e)
         return False
     return True
+
+
+def createTempFile():
+    file = tempfile.NamedTemporaryFile(delete=False)
+    file.close()
+    return file.name
