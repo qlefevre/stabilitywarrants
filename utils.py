@@ -1,6 +1,7 @@
 import logging
 import os
 import tempfile
+import urllib.request
 from datetime import datetime
 
 import boto3
@@ -62,7 +63,25 @@ def upload_file(file_name, object_name=None):
     return True
 
 
+def download_file(object_name):
+    object_name = datetime.today().strftime(object_name)
+    url = 'https://testqle.s3.nl-ams.scw.cloud/' + object_name
+    file, headers = urllib.request.urlretrieve(url)
+    return file
+
+
 def createTempFile():
     file = tempfile.NamedTemporaryFile(delete=False)
     file.close()
     return file.name
+
+
+def toNumber(value: str):
+    str = value.partition(' ')[0].replace(',', '.')
+    str = str if "." not in str else str.rstrip('0').rstrip('.')
+    return int(str) if str.isdigit() else round(float(str), 2)
+
+
+def formatNumber(value: float):
+    val = round(value, 2)
+    return int(val) if float(val).is_integer() else ('%0.2f' % val).replace('.', ',')
