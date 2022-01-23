@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "description": "Stability warrants",
   "author": "Quentin Lefèvre",
-  "license": "Apache-2.0 License"
+  "license": "Apache-2.0 License",
+  "devDependencies": {
+    "serverless-scaleway-functions": "^0.2.4"
+  }
 }
