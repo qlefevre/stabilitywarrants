@@ -1,19 +1,19 @@
 service: stabilitywarrants
-
+configValidationMode: off
 frameworkVersion: '2 || 3'
 
 
 provider:
-  name: aws
-  runtime: python3.8
-  lambdaHashingVersion: 20201221
-
+  name: scaleway
+  runtime: python3
+  
 functions:
-  cronHandler:
-    handler: handler.run
+  sort:
+    handler: sort.handle
     events:
       # Invoke Lambda function every 2nd minute from Mon-Fri
-      - schedule: cron(0/2 * ? * MON-FRI *)
-
+      - schedule:
+        rate: '0 21 * * MON-FRI *'
+        
 plugins:
   - serverless-scaleway-functions
