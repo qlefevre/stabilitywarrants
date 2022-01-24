@@ -5,23 +5,23 @@ frameworkVersion: '2 || 3'
 provider:
   name: scaleway
   runtime: python3
+  scwToken: ${env:AWS_SECRET_ACCESS_KEY}
+  scwProject: ${env:AWS_PROJECT_ID}
   env:
     AWS_ACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
     AWS_SECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
-  scwToken: ${env:AWS_ACCESS_KEY_ID}
-  scwProject: ${env:AWS_SECRET_ACCESS_KEY}
-  
+
+
 functions:
   sort:
     handler: sort.handle
     events:
-      # Invoke Lambda function every 2nd minute from Mon-Fri
       - schedule:
-        rate: '0 21 * * MON-FRI *'
-        
+          rate: '21 0 * * *'
+
 plugins:
   - serverless-scaleway-functions
-  
+
 package:
   patterns:
     - '!node_modules/**'

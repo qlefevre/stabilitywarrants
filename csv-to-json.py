@@ -3,7 +3,6 @@ import json
 import csv
 import utils
 
-
 def handle(event, context):
     """
     Transforme le fichier final csv en json
@@ -24,6 +23,10 @@ def handle(event, context):
                 json.dump(row, file_json, ensure_ascii=False)
             file_json.write(']')
     utils.upload_file(stabilitywarrants_json, 'json/%Y/%m/stabilitywarrants-%Y-%m-%d.json')
+
+    return {
+        "message": "csv to json ok"
+    }
 
 
 if __name__ == '__main__':
