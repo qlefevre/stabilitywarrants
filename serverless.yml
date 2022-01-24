@@ -17,7 +17,15 @@ functions:
     handler: sort.handle
     events:
       - schedule:
-          rate: '21 0 * * *'
+          rate: '21 0 * * 1'
+      - schedule:
+          rate: '21 0 * * 2'
+      - schedule:
+          rate: '21 0 * * 3'
+      - schedule:
+          rate: '21 0 * * 4'
+      - schedule:
+          rate: '21 0 * * 5'
 
 plugins:
   - serverless-scaleway-functions

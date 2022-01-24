@@ -64,6 +64,10 @@ def handle(event, context):
             writer.writerow(row)
     utils.upload_file(stabilitywarrants_csv, 'csv/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
 
+    return {
+        "message": "sort ok"
+    }
+
 
 if __name__ == '__main__':
     handle(None, None)
