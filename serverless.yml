@@ -13,8 +13,12 @@ provider:
 
 
 functions:
-  sort:
-    handler: sort.handle
+  extract-sg:
+    handler: extract-sg.handle
+    minScale: 0
+    maxScale: 1
+    memorySize: 128
+    description: Télécharge les stability warrants de la Société Générale
     events:
       - schedule:
           rate: '21 0 * * 1'
@@ -26,10 +30,35 @@ functions:
           rate: '21 0 * * 4'
       - schedule:
           rate: '21 0 * * 5'
+  extract-uc:
+    handler: extract-uc.handle
+    minScale: 0
+    maxScale: 1
+    memorySize: 128
+    description: Télécharge les stability warrants d'Unicredit
+    events:
+      - schedule:
+          rate: '21 0 * * 1'
+      - schedule:
+          rate: '21 0 * * 2'
+      - schedule:
+          rate: '21 0 * * 3'
+      - schedule:
+          rate: '21 0 * * 4'
+      - schedule:
+          rate: '21 0 * * 5'
+  sort:
+    handler: sort.handle
+    minScale: 0
+    maxScale: 1
+    memorySize: 128
+    description: Transforme le fichier CSV
+    events:
+      - schedule:
+          rate: '21 0 * * *'
 
 plugins:
   - serverless-scaleway-functions
-
 package:
   patterns:
     - '!node_modules/**'

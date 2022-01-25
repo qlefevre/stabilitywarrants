@@ -132,9 +132,10 @@ dmypy.json
 *.xls
 *.xlsx
 *.csv
-*.json
 
+# serverless
 .serverless
 *.pyc
 *.pyo
+node_modules
 

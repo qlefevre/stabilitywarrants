@@ -65,7 +65,8 @@ def handle(event, context):
     utils.upload_file(stabilitywarrants_csv, 'csv/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
 
     return {
-        "message": "sort ok"
+        "body": "sort ok",
+        "statusCode": 200
     }
 
 
