@@ -11,7 +11,6 @@ provider:
     AWS_ACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
     AWS_SECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
 
-
 functions:
   extract-sg:
     handler: extract-sg.handle
@@ -55,8 +54,25 @@ functions:
     description: Transforme le fichier CSV
     events:
       - schedule:
-          rate: '21 0 * * *'
-
+          rate: '21 1 * * *'
+  csv-to-json:
+    handler: csv-to-json.handle
+    minScale: 0
+    maxScale: 1
+    memorySize: 128
+    description: Transforme le fichier CSV en JSON
+    events:
+      - schedule:
+          rate: '21 2 * * *'
+  update-page:
+    handler: update-page.handle
+    minScale: 0
+    maxScale: 1
+    memorySize: 128
+    description: Mise à jour de la page HTML
+    events:
+      - schedule:
+          rate: '21 3 * * *'
 plugins:
   - serverless-scaleway-functions
 package:
