@@ -73,8 +73,20 @@ functions:
     events:
       - schedule:
           rate: '21 3 * * *'
+
 plugins:
   - serverless-scaleway-functions
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    noDeploy:
+      - csv
+      - json
+      - urllib
+      - gzip
+      - datetime
+
 package:
   patterns:
     - '!node_modules/**'
