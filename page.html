@@ -130,7 +130,13 @@
 		  }},
 		  mounted () {
 
-		fetch('https://testqle.s3.nl-ams.scw.cloud/json/2022/01/stabilitywarrants-2022-01-26.json')
+		  var url = 'https://testqle.s3.nl-ams.scw.cloud/json/%Y/%m/stabilitywarrants-%Y-%m-%d.json';
+            var now = new Date();
+            url = url.replaceAll('%Y',now.getYear()+1900);
+            url = url.replaceAll('%m',String(now.getMonth()+1).padStart(2, '0'));
+            url = url.replaceAll('%d',now.getDate());
+
+		fetch(url)
         .then(response => response.json())
         .then(data => (this.warrants = data));
 
