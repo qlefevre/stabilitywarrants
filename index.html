@@ -138,11 +138,12 @@
 
 		fetch(url)
         .then(response => response.json())
-        .then(data => (this.warrants = data));
+        .then(data =>{this.warrants = data;
 
 		this.sousjacents = this.warrants.map(warrant => warrant['sous-jacent']);
 		this.sousjacents.shift();
 		this.sousjacents = this.sousjacents.filter((x, i, a) => a.indexOf(x) == i);
+		});
    
   }
     })
