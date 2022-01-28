@@ -1,5 +1,7 @@
+import gzip
 import logging
 import os
+import shutil
 import tempfile
 import urllib.request
 from datetime import datetime
@@ -67,9 +69,13 @@ def upload_file(file_name, object_name=None):
         }]
     }
     s3_client.put_bucket_cors(Bucket='testqle', CORSConfiguration=cors_configuration)
+    with open(file_name, 'rb') as f_in:
+        with gzip.open(file_name+'.gz', 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
 
     try:
-        response = s3_client.upload_file(file_name, 'testqle', object_name, ExtraArgs={'ACL': 'public-read'})
+        response = s3_client.upload_file(file_name+'.gz', 'testqle', object_name,
+            ExtraArgs={'ACL': 'public-read', 'ContentEncoding': 'gzip'})
     except ClientError as e:
         logging.error(e)
         return False
