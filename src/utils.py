@@ -86,6 +86,12 @@ def download_file(object_name):
     object_name = datetime.today().strftime(object_name)
     url = 'https://testqle.s3.nl-ams.scw.cloud/' + object_name
     file, headers = urllib.request.urlretrieve(url)
+    if headers.get('Content-Encoding') == 'gzip':
+        ungzipped = createTempFile()
+        with gzip.open(file, 'rb') as f_in:
+            with open(ungzipped, 'wb') as f_out:
+                shutil.copyfileobj(f_in, f_out)
+        file = ungzipped
     return file
 
 
@@ -104,3 +110,10 @@ def toNumber(value: str):
 def formatNumber(value: float):
     val = round(value, 2)
     return int(val) if float(val).is_integer() else ('%0.2f' % val).replace('.', ',')
+
+def extractString(value: str):
+    str = value.partition(' ')[0]
+    str = str.replace(',0000','')
+    if ',' in str:
+        str = str[:-2]
+    return str
