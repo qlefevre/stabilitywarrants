@@ -114,6 +114,7 @@ def formatNumber(value: float):
 def extractString(value: str):
     str = value.partition(' ')[0]
     str = str.replace(',0000','')
+    str = str.replace(',00', '')
     if ',' in str:
         str = str[:-2]
     return str

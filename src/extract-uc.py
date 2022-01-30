@@ -1,9 +1,10 @@
 import gzip
 import urllib.parse
 import urllib.request
-
+import csv
+import io
 import utils
-
+from utils import extractString
 
 def handle(event, context):
     """
@@ -49,12 +50,26 @@ def handle(event, context):
     data = urllib.parse.urlencode(values).encode('ascii')
     req = urllib.request.Request(url, data, headers)
     stabilitywarrants_uc_csv = utils.createTempFile()
-    with open(stabilitywarrants_uc_csv, 'w') as file_csv:
-        with urllib.request.urlopen(req) as response:
-            content = gzip.decompress(response.read())
-            file_csv.write(content.decode('iso-8859-1').replace('\r\n', '\r'))
+    stabilitywarrants_cf_csv = utils.createTempFile()
+    with urllib.request.urlopen(req) as response:
+        content = gzip.decompress(response.read())
+        data = content.decode('iso-8859-1').replace('\r\n', '\r')
+        with open(stabilitywarrants_uc_csv, 'w') as file_csv:
+            file_csv.write(data)
+        datacsv = data[data.find('ISIN'):]
+        with open(stabilitywarrants_cf_csv, 'w') as file_csv:
+            file_csv.write('isin;sous-jacent;borne basse;borne haute;maturite;achat;vente;prix sous-jacent\n')
+            reader = csv.DictReader(io.StringIO(datacsv,newline='\r'), delimiter=';')
+            for row in reader:
+                file_csv.write(transformRow(row))
     utils.upload_file(stabilitywarrants_uc_csv, 'raw/uc/csv/%Y/%m/stabilitywarrants-uc-%Y-%m-%d.csv')
+    utils.upload_file(stabilitywarrants_cf_csv, 'sw/uc/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
 
+def transformRow(row):
+    data = row['ISIN'] + ';'+row['Sous-jacent']+';'+extractString(row['Niveau de la barrière basse'])+';'
+    data += extractString(row['Niveau de la borne haute']) +';'+row['Date d\'observation finale']+';'
+    data += extractString(row['Achat'])+';'+extractString(row['Vente'])+';'+row['Prix du sous-jacent']+'\n'
+    return data
 
 if __name__ == '__main__':
     handle(None, None)

@@ -23,7 +23,8 @@ def handle(event, context):
                 if idx > 0:
                     cf_csv_file.write(
                         row['B'] + ';' + row['C'] + ';' + extractString(row['D']) + ';' + extractString(row['E']) + ';'+extractString(row['F'])+';'+
-                        extractString(row['G']) + ';' + extractString(row['H']) + ';'+row['J']+'\n')
+                        extractString(row['G']) + ';' + extractString(row['H']) + ';'+row['J'].partition(' ')[0]+'\n')
+
 
 
     utils.upload_file(stabilitywarrants_sg_xlsx, 'raw/sg/xlsx/%Y/%m/stabilitywarrants-sg-%Y-%m-%d.xslx')
