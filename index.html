@@ -111,8 +111,8 @@
 		},
         { text: 'Borne basse', value: 'borne basse' },
         { text: 'Borne haute', value: 'borne haute' },
-        { text: 'Maturité', value: 'maturité' },
-        { text: 'Maturité jours', value: 'maturité jours', 
+        { text: 'Maturité', value: 'maturite' },
+        { text: 'Maturité jours', value: 'maturite jours',
 		filter: value => {
               if (!this.filtermaturitydays) return true
 			  filterval = parseInt(this.filtermaturitydays)
@@ -141,7 +141,7 @@
         .then(data =>{this.warrants = data;
 
 		this.sousjacents = this.warrants.map(warrant => warrant['sous-jacent']);
-		this.sousjacents.shift();
+		// unicité
 		this.sousjacents = this.sousjacents.filter((x, i, a) => a.indexOf(x) == i);
 		});
    
