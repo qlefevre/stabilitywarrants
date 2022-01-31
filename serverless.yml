@@ -30,6 +30,15 @@ functions:
     events:
       - schedule:
           rate: '0 0 * * *'
+  merge:
+    handler: src/merge.handle
+    minScale: 0
+    maxScale: 1
+    memorySize: 128
+    description: Fusionne les fichiers CSV
+    events:
+      - schedule:
+          rate: '0 1 * * *'
   sort:
     handler: src/sort.handle
     minScale: 0
@@ -38,7 +47,7 @@ functions:
     description: Transforme le fichier CSV
     events:
       - schedule:
-          rate: '0 1 * * *'
+          rate: '0 2 * * *'
   csv-to-json:
     handler: src/csv-to-json.handle
     minScale: 0
@@ -47,7 +56,7 @@ functions:
     description: Transforme le fichier CSV en JSON
     events:
       - schedule:
-          rate: '0 2 * * *'
+          rate: '0 3 * * *'
 
 plugins:
   - serverless-scaleway-functions
