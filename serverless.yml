@@ -20,7 +20,7 @@ functions:
     description: Télécharge les stability warrants de la Société Générale
     events:
       - schedule:
-          rate: '0 0 * * *'
+          rate: '30 0 * * *'
   extract-uc:
     handler: src/extract-uc.handle
     minScale: 0
@@ -29,7 +29,7 @@ functions:
     description: Télécharge les stability warrants d'Unicredit
     events:
       - schedule:
-          rate: '0 0 * * *'
+          rate: '30 0 * * *'
   merge:
     handler: src/merge.handle
     minScale: 0
@@ -38,7 +38,7 @@ functions:
     description: Fusionne les fichiers CSV
     events:
       - schedule:
-          rate: '0 1 * * *'
+          rate: '32 0 * * *'
   sort:
     handler: src/sort.handle
     minScale: 0
@@ -47,7 +47,7 @@ functions:
     description: Transforme le fichier CSV
     events:
       - schedule:
-          rate: '0 2 * * *'
+          rate: '33 0 * * *'
   csv-to-json:
     handler: src/csv-to-json.handle
     minScale: 0
@@ -56,7 +56,7 @@ functions:
     description: Transforme le fichier CSV en JSON
     events:
       - schedule:
-          rate: '0 3 * * *'
+          rate: '34 0 * * *'
 
 plugins:
   - serverless-scaleway-functions
