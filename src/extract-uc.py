@@ -73,7 +73,8 @@ def handle(event, context):
 
 
 def transformRow(row):
-    data = row['ISIN'] + ';' + row['Sous-jacent'] + ';' + extractString(row['Niveau de la barrière basse']) + ';'
+    data = row['ISIN'] + ';' + utils.cleanName(row['Sous-jacent']) + ';' + extractString(
+        row['Niveau de la barrière basse']) + ';'
     data += extractString(row['Niveau de la borne haute']) + ';' + row['Date d\'observation finale'].replace('.',
                                                                                                              '/') + ';'
     data += extractString(row['Achat']) + ';' + extractString(row['Vente']) + ';' + extractString(

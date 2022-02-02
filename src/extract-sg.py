@@ -27,7 +27,8 @@ def handle(event, context):
                     row['G'] + ';' + row['H'] + ';' + row['I'] + ';' + row['J'] + '\n')
                 if idx > 0:
                     cf_csv_file.write(
-                        row['B'] + ';' + row['C'] + ';' + extractString(row['D']) + ';' + extractString(
+                        row['B'] + ';' + utils.cleanName(row['C']) + ';' + extractString(
+                            row['D']) + ';' + extractString(
                             row['E']) + ';' + extractString(row['F']) + ';' +
                         extractString(row['G']) + ';' + extractString(row['H']) + ';' + row['J'].partition(' ')[
                             0] + '\n')

@@ -126,3 +126,9 @@ def extractString(value: str):
     if ',' in str and '00' in str:
         str = str[:-2]
     return str
+
+
+def cleanName(name: str):
+    name = name.replace('.', '').replace(' SA', '')
+    name = name.split('®')[0]
+    return name
