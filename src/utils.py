@@ -43,6 +43,8 @@ def upload_file(file_name, object_name=None):
     :param object_name: S3 object name. If not specified then file_name is used
     :return: True if file was uploaded, else False
     """
+    url = 'https://s3.nl-ams.scw.cloud';
+    bucket = 'testqle'
 
     # If S3 object_name was not specified, use file_name
     if object_name is None:
@@ -51,10 +53,12 @@ def upload_file(file_name, object_name=None):
     # Replace year, month and day
     object_name = datetime.today().strftime(object_name)
 
+    print('upload   ' + url + '/' + bucket + '/' + object_name)
+
     # Upload the file
     s3_client = boto3.client('s3',
                              region_name='nl-ams',
-                             endpoint_url='https://s3.nl-ams.scw.cloud',
+                             endpoint_url=url,
                              aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
                              aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'))
 
@@ -70,12 +74,12 @@ def upload_file(file_name, object_name=None):
     }
     s3_client.put_bucket_cors(Bucket='testqle', CORSConfiguration=cors_configuration)
     with open(file_name, 'rb') as f_in:
-        with gzip.open(file_name+'.gz', 'wb') as f_out:
+        with gzip.open(file_name + '.gz', 'wb') as f_out:
             shutil.copyfileobj(f_in, f_out)
 
     try:
-        response = s3_client.upload_file(file_name+'.gz', 'testqle', object_name,
-            ExtraArgs={'ACL': 'public-read', 'ContentEncoding': 'gzip'})
+        response = s3_client.upload_file(file_name + '.gz', bucket, object_name,
+                                         ExtraArgs={'ACL': 'public-read', 'ContentEncoding': 'gzip'})
     except ClientError as e:
         logging.error(e)
         return False
@@ -85,6 +89,7 @@ def upload_file(file_name, object_name=None):
 def download_file(object_name):
     object_name = datetime.today().strftime(object_name)
     url = 'https://testqle.s3.nl-ams.scw.cloud/' + object_name
+    print('download ' + url)
     file, headers = urllib.request.urlretrieve(url)
     if headers.get('Content-Encoding') == 'gzip':
         ungzipped = createTempFile()
@@ -102,19 +107,22 @@ def createTempFile():
 
 
 def toNumber(value: str):
-    str = value.partition(' ')[0].replace(',', '.')
-    str = str if "." not in str else str.rstrip('0').rstrip('.')
-    return int(str) if str.isdigit() else round(float(str), 2)
+    if value == '-':
+        value = '0'
+    result = value.partition(' ')[0].replace(',', '.')
+    result = result if "." not in result else result.rstrip('0').rstrip('.')
+    return int(result) if result.isdigit() else round(float(result), 2)
 
 
 def formatNumber(value: float):
     val = round(value, 2)
     return int(val) if float(val).is_integer() else ('%0.2f' % val).replace('.', ',')
 
+
 def extractString(value: str):
     str = value.partition(' ')[0]
-    str = str.replace(',0000','')
+    str = str.replace(',0000', '')
     str = str.replace(',00', '')
-    if ',' in str:
+    if ',' in str and '00' in str:
         str = str[:-2]
     return str

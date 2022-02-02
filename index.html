@@ -46,14 +46,14 @@
                               :label="`${lessfiltermaturitydays ? '>' : '<'} ${filtermaturitydays}J`"
                               color="red"
                     ></v-switch>
-					<v-select
-						v-model="filtersousjacent"
-						:items="sousjacents"
-						label="Sous-jacent"
-						solo
-						dense
-						
-					></v-select>
+                    <v-select
+                            v-model="filtersousjacent"
+                            :items="sousjacents"
+                            label="Sous-jacent"
+                            solo
+                            dense
+
+                    ></v-select>
 
                 </v-row>
                 <v-row no-gutters>
@@ -148,6 +148,7 @@
   }
     })
 	
+
 
 
 </script>

@@ -1,9 +1,12 @@
 import utils
 
+
 def handle(event, context):
     """
     Fusionne les fichiers csv de SG et UC => ALL
     """
+    print('Fusionne les fichiers csv de SG et UC en fichier csv ALL')
+
     stabilitywarrants_sg = utils.download_file('sw/sg/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
     stabilitywarrants_uc = utils.download_file('sw/uc/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
     stabilitywarrants_all = utils.createTempFile()

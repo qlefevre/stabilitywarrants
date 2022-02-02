@@ -1,16 +1,20 @@
+import csv
 import json
 
-import csv
 import utils
+
 
 def handle(event, context):
     """
     Transforme le fichier final csv en json
     """
+    print('Transforme le fichier final csv en json')
+
     stabilitywarrants_csv = utils.download_file('csv/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
     stabilitywarrants_json = utils.createTempFile()
     with open(stabilitywarrants_csv, 'r') as file_csv:
-        fieldnames = ['isin','sous-jacent','borne basse','borne haute','maturite','maturite jours','achat','vente','prix sous-jacent','plage','cible','ecart cible','ecart cible abs']
+        fieldnames = ['isin', 'sous-jacent', 'borne basse', 'borne haute', 'maturite', 'maturite jours', 'achat',
+                      'vente', 'prix sous-jacent', 'plage', 'cible', 'ecart cible', 'ecart cible abs']
         reader = csv.DictReader(file_csv, fieldnames, delimiter=';')
 
         with open(stabilitywarrants_json, 'w', encoding='utf8') as file_json:

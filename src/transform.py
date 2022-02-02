@@ -1,7 +1,7 @@
+import csv
 import operator
 from datetime import datetime
 
-import csv
 import utils
 from utils import formatNumber
 from utils import toNumber
@@ -42,7 +42,11 @@ def transformRow(row):
 
 
 def handle(event, context):
-    stabilitywarrants_raw_csv = utils.download_file('sw/sg/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
+    """
+       Transforme le fichier CSV
+    """
+    print('Transforme le fichier CSV')
+    stabilitywarrants_raw_csv = utils.download_file('sw/all/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
     stabilitywarrants_csv = utils.createTempFile()
     lines = []
     with open(stabilitywarrants_raw_csv, newline='') as readcsvfile:

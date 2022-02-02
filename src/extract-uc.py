@@ -1,16 +1,22 @@
+import csv
 import gzip
+import io
 import urllib.parse
 import urllib.request
-import csv
-import io
+
 import utils
 from utils import extractString
+
 
 def handle(event, context):
     """
     Download stability warrants from Unicredit
     """
+    print('Download stability warrants from Unicredit')
+
     url = 'https://www.bourse.unicredit.fr/fr.omr-search.csv'
+    print('download ' + url)
+
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36',
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -59,17 +65,21 @@ def handle(event, context):
         datacsv = data[data.find('ISIN'):]
         with open(stabilitywarrants_cf_csv, 'w') as file_csv:
             file_csv.write('isin;sous-jacent;borne basse;borne haute;maturite;achat;vente;prix sous-jacent\n')
-            reader = csv.DictReader(io.StringIO(datacsv,newline='\r'), delimiter=';')
+            reader = csv.DictReader(io.StringIO(datacsv, newline='\r'), delimiter=';')
             for row in reader:
                 file_csv.write(transformRow(row))
     utils.upload_file(stabilitywarrants_uc_csv, 'raw/uc/csv/%Y/%m/stabilitywarrants-uc-%Y-%m-%d.csv')
     utils.upload_file(stabilitywarrants_cf_csv, 'sw/uc/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
 
+
 def transformRow(row):
-    data = row['ISIN'] + ';'+row['Sous-jacent']+';'+extractString(row['Niveau de la barrière basse'])+';'
-    data += extractString(row['Niveau de la borne haute']) +';'+row['Date d\'observation finale'].replace('.','/')+';'
-    data += extractString(row['Achat'])+';'+extractString(row['Vente'])+';'+row['Prix du sous-jacent']+'\n'
+    data = row['ISIN'] + ';' + row['Sous-jacent'] + ';' + extractString(row['Niveau de la barrière basse']) + ';'
+    data += extractString(row['Niveau de la borne haute']) + ';' + row['Date d\'observation finale'].replace('.',
+                                                                                                             '/') + ';'
+    data += extractString(row['Achat']) + ';' + extractString(row['Vente']) + ';' + extractString(
+        row['Prix du sous-jacent']) + '\n'
     return data
+
 
 if __name__ == '__main__':
     handle(None, None)
