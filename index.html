@@ -1,156 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
+
 <body>
-<div id="app">
-    <v-app>
-        <v-main>
+    <div id="app">
+        <v-app>
+            <v-main>
+                <v-container fluid>
+                    <v-row no-gutters>
 
-            <v-container fluid>
-                <v-row no-gutters>
+                        <v-radio-group v-model="filtermaturitydays" label="Maturité jours" row>
+                            <v-radio label="Tous" value=""></v-radio>
+                            <v-radio label="0 - 30J" value="30"></v-radio>
+                            <v-radio label="30 - 60J" value="60"></v-radio>
+                            <v-radio label="60 - 90J" value="90"></v-radio>
+                        </v-radio-group>
+                        <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
+                        </v-select>
 
-                    <v-radio-group
-                            v-model="filtermaturitydays"
-                            label="Maturité jours"
-                            row
-                    >
-                        <v-radio
-                                label="Tous"
-                                value=""
-                        ></v-radio>
-                        <v-radio
-                                label="30J"
-                                value="30"
-                        ></v-radio>
-                        <v-radio
-                                label="45J"
-                                value="45"
-                        ></v-radio>
-                        <v-radio
-                                label="60J"
-                                value="60"
-                        ></v-radio>
-                        <v-radio
-                                label="90J"
-                                value="90"
-                        ></v-radio>
-                    </v-radio-group>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col>
+                            <v-data-table :headers="headers" :items="warrants"
+                                :sort-by="['sous-jacent', 'plage','ecart cible abs']" :sort-desc="[false, true, false]"
+                                :footer-props="{'items-per-page-options': [30, 50, 100]}" multi-sort dense
+                                class="elevation-1">
 
-                    <v-switch v-show="filtermaturitydays != ''"
-                              v-model="lessfiltermaturitydays"
-                              :label="`${lessfiltermaturitydays ? '>' : '<'} ${filtermaturitydays}J`"
-                              color="red"
-                    ></v-switch>
-                    <v-select
-                            v-model="filtersousjacent"
-                            :items="sousjacents"
-                            label="Sous-jacent"
-                            solo
-                            dense
+                                <template v-slot:item.isin="{item}">
 
-                    ></v-select>
+                                    <a :href="bourso(item.isin)" target="_blank">{{item.isin}}</a>
 
-                </v-row>
-                <v-row no-gutters>
-                    <v-col>
-                        <v-data-table
-                                :headers="headers"
-                                :items="warrants"
-                                :sort-by="['sous-jacent', 'plage','ecart cible abs']"
-                                :sort-desc="[false, true, false]"
-                                :footer-props="{'items-per-page-options': [30, 50, 100]}"
-                                multi-sort
-                                dense
-                                class="elevation-1"
-                        >
+                                </template>
 
-                            <template v-slot:item.isin="{item}">
+                            </v-data-table>
+                        </v-col>
+                    </v-row>
+            </v-main>
+        </v-app>
+    </div>
 
-                                <a :href="'https://www.boursorama.com/bourse/produits-de-bourse/cours/stability-warrants/3rP'+item.isin"
-                                   target="_blank">{{item.isin}}</a>
-
-                            </template>
-
-                        </v-data-table>
-                    </v-col>
-                </v-row>
-        </v-main>
-    </v-app>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script>
- 
-	
-    new Vue({
-      el: '#app',
-      vuetify: new Vuetify(),
-	   data () {
-    return {
-	  filtersousjacent:'',
-      filtermaturitydays: '',
-	  lessfiltermaturitydays:false,
-      headers: [
-        {
-          text: 'Isin',
-          align: 'start',
-          sortable: false,
-          value: 'isin',
-        },
-        { text: 'Sous-jacent', value: 'sous-jacent',
-		filter: value => {
-              if (!this.filtersousjacent) return true
-              return this.filtersousjacent == value
-            }
-		},
-        { text: 'Borne basse', value: 'borne basse' },
-        { text: 'Borne haute', value: 'borne haute' },
-        { text: 'Maturité', value: 'maturite' },
-        { text: 'Maturité jours', value: 'maturite jours',
-		filter: value => {
-              if (!this.filtermaturitydays) return true
-			  filterval = parseInt(this.filtermaturitydays)
-              return this.lessfiltermaturitydays ? value > filterval : value < filterval 
-            }
-		},
-		{ text: 'Plage', value: 'plage' },
-		{ text: 'Cible', value: 'cible' },
-		{ text: 'Ecart cible', value: 'ecart cible' },
-		{ text: 'Ecart cible abs', value: 'ecart cible abs' },
-		 
-      ],
-	 sousjacents:[],
-     warrants:[],
-		  }},
-		  mounted () {
-
-		  var url = 'https://testqle.s3.nl-ams.scw.cloud/json/%Y/%m/stabilitywarrants-%Y-%m-%d.json';
-            var now = new Date();
-            url = url.replaceAll('%Y',now.getYear()+1900);
-            url = url.replaceAll('%m',String(now.getMonth()+1).padStart(2, '0'));
-            url = url.replaceAll('%d',String(now.getDate()).padStart(2, '0'));
-
-		fetch(url)
-        .then(response => response.json())
-        .then(data =>{this.warrants = data;
-
-		this.sousjacents = this.warrants.map(warrant => warrant['sous-jacent']);
-		// unicité
-		this.sousjacents = this.sousjacents.filter((x, i, a) => a.indexOf(x) == i);
-		});
-   
-  }
-    })
-	
-
-
-
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="stabilitywarrants.js"></script>
 </body>
+
 </html>
