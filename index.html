@@ -33,9 +33,7 @@
                                 class="elevation-1">
 
                                 <template v-slot:item.isin="{item}">
-
-                                    <a :href="bourso(item.isin)" target="_blank">{{item.isin}}</a>
-
+                                    <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
                                 </template>
 
                             </v-data-table>

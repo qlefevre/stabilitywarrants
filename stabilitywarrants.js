@@ -41,9 +41,9 @@ new Vue({
     }
   },
   methods: {
-    bourso: function (isin) {
-      var prefix = isin.startsWith('DE000SF') ? '3rP' : '2rP';
-      return 'https://www.boursorama.com/bourse/produits-de-bourse/cours/stability-warrants/' + prefix + isin
+    bourso: function (item) {
+      var prefix = item.issuer == 'SG' ? '3rP' : '2rP';
+      return 'https://www.boursorama.com/bourse/produits-de-bourse/cours/stability-warrants/' + prefix + item.isin
     }
   },
   mounted() {
