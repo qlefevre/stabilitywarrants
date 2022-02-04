@@ -13,8 +13,8 @@ def handle(event, context):
     stabilitywarrants_csv = utils.download_file('csv/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
     stabilitywarrants_json = utils.createTempFile()
     with open(stabilitywarrants_csv, 'r') as file_csv:
-        fieldnames = ['isin', 'sous-jacent', 'borne basse', 'borne haute', 'maturite', 'maturite jours', 'achat',
-                      'vente', 'prix sous-jacent', 'plage', 'cible', 'ecart cible', 'ecart cible abs']
+        fieldnames = ['issuer','isin', 'sous-jacent', 'borne basse', 'borne haute', 'maturite', 'maturite jours',
+                      'achat', 'vente', 'prix sous-jacent', 'plage', 'cible', 'ecart cible', 'ecart cible abs','perf min','perf max']
         reader = csv.DictReader(file_csv, fieldnames, delimiter=';')
 
         with open(stabilitywarrants_json, 'w', encoding='utf8') as file_json:

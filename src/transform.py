@@ -20,8 +20,14 @@ def transformRow(row):
     plage = borneHaute - borneBasse
     cible = borneBasse + 2 / 3 * plage
     ecartcible = prixsousjacent / cible * 100 - 100
+    perfMin = 0
+    perfMax = 0
+    if prixsousjacent != 0:
+        perfMin = round((1-(borneBasse / prixsousjacent)) * 100, 2)
+        perfMax = round((borneHaute/prixsousjacent-1)*100,2)
 
     newRow = {
+        'issuer':row['issuer'],
         'isin': row['isin'],
         'sous-jacent': row['sous-jacent'],
         'borne basse': formatNumber(borneBasse),
@@ -35,6 +41,8 @@ def transformRow(row):
         'cible': formatNumber(cible),
         'ecart cible': formatNumber(ecartcible),
         'ecart cible abs': formatNumber(abs(ecartcible)),
+        'perf min':perfMin,
+        'perf max':perfMax,
         '_num_plage': plage,
         '_num_ecart_cible_abs': abs(ecartcible)
     }
@@ -58,9 +66,8 @@ def handle(event, context):
     lines = sorted(lines, key=operator.itemgetter('_num_plage'), reverse=True)
     lines = sorted(lines, key=operator.itemgetter('sous-jacent'))
     with open(stabilitywarrants_csv, 'w', newline='') as writecsvfile:
-        fieldnames = ['isin', 'sous-jacent', 'borne basse', 'borne haute', 'maturite', 'maturite jours',
-                      'achat',
-                      'vente', 'prix sous-jacent', 'plage', 'cible', 'ecart cible', 'ecart cible abs']
+        fieldnames = ['issuer','isin', 'sous-jacent', 'borne basse', 'borne haute', 'maturite', 'maturite jours',
+                      'achat', 'vente', 'prix sous-jacent', 'plage', 'cible', 'ecart cible', 'ecart cible abs','perf min','perf max']
         writer = csv.DictWriter(writecsvfile, fieldnames=fieldnames, extrasaction='ignore', delimiter=';')
         writer.writeheader()
         for row in lines:

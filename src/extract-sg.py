@@ -17,7 +17,7 @@ def handle(event, context):
     stabilitywarrants_sg_csv = utils.createTempFile()
     stabilitywarrants_cf_csv = utils.createTempFile()
     with open(stabilitywarrants_cf_csv, 'w') as cf_csv_file:
-        cf_csv_file.write('isin;sous-jacent;borne basse;borne haute;maturite;achat;vente;prix sous-jacent\n')
+        cf_csv_file.write('issuer;isin;sous-jacent;borne basse;borne haute;maturite;achat;vente;prix sous-jacent\n')
         with open(stabilitywarrants_sg_csv, 'w') as csv_file:
             rows = utils.xlsx(stabilitywarrants_sg_xlsx)
             for idx, row in enumerate(rows):
@@ -27,7 +27,7 @@ def handle(event, context):
                     row['G'] + ';' + row['H'] + ';' + row['I'] + ';' + row['J'] + '\n')
                 if idx > 0:
                     cf_csv_file.write(
-                        row['B'] + ';' + utils.cleanName(row['C']) + ';' + extractString(
+                        'SG;'+row['B'] + ';' + utils.cleanName(row['C']) + ';' + extractString(
                             row['D']) + ';' + extractString(
                             row['E']) + ';' + extractString(row['F']) + ';' +
                         extractString(row['G']) + ';' + extractString(row['H']) + ';' + row['J'].partition(' ')[

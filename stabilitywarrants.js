@@ -32,7 +32,9 @@ new Vue({
         },
         { text: 'Plage', value: 'plage' },
         { text: 'Cible', value: 'cible' },
-        { text: 'Ecart cible abs', value: 'ecart cible abs' }
+        { text: 'Ecart cible abs', value: 'ecart cible abs' },
+        { text: 'Perf min %', value: 'perf min' },
+        { text: 'Perf max %', value: 'perf max' }
       ],
       sousjacents: [],
       warrants: [],
