@@ -21,6 +21,8 @@
                             <v-radio label="30 - 60J" value="60"></v-radio>
                             <v-radio label="60 - 90J" value="90"></v-radio>
                         </v-radio-group>
+                        <v-switch v-model="filterperf" label="Perf Max > 8% & Perf Min > 15%">
+                        </v-switch>
                         <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
                         </v-select>
 

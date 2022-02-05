@@ -5,6 +5,7 @@ new Vue({
     return {
       filtersousjacent: 'CAC 40',
       filtermaturitydays: '30',
+      filterperf: true,
       headers: [
         {
           text: 'Isin',
@@ -33,8 +34,18 @@ new Vue({
         { text: 'Plage', value: 'plage' },
         { text: 'Cible', value: 'cible' },
         { text: 'Ecart cible abs', value: 'ecart cible abs' },
-        { text: 'Perf min %', value: 'perf min' },
-        { text: 'Perf max %', value: 'perf max' }
+        { text: 'Perf min %', value: 'perf min',
+          filter: value => {
+            if (!this.filterperf) return true
+            return value > 15
+          }
+        },
+        { text: 'Perf max %', value: 'perf max',
+          filter: value => {
+            if (!this.filterperf) return true
+            return value > 8
+          }
+         }
       ],
       sousjacents: [],
       warrants: [],
