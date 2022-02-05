@@ -29,7 +29,7 @@
                     </v-row>
                     <v-row no-gutters>
                         <v-col>
-                            <v-data-table :headers="headers" :items="warrants"
+                            <v-data-table :headers="headers" :items="filteredWarrants"
                                 :sort-by="['sous-jacent', 'plage','ecart cible abs']" :sort-desc="[false, true, false]"
                                 :footer-props="{'items-per-page-options': [30, 50, 100]}" multi-sort dense
                                 class="elevation-1">

@@ -34,21 +34,17 @@ new Vue({
         { text: 'Plage', value: 'plage' },
         { text: 'Cible', value: 'cible' },
         { text: 'Ecart cible abs', value: 'ecart cible abs' },
-        { text: 'Perf min %', value: 'perf min',
-          filter: value => {
-            if (!this.filterperf) return true
-            return value > 15
-          }
-        },
-        { text: 'Perf max %', value: 'perf max',
-          filter: value => {
-            if (!this.filterperf) return true
-            return value > 8
-          }
-         }
+        { text: 'Perf min %', value: 'perf min'},
+        { text: 'Perf max %', value: 'perf max'}
       ],
       sousjacents: [],
       warrants: [],
+    }
+  },
+  computed: {
+    filteredWarrants() {
+      return !this.filterperf ? this.warrants :
+      this.warrants.filter(warrant => warrant['perf max'] > 8 && warrant['perf min'] > 15 && warrant['perf min'] > warrant['perf max']);
     }
   },
   methods: {
