@@ -68,8 +68,8 @@ def handle(event, context):
             reader = csv.DictReader(io.StringIO(datacsv, newline='\r'), delimiter=';')
             for row in reader:
                 file_csv.write(transformRow(row))
-    utils.upload_file(stabilitywarrants_uc_csv, 'raw/uc/csv/%Y/%m/stabilitywarrants-uc-%Y-%m-%d.csv')
-    utils.upload_file(stabilitywarrants_cf_csv, 'sw/uc/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
+    utils.upload_file(stabilitywarrants_uc_csv, 'raw/uc/csv/%Y/%m/stabilitywarrants-raw-uc-%Y-%m-%d.csv')
+    utils.upload_file(stabilitywarrants_cf_csv, 'sw/uc/%Y/%m/stabilitywarrants-uc-%Y-%m-%d.csv')
 
 
 def transformRow(row):

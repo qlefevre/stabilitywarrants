@@ -33,9 +33,9 @@ def handle(event, context):
                         extractString(row['G']) + ';' + extractString(row['H']) + ';' + row['J'].partition(' ')[
                             0] + '\n')
 
-    utils.upload_file(stabilitywarrants_sg_xlsx, 'raw/sg/xlsx/%Y/%m/stabilitywarrants-sg-%Y-%m-%d.xslx')
-    utils.upload_file(stabilitywarrants_sg_csv, 'raw/sg/csv/%Y/%m/stabilitywarrants-sg-%Y-%m-%d.csv')
-    utils.upload_file(stabilitywarrants_cf_csv, 'sw/sg/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
+    utils.upload_file(stabilitywarrants_sg_xlsx, 'raw/sg/xlsx/%Y/%m/stabilitywarrants-raw-sg-%Y-%m-%d.xslx')
+    utils.upload_file(stabilitywarrants_sg_csv, 'raw/sg/csv/%Y/%m/stabilitywarrants-raw-sg-%Y-%m-%d.csv')
+    utils.upload_file(stabilitywarrants_cf_csv, 'sw/sg/%Y/%m/stabilitywarrants-sg-%Y-%m-%d.csv')
 
 
 if __name__ == '__main__':

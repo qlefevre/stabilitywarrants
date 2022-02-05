@@ -7,8 +7,8 @@ def handle(event, context):
     """
     print('Fusionne les fichiers csv de SG et UC en fichier csv ALL')
 
-    stabilitywarrants_sg = utils.download_file('sw/sg/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
-    stabilitywarrants_uc = utils.download_file('sw/uc/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
+    stabilitywarrants_sg = utils.download_file('sw/sg/%Y/%m/stabilitywarrants-sg-%Y-%m-%d.csv')
+    stabilitywarrants_uc = utils.download_file('sw/uc/%Y/%m/stabilitywarrants-uc-%Y-%m-%d.csv')
     stabilitywarrants_all = utils.createTempFile()
 
     with open(stabilitywarrants_all, 'w') as file_all:
@@ -18,7 +18,7 @@ def handle(event, context):
         with open(stabilitywarrants_uc, 'r') as file_uc:
             file_all.writelines(file_uc.readlines()[1:])
 
-    utils.upload_file(stabilitywarrants_all, 'sw/all/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
+    utils.upload_file(stabilitywarrants_all, 'sw/all/%Y/%m/stabilitywarrants-all-%Y-%m-%d.csv')
 
     return {
         "message": "merge ok"
