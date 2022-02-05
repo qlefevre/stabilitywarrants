@@ -129,6 +129,7 @@ def extractString(value: str):
 
 
 def cleanName(name: str):
-    name = name.replace('.', '').replace(' SA', '')
+    name = name.replace('.', '')
+    name = name.replace(' SA', '').replace(' NV','')
     name = name.split('®')[0]
     return name
