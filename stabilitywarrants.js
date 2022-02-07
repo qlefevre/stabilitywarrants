@@ -40,7 +40,7 @@ new Vue({
         warrants0 = warrants0.filter(warrant =>
           warrant['perf max'] > 8 &&
           warrant['perf min'] > 15 &&
-          Fwarrant['perf min'] > warrant['perf max']);
+          warrant['perf min'] > warrant['perf max']);
       }
       if (this.filtermaturitydays != '') {
         var filterval = parseInt(this.filtermaturitydays)
