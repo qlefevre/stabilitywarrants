@@ -37,7 +37,6 @@ new Vue({
         { text: 'Perf min %', value: 'perf min'},
         { text: 'Perf max %', value: 'perf max'}
       ],
-      sousjacents: [],
       warrants: [],
     }
   },
@@ -45,6 +44,11 @@ new Vue({
     filteredWarrants() {
       return !this.filterperf ? this.warrants :
       this.warrants.filter(warrant => warrant['perf max'] > 8 && warrant['perf min'] > 15 && warrant['perf min'] > warrant['perf max']);
+    },
+    sousjacents() {
+      var sousjacents0 = this.filteredWarrants.map(warrant => warrant['sous-jacent']);
+      sousjacents0 = sousjacents0.filter((x, i, a) => a.indexOf(x) == i);
+      return sousjacents0;
     }
   },
   methods: {
@@ -64,9 +68,6 @@ new Vue({
       .then(response => response.json())
       .then(data => {
         this.warrants = data;
-        this.sousjacents = this.warrants.map(warrant => warrant['sous-jacent']);
-        // unicité
-        this.sousjacents = this.sousjacents.filter((x, i, a) => a.indexOf(x) == i);
       });
   }
 })
