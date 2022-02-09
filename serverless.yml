@@ -13,7 +13,7 @@ provider:
 
 functions:
   extract-sg:
-    handler: src/extract-sg.handle
+    handler: functions/extract-sg.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
@@ -22,7 +22,7 @@ functions:
       - schedule:
           rate: '10 0 * * *'
   extract-uc:
-    handler: src/extract-uc.handle
+    handler: functions/extract-uc.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
@@ -31,7 +31,7 @@ functions:
       - schedule:
           rate: '10 0 * * *'
   merge:
-    handler: src/merge.handle
+    handler: functions/merge.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
@@ -40,7 +40,7 @@ functions:
       - schedule:
           rate: '12 0 * * *'
   transform:
-    handler: src/transform.handle
+    handler: functions/transform.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
@@ -49,7 +49,7 @@ functions:
       - schedule:
           rate: '13 0 * * *'
   csv-to-json:
-    handler: src/csv-to-json.handle
+    handler: functions/csv-to-json.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
