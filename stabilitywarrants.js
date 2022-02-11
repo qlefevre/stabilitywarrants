@@ -4,7 +4,7 @@ new Vue({
   data() {
     return {
       filtersousjacent: 'CAC 40',
-      filtermaturitydays: '30',
+      filtermaturitydays: [30],
       filterperf: true,
       filterissuers: ['SG','UC'],
       headers: [
@@ -31,6 +31,7 @@ new Vue({
         { text: 'Perf min %', value: 'perf min' },
         { text: 'Perf max %', value: 'perf max' }
       ],
+      maturitydays: [30,60,90],
       issuers: [{key:'SG',name:'Société Générale'},{key:'UC',name:'Unicredit'}],
       warrants: [],
     }
@@ -38,19 +39,22 @@ new Vue({
   computed: {
     filteredWarrants() {
       var warrants0 = this.warrants;
+      // émetteurs
       warrants0 = warrants0.filter(warrant => this.filterissuers.includes(warrant['issuer']));
+      // stratégies perf
       if (this.filterperf) {
         warrants0 = warrants0.filter(warrant =>
           warrant['perf max'] > 8 &&
           warrant['perf min'] > 15 &&
           warrant['perf min'] > warrant['perf max']);
       }
-      if (this.filtermaturitydays != '') {
-        var filterval = parseInt(this.filtermaturitydays)
+        // Maturité jours
+        var minVal = Math.min.apply(Math, this.filtermaturitydays)-30;
+        var maxVal = Math.max.apply(Math,this.filtermaturitydays);
+        //console.log('min '+minVal+' max '+maxVal)
         warrants0 = warrants0.filter(warrant =>
-          warrant['maturite jours'] < filterval &
-          warrant['maturite jours'] > (filterval - 30));
-      }
+         minVal < warrant['maturite jours'] && warrant['maturite jours'] < maxVal);
+
       return warrants0;
     },
     sousjacents() {
