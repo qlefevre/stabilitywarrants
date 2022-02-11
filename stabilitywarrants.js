@@ -6,6 +6,7 @@ new Vue({
       filtersousjacent: 'CAC 40',
       filtermaturitydays: '30',
       filterperf: true,
+      filterissuers: ['SG','UC'],
       headers: [
         {
           text: 'Isin',
@@ -30,12 +31,14 @@ new Vue({
         { text: 'Perf min %', value: 'perf min' },
         { text: 'Perf max %', value: 'perf max' }
       ],
+      issuers: [{key:'SG',name:'Société Générale'},{key:'UC',name:'Unicredit'}],
       warrants: [],
     }
   },
   computed: {
     filteredWarrants() {
       var warrants0 = this.warrants;
+      warrants0 = warrants0.filter(warrant => this.filterissuers.includes(warrant['issuer']));
       if (this.filterperf) {
         warrants0 = warrants0.filter(warrant =>
           warrant['perf max'] > 8 &&
