@@ -31,7 +31,7 @@ new Vue({
         { text: 'Perf min %', value: 'perf min' },
         { text: 'Perf max %', value: 'perf max' }
       ],
-      maturitydays: [30,60,90],
+      maturitydays: [30,60,90,120,150],
       issuers: [{key:'SG',name:'Société Générale'},{key:'UC',name:'Unicredit'}],
       warrants: [],
     }
@@ -75,7 +75,8 @@ new Vue({
     var now = new Date();
     url = url.replaceAll('%Y', now.getYear() + 1900);
     url = url.replaceAll('%m', String(now.getMonth() + 1).padStart(2, '0'));
-    url = url.replaceAll('%d', String(now.getDate()).padStart(2, '0'));
+    //url = url.replaceAll('%d', String(now.getDate()).padStart(2, '0'));
+    url = url.replaceAll('%d', 11);
 
     fetch(url)
       .then(response => response.json())
