@@ -75,8 +75,7 @@ new Vue({
     var now = new Date();
     url = url.replaceAll('%Y', now.getYear() + 1900);
     url = url.replaceAll('%m', String(now.getMonth() + 1).padStart(2, '0'));
-    //url = url.replaceAll('%d', String(now.getDate()).padStart(2, '0'));
-    url = url.replaceAll('%d', 11);
+    url = url.replaceAll('%d', String(now.getDate()).padStart(2, '0'));
 
     fetch(url)
       .then(response => response.json())
