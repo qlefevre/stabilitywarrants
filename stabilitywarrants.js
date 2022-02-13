@@ -62,21 +62,41 @@ new Vue({
       sousjacents0 = sousjacents0.filter((x, i, a) => a.indexOf(x) == i);
       sousjacents0.unshift('');
       return sousjacents0;
+    },
+    dates(){
+        var now = new Date();
+        var dates = [];
+        for (var i = 0; i < 7; i++) {
+        dates.push({
+            year: now.getYear() + 1900,
+            month: now.getMonth() + 1,
+            date: now.getDate()
+        });
+        now.setDate(now.getDate() - 1);
+        }
+        console.log(dates);
+        return dates;
     }
   },
   methods: {
     bourso: function (item) {
       var prefix = item.issuer == 'SG' ? '3rP' : '2rP';
       return 'https://www.boursorama.com/bourse/produits-de-bourse/cours/stability-warrants/' + prefix + item.isin
+    },
+    url: function(date){
+    var url = 'https://testqle.s3.nl-ams.scw.cloud/json/%Y/%m/stabilitywarrants-%Y-%m-%d.json';
+    url = url.replaceAll('%Y', date.year);
+    url = url.replaceAll('%m', String(date.month).padStart(2, '0'));
+    url = url.replaceAll('%d', String(date.date).padStart(2, '0'));
+return url;
     }
   },
   mounted() {
-    var url = 'https://testqle.s3.nl-ams.scw.cloud/json/%Y/%m/stabilitywarrants-%Y-%m-%d.json';
-    var now = new Date();
-    url = url.replaceAll('%Y', now.getYear() + 1900);
-    url = url.replaceAll('%m', String(now.getMonth() + 1).padStart(2, '0'));
-    url = url.replaceAll('%d', String(now.getDate()).padStart(2, '0'));
+    var urlParams = new URLSearchParams(window.location.search);
+    console.log('date='+urlParams.get('date'))
 
+    var date = this.dates[0];
+    var url = this.url(date);
     fetch(url)
       .then(response => response.json())
       .then(data => {
