@@ -2,54 +2,62 @@
 <html>
 
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 
 <body>
-    <div id="app">
-        <v-app>
-            <v-main>
-                <v-container fluid>
-                    <v-row no-gutters>
-                        <v-chip-group label="Maturité jours" v-model="filtermaturitydays" column multiple active-class="primary--text">
-                            <v-chip filter v-for="maturityday in maturitydays" :value="maturityday" :key="maturityday">
-                                {{(maturityday-30)+' - '+maturityday+'J'}}
-                            </v-chip>
-                        </v-chip-group>
-                        <v-switch v-model="filterperf" label="Perf Max > 8% & Perf Min > 15%">
-                        </v-switch>
-                        <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
-                        </v-select>
-                        <v-chip-group  v-model="filterissuers" column multiple active-class="primary--text">
-                            <v-chip filter v-for="issuer in issuers" :value="issuer.key" :key="issuer.key">
-                                {{issuer.name}}
-                            </v-chip>
-                        </v-chip-group>
-                    </v-row>
-                    <v-row no-gutters>
-                        <v-col>
-                            <v-data-table :headers="headers" :items="filteredWarrants"
-                                :sort-by="['sous-jacent', 'plage','ecart cible abs']" :sort-desc="[false, true, false]"
-                                :footer-props="{'items-per-page-options': [30, 50, 100]}" multi-sort dense
-                                class="elevation-1">
+<div id="app">
+  <v-app>
+    <v-main>
+      <v-container fluid>
+        <v-row no-gutters>
+          <v-chip-group label="Maturité jours" v-model="filtermaturitydays" column multiple active-class="primary--text">
+            <v-chip filter v-for="maturityday in maturitydays" :value="maturityday" :key="maturityday">
+              {{(maturityday - 30) + ' - ' + maturityday + 'J'}}
+            </v-chip>
+          </v-chip-group>
+          <v-switch v-model="filterperf" label="Perf Max > 8% & Perf Min > 15%">
+          </v-switch>
+          <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
+          </v-select>
+          <v-chip-group v-model="filterissuers" column multiple active-class="primary--text">
+            <v-chip filter v-for="issuer in issuers" :value="issuer.key" :key="issuer.key">
+              {{issuer.name}}
+            </v-chip>
+          </v-chip-group>
+        </v-row>
+        <v-row no-gutters>
+          <v-col>
+            <v-data-table :headers="headers" :items="filteredWarrants"
+                          :sort-by="['sous-jacent', 'plage','ecart cible abs']" :sort-desc="[false, true, false]"
+                          :footer-props="{'items-per-page-options': [30, 50, 100]}" multi-sort dense
+                          class="elevation-1">
+              <template v-slot:item.isin="{item}">
+                <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
+              </template>
+            </v-data-table>
+          </v-col>
+        </v-row>
+        <v-row no-gutters>
+          <v-col>
+            <ul>
+              <li v-for="(date, index) in dates" :key="date.date">
+                <a :href="index == 0 ? 'index.html':'index.html?date='+date.year+'-'+date.month+'-'+date.date">
+                  index.html{{index == 0 ? '' : '?date=' + date.year + '-' + date.month + '-' + date.date}}</a>
+              </li>
+            </ul>
+          </v-col>
+        </v-row>
+    </v-main>
+  </v-app>
+</div>
 
-                                <template v-slot:item.isin="{item}">
-                                    <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
-                                </template>
-
-                            </v-data-table>
-                        </v-col>
-                    </v-row>
-            </v-main>
-        </v-app>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-    <script src="stabilitywarrants.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="stabilitywarrants.js"></script>
 </body>
 
 </html>
