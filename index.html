@@ -9,55 +9,90 @@
 </head>
 
 <body>
-<div id="app">
-  <v-app>
-    <v-main>
-      <v-container fluid>
-        <v-row no-gutters>
-          <v-chip-group label="Maturité jours" v-model="filtermaturitydays" column multiple active-class="primary--text">
-            <v-chip filter v-for="maturityday in maturitydays" :value="maturityday" :key="maturityday">
-              {{(maturityday - 30) + ' - ' + maturityday + 'J'}}
-            </v-chip>
-          </v-chip-group>
-          <v-switch v-model="filterperf" label="Perf Max > 8% & Perf Min > 15%">
-          </v-switch>
-          <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
-          </v-select>
-          <v-chip-group v-model="filterissuers" column multiple active-class="primary--text">
-            <v-chip filter v-for="issuer in issuers" :value="issuer.key" :key="issuer.key">
-              {{issuer.name}}
-            </v-chip>
-          </v-chip-group>
-        </v-row>
-        <v-row no-gutters>
-          <v-col>
-            <v-data-table :headers="headers" :items="filteredWarrants"
-                          :sort-by="['sous-jacent', 'plage','ecart cible abs']" :sort-desc="[false, true, false]"
-                          :footer-props="{'items-per-page-options': [30, 50, 100]}" multi-sort dense
-                          class="elevation-1">
-              <template v-slot:item.isin="{item}">
-                <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
-              </template>
-            </v-data-table>
-          </v-col>
-        </v-row>
-        <v-row no-gutters>
-          <v-col>
-            <ul>
-              <li v-for="(date, index) in dates" :key="date.date">
-                <a :href="index == 0 ? 'index.html':'index.html?date='+date.year+'-'+date.month+'-'+date.date">
-                  index.html{{index == 0 ? '' : '?date=' + date.year + '-' + date.month + '-' + date.date}}</a>
-              </li>
-            </ul>
-          </v-col>
-        </v-row>
-    </v-main>
-  </v-app>
-</div>
+  <div id="app">
+    <v-app>
+      <v-main>
+        <v-tabs>
+          <v-tab key="stabilitywarrants">Stability warrants</v-tab>
+          <v-tab key="portfolio" v-show="portfolio.length > 0">Portfolio</v-tab>
+          <v-tab key="debug">Debug</v-tab>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script src="stabilitywarrants.js"></script>
+          <v-tab-item key="stabilitywarrants">
+            <v-container fluid>
+              <v-row no-gutters>
+                <v-chip-group label="Maturité jours" v-model="filtermaturitydays" column multiple
+                  active-class="primary--text">
+                  <v-chip filter v-for="maturityday in maturitydays" :value="maturityday" :key="maturityday">
+                    {{(maturityday - 30) + ' - ' + maturityday + 'J'}}
+                  </v-chip>
+                </v-chip-group>
+                <v-switch v-model="filterperf" label="Perf Max > 8% & Perf Min > 15%">
+                </v-switch>
+                <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
+                </v-select>
+                <v-chip-group v-model="filterissuers" column multiple active-class="primary--text">
+                  <v-chip filter v-for="issuer in issuers" :value="issuer.key" :key="issuer.key">
+                    {{issuer.name}}
+                  </v-chip>
+                </v-chip-group>
+              </v-row>
+              <v-row no-gutters>
+                <v-col>
+                  <v-data-table :headers="headers" :items="filteredWarrants"
+                    :sort-by="['sous-jacent', 'plage','ecart cible abs']" :sort-desc="[false, true, false]"
+                    :footer-props="{'items-per-page-options': [30, 50, 100]}" multi-sort dense class="elevation-1">
+                    <template v-slot:item.isin="{item}">
+                      <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
+                    </template>
+                  </v-data-table>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-tab-item key="portfolio">
+          <v-tab-item fluid>
+            <v-container>
+              <v-row no-gutters>
+                <v-col>
+                  <v-data-table :headers="headers" :items="portfolioWarrants"
+                    :sort-by="['sous-jacent','maturite jours','plage','ecart cible abs']"
+                    :sort-desc="[false,false, true, false]" :footer-props="{'items-per-page-options': [30, 50, 100]}"
+                    multi-sort dense class="elevation-1">
+                    <template v-slot:item.isin="{item}">
+                      <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
+                    </template>
+                  </v-data-table>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-tab-item>
+          <v-tab-item key="debug">
+            <v-container>
+              <v-row no-gutters>
+                <v-col>
+                  <ul>
+                    <li v-for="(date, index) in dates" :key="date.date">
+                      <a :href="'index.html'+index==0?'':'?date='+date.string">
+                        index.html{{index==0?'':'?date=' + date.string}}</a>
+                    </li>
+                  </ul>
+                  </br>
+                  <ul>
+                    <li> <a :href="'index.html?portfolio='+portfolio">
+                        index.html?portfolio={{portfolio.join()}}</a>
+                    </li>
+                  </ul>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-tab-item>
+        </v-tabs>
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="stabilitywarrants.js"></script>
 </body>
 
 </html>

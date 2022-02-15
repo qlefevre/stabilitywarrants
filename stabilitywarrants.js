@@ -23,26 +23,26 @@ new Vue({
                         return this.filtersousjacent == value
                     }
                 },
-                {text: 'Borne basse', value: 'borne basse'},
-                {text: 'Borne haute', value: 'borne haute'},
-                {text: 'Maturité', value: 'maturite'},
-                {text: 'Maturité jours', value: 'maturite jours'},
-                {text: 'Plage', value: 'plage'},
-                {text: 'Cible', value: 'cible'},
-                {text: 'Ecart cible abs', value: 'ecart cible abs'},
-                {text: 'Perf min %', value: 'perf min'},
-                {text: 'Perf max %', value: 'perf max'}
+                { text: 'Borne basse', value: 'borne basse' },
+                { text: 'Borne haute', value: 'borne haute' },
+                { text: 'Maturité', value: 'maturite' },
+                { text: 'Maturité jours', value: 'maturite jours' },
+                { text: 'Plage', value: 'plage' },
+                { text: 'Cible', value: 'cible' },
+                { text: 'Ecart cible abs', value: 'ecart cible abs' },
+                { text: 'Perf min %', value: 'perf min' },
+                { text: 'Perf max %', value: 'perf max' }
             ],
             maturitydays: [30, 60, 90, 120, 150],
-            issuers: [{key: 'SG', name: 'Société Générale'}, {key: 'UC', name: 'Unicredit'}],
+            issuers: [{ key: 'SG', name: 'Société Générale' }, { key: 'UC', name: 'Unicredit' }],
             warrants: [],
+            portfolio: []
         }
     },
     computed: {
         filteredWarrants() {
-            var warrants0 = this.warrants;
             // émetteurs
-            warrants0 = warrants0.filter(warrant => this.filterissuers.includes(warrant['issuer']));
+            var warrants0 = this.warrants.filter(warrant => this.filterissuers.includes(warrant['issuer']));
             // stratégies perf
             if (this.filterperf) {
                 warrants0 = warrants0.filter(warrant =>
@@ -58,6 +58,9 @@ new Vue({
                 minVal < warrant['maturite jours'] && warrant['maturite jours'] < maxVal);
 
             return warrants0;
+        },
+        portfolioWarrants() {
+            return this.warrants.filter(warrant => this.portfolio.includes(warrant['isin']));
         },
         sousjacents() {
             var sousjacents0 = this.filteredWarrants.map(warrant => warrant['sous-jacent']);
@@ -97,21 +100,25 @@ new Vue({
             return {
                 year: parts[0],
                 month: parts[1],
-                date: parts[2]
+                date: parts[2],
+                string: date.year + '-' + date.month + '-' + date.date
             };
         }
     },
     mounted() {
         var urlParams = new URLSearchParams(window.location.search);
-
+        // date
         var date = urlParams.get('date') == null ? this.dates[0] : this.parsedate(urlParams.get('date'));
-        console.log('date=' + date.year + '-' + date.month + '-' + date.date)
-
+        console.log('date=' + date.string)
+        // portfolio
+        this.portfolio = urlParams.get('portfolio') == null ? [] : urlParams.get('portfolio').split(',');
+        console.log('portfolio=' + this.portfolio);
+        // retrieve stability warrants
         var url = this.url(date);
         fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            this.warrants = data;
-        });
+            .then(response => response.json())
+            .then(data => {
+                this.warrants = data;
+            });
     }
 })
