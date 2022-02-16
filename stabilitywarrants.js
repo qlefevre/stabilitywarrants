@@ -103,7 +103,11 @@ new Vue({
                 date: parts[2],
                 string: date.year + '-' + date.month + '-' + date.date
             };
-        }
+        },
+		portfolioshortcodes: function(portfolio){
+			return portfolio.map(isin => isin.substring(7)).join();
+		}
+		
     },
     mounted() {
         var urlParams = new URLSearchParams(window.location.search);
