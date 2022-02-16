@@ -60,7 +60,7 @@ new Vue({
             return warrants0;
         },
         portfolioWarrants() {
-            return this.warrants.filter(warrant => this.portfolio.includes(warrant['isin']));
+            return this.warrants.filter(warrant => this.portfolio.filter(short => warrant['isin'].endsWith(short)).length > 0);
         },
         sousjacents() {
             var sousjacents0 = this.filteredWarrants.map(warrant => warrant['sous-jacent']);
@@ -72,11 +72,13 @@ new Vue({
             var now = new Date();
             var dates = [];
             for (var i = 0; i < 7; i++) {
-                dates.push({
+                var date = {
                     year: now.getYear() + 1900,
                     month: String(now.getMonth() + 1).padStart(2, '0'),
                     date: String(now.getDate()).padStart(2, '0')
-                });
+                }
+                date.string = date.year + '-' + date.month + '-' + date.date;
+                dates.push(date);
                 now.setDate(now.getDate() - 1);
             }
             console.log(dates);
@@ -97,17 +99,22 @@ new Vue({
         },
         parsedate: function (str) {
             var parts = str.split('-');
-            return {
+            date = {
                 year: parts[0],
                 month: parts[1],
                 date: parts[2],
-                string: date.year + '-' + date.month + '-' + date.date
             };
+            date.string = date.year + '-' + date.month + '-' + date.date;
+            return date;
+
         },
-		portfolioshortcodes: function(portfolio){
-			return portfolio.map(isin => isin.substring(7)).join();
-		}
-		
+        portfoliocodes: function () {
+            return this.portfolioWarrants.map(warrant => warrant['isin']).join();
+        },
+        portfolioshortcodes: function () {
+            return this.portfolioWarrants.map(warrant => warrant['isin']).map(isin => isin.substring(7)).join();
+        }
+
     },
     mounted() {
         var urlParams = new URLSearchParams(window.location.search);
