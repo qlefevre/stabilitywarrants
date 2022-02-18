@@ -3,6 +3,14 @@ import json
 
 import utils
 
+def fixNumberAndProperties(row):
+    # suppression des espaces dans les noms
+    row = {x.replace(' ', ''): v 
+        for x, v in row.items()}
+    for key in row:
+        if row[key].replace(',','',1).replace('.','',1).isdigit():
+            row[key] = float(row[key].replace(',','.',1))
+    return row
 
 def handle(event, context):
     """
@@ -23,9 +31,7 @@ def handle(event, context):
                 if index > 0:
                     if index > 1:
                         file_json.write(',')
-                    # suppression des espaces dans les noms
-                    row = {x.replace(' ', ''): v 
-                        for x, v in row.items()}
+                    row = fixNumberAndProperties(row)
                     json.dump(row, file_json, ensure_ascii=False, separators=(',', ':'))
             file_json.write(']')
     utils.upload_file(stabilitywarrants_json, 'json/%Y/%m/stabilitywarrants-%Y-%m-%d.json')
