@@ -63,6 +63,15 @@
                     <template v-slot:item.perfmin="{item}">
                       <span :style="getPerfStyle(item.perfmin)">{{item.perfmin}}</span>
                     </template>
+                    <template v-slot:item.perfmax="{item}">
+                      <span :style="getPerfStyle(item.perfmax)">{{item.perfmax}}</span>
+                    </template>
+                    <template v-slot:item.pvlatentes="{item}">
+                      <span :style="getPvStyle(item.pvlatentes)">{{item.pvlatentes}}</span>
+                    </template>
+                    <template v-slot:item.pvpotentielles="{item}">
+                      <span :style="getPvStyle(item.pvpotentielles)">{{item.pvpotentielles}}</span>
+                    </template>
                   </v-data-table>
                 </v-col>
               </v-row>

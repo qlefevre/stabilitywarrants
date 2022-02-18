@@ -48,7 +48,11 @@ new Vue({
                 { text: 'Plage', value: 'plage' },
                 { text: 'Perf min %', value: 'perfmin' },
                 { text: 'Perf max %', value: 'perfmax' },
-                { text: '+/- potentielles %', value: '+/-potentielles' }
+                { text: 'Quantité', value: 'quantite' },
+                { text: 'Prix de revient', value: 'prixrevient' },
+                { text: '+/- latentes', value: 'pvlatentes' },
+                { text: '+/- potentielles %', value: '+/-potentielles' },
+                { text: '+/- potentielles', value: 'pvpotentielles' },
             ],
             maturitydays: [30, 60, 90, 120, 150],
             issuers: [{ key: 'SG', name: 'Société Générale' }, { key: 'UC', name: 'Unicredit' }],
@@ -77,7 +81,20 @@ new Vue({
             return warrants0;
         },
         portfolioWarrants() {
-            return this.warrants.filter(warrant => this.portfolio.filter(short => warrant['isin'].endsWith(short)).length > 0);
+            // filtrage warrants du portefeuille
+            // ajout des infos
+            return this.warrants.filter(warrant =>
+                this.portfolio.filter(pFVal => warrant['isin'].endsWith(pFVal.isin)).length > 0)
+                .map(warrant => {
+                    warrantPf = Object.assign({}, warrant);
+                    pFVal = this.portfolio.filter(pFVal => warrant['isin'].endsWith(pFVal.isin))[0];
+                    warrantPf.prixrevient = pFVal.prixrevient;
+                    warrantPf.quantite = pFVal.quantite;
+                    warrantPf.pvlatentes = ((warrantPf.achat - warrantPf.prixrevient) * warrantPf.quantite).toFixed(2);
+                    warrantPf.pvpotentielles = ((10 - warrantPf.prixrevient) * warrantPf.quantite).toFixed(2);
+                    return warrantPf;
+                });
+
         },
         sousjacents() {
             var sousjacents0 = this.filteredWarrants.map(warrant => warrant['sous-jacent']);
@@ -135,6 +152,23 @@ new Vue({
             if (perf < 5) return 'color:red;font-weight:bold;'
             else if (perf < 10) return 'color:orange;font-weight:bold;'
             else return ''
+        },
+        getPvStyle(pv) {
+            if (pv < 0) return 'color:red;'
+            return 'color:green;'
+        },
+        extractPortfolioFromUrl(portfolioparam) {
+            if (portfolioparam == null) return [];
+            var data = [];
+            portfolioparam.split(',').forEach(tuple => {
+                var values = tuple.split('-');
+                var tupleObj = new Object();
+                tupleObj.isin = values[0];
+                tupleObj.quantite = values[1] == undefined ? 0 : Number(values[1]);
+                tupleObj.prixrevient = values[2] == undefined ? 0 : Number(values[2]);
+                data.push(tupleObj);
+            });
+            return data;
         }
 
     },
@@ -144,8 +178,8 @@ new Vue({
         var date = urlParams.get('date') == null ? this.dates[0] : this.parsedate(urlParams.get('date'));
         console.log('date=' + date.string)
         // portfolio
-        this.portfolio = urlParams.get('portfolio') == null ? [] : urlParams.get('portfolio').split(',');
-        console.log('portfolio=' + this.portfolio);
+        this.portfolio = this.extractPortfolioFromUrl(urlParams.get('portfolio'));
+        console.log('portfolio=' + JSON.stringify(this.portfolio));
         // retrieve stability warrants
         var url = this.url(date);
         fetch(url)
