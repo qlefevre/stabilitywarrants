@@ -23,15 +23,32 @@ new Vue({
                         return this.filtersousjacent == value
                     }
                 },
-                { text: 'Borne basse', value: 'borne basse' },
-                { text: 'Borne haute', value: 'borne haute' },
+                { text: 'Borne basse', value: 'bornebasse' },
+                { text: 'Borne haute', value: 'bornehaute' },
                 { text: 'Maturité', value: 'maturite' },
-                { text: 'Maturité jours', value: 'maturite jours' },
+                { text: 'Maturité jours', value: 'maturitejours' },
                 { text: 'Plage', value: 'plage' },
                 { text: 'Cible', value: 'cible' },
-                { text: 'Ecart cible abs', value: 'ecart cible abs' },
-                { text: 'Perf min %', value: 'perf min' },
-                { text: 'Perf max %', value: 'perf max' }
+                { text: 'Ecart cible abs', value: 'ecartcibleabs' },
+                { text: 'Perf min %', value: 'perfmin' },
+                { text: 'Perf max %', value: 'perfmax' }
+            ],
+            portfolioHeaders: [
+                {
+                    text: 'Isin',
+                    align: 'start',
+                    sortable: false,
+                    value: 'isin',
+                },
+                { text: 'Sous-jacent', value: 'sous-jacent' },
+                { text: 'Borne basse', value: 'bornebasse' },
+                { text: 'Borne haute', value: 'bornehaute' },
+                { text: 'Maturité', value: 'maturite' },
+                { text: 'Maturité jours', value: 'maturitejours' },
+                { text: 'Plage', value: 'plage' },
+                { text: 'Perf min %', value: 'perfmin' },
+                { text: 'Perf max %', value: 'perfmax' },
+                { text: '+/- potentielles %', value: '+/-potentielles' }
             ],
             maturitydays: [30, 60, 90, 120, 150],
             issuers: [{ key: 'SG', name: 'Société Générale' }, { key: 'UC', name: 'Unicredit' }],
@@ -46,16 +63,16 @@ new Vue({
             // stratégies perf
             if (this.filterperf) {
                 warrants0 = warrants0.filter(warrant =>
-                    warrant['perf max'] > 8 &&
-                    warrant['perf min'] > 15 &&
-                    warrant['perf min'] > warrant['perf max']);
+                    warrant['perfmax'] > 8 &&
+                    warrant['perfmin'] > 15 &&
+                    warrant['perfmin'] > warrant['perfmax']);
             }
             // Maturité jours
             var minVal = Math.min.apply(Math, this.filtermaturitydays) - 30;
             var maxVal = Math.max.apply(Math, this.filtermaturitydays);
             //console.log('min '+minVal+' max '+maxVal)
             warrants0 = warrants0.filter(warrant =>
-                minVal < warrant['maturite jours'] && warrant['maturite jours'] < maxVal);
+                minVal < warrant['maturitejours'] && warrant['maturitejours'] < maxVal);
 
             return warrants0;
         },
@@ -113,6 +130,11 @@ new Vue({
         },
         portfolioshortcodes: function () {
             return this.portfolioWarrants.map(warrant => warrant['isin']).map(isin => isin.substring(7)).join();
+        },
+        getPerfStyle(perf) {
+            if (perf < 5) return 'color:red;font-weight:bold;'
+            else if (perf < 10) return 'color:orange;font-weight:bold;'
+            else return ''
         }
 
     },

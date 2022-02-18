@@ -23,6 +23,9 @@ def handle(event, context):
                 if index > 0:
                     if index > 1:
                         file_json.write(',')
+                    # suppression des espaces dans les noms
+                    row = {x.replace(' ', ''): v 
+                        for x, v in row.items()}
                     json.dump(row, file_json, ensure_ascii=False, separators=(',', ':'))
             file_json.write(']')
     utils.upload_file(stabilitywarrants_json, 'json/%Y/%m/stabilitywarrants-%Y-%m-%d.json')

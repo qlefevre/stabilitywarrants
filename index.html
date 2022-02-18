@@ -39,7 +39,7 @@
               <v-row no-gutters>
                 <v-col>
                   <v-data-table :headers="headers" :items="filteredWarrants"
-                    :sort-by="['sous-jacent', 'plage','ecart cible abs']" :sort-desc="[false, true, false]"
+                    :sort-by="['sous-jacent', 'plage','ecartcibleabs']" :sort-desc="[false, true, false]"
                     :footer-props="{'items-per-page-options': [30, 50, 100]}" multi-sort dense class="elevation-1">
                     <template v-slot:item.isin="{item}">
                       <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
@@ -53,12 +53,15 @@
             <v-container>
               <v-row no-gutters>
                 <v-col>
-                  <v-data-table :headers="headers" :items="portfolioWarrants"
-                    :sort-by="['sous-jacent','maturite jours','plage','ecart cible abs']"
+                  <v-data-table :headers="portfolioHeaders" :items="portfolioWarrants"
+                    :sort-by="['sous-jacent','maturitejours','plage','ecartcibleabs']"
                     :sort-desc="[false,false, true, false]" :footer-props="{'items-per-page-options': [30, 50, 100]}"
                     multi-sort dense class="elevation-1">
                     <template v-slot:item.isin="{item}">
                       <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
+                    </template>
+                    <template v-slot:item.perfmin="{item}">
+                      <span :style="getPerfStyle(item.perfmin)">{{item.perfmin}}</span>
                     </template>
                   </v-data-table>
                 </v-col>
