@@ -52,6 +52,14 @@
           <v-tab-item fluid>
             <v-container>
               <v-row no-gutters>
+                <v-col>Total +/- latentes: <span
+                    :style="getPvStyle(capitalGains.pvlatentes)">{{capitalGains.pvlatentes}}</span>
+                </v-col>
+                <v-col>Total +/- potentielles: <span
+                    :style="getPvStyle(capitalGains.pvpotentielles)">{{capitalGains.pvpotentielles}}</span>
+                </v-col>
+              </v-row>
+              <v-row no-gutters>
                 <v-col>
                   <v-data-table :headers="portfolioHeaders" :items="portfolioWarrants"
                     :sort-by="['sous-jacent','maturitejours','plage','ecartcibleabs']"
@@ -99,11 +107,8 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-textarea
-                v-model="boursoPortfolio"
-                label="Default style"
-              ></v-textarea>
-              <v-btn @click="extractPortfolioFromText">Importer les valeurs du compte titre</v-btn>
+                <v-textarea v-model="boursoPortfolio" label="Default style"></v-textarea>
+                <v-btn @click="extractPortfolioFromText">Importer les valeurs du compte titre</v-btn>
               </v-row>
             </v-container>
           </v-tab-item>

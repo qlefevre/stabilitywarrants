@@ -97,6 +97,16 @@ new Vue({
                 });
 
         },
+        capitalGains() {
+            var capitalGains = new Object();
+            const pFWs = this.portfolioWarrants;
+            const sum = (s0, s1) => Number(s0) + Number(s1)
+            capitalGains.pvlatentes = pFWs.length == 0 ? 0 : pFWs.map(w => w.pvlatentes)
+                .reduce(sum, 0).toFixed(2);
+            capitalGains.pvpotentielles = pFWs.length == 0 ? 0 : pFWs.map(w => w.pvpotentielles)
+                .reduce(sum, 0).toFixed(2);
+            return capitalGains;
+        },
         sousjacents() {
             var sousjacents0 = this.filteredWarrants.map(warrant => warrant['sous-jacent']);
             sousjacents0 = sousjacents0.filter((x, i, a) => a.indexOf(x) == i);
