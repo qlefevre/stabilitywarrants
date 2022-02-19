@@ -57,7 +57,8 @@ new Vue({
             maturitydays: [30, 60, 90, 120, 150],
             issuers: [{ key: 'SG', name: 'Société Générale' }, { key: 'UC', name: 'Unicredit' }],
             warrants: [],
-            portfolio: []
+            portfolio: [],
+            boursoPortfolio: ''
         }
     },
     computed: {
@@ -158,17 +159,27 @@ new Vue({
             return 'color:green;'
         },
         extractPortfolioFromUrl(portfolioparam) {
-            if (portfolioparam == null) return [];
-            var data = [];
-            portfolioparam.split(',').forEach(tuple => {
+            if (portfolioparam == undefined) this.portfolio = [];
+            this.portfolio = portfolioparam.split(',').map(tuple => {
                 var values = tuple.split('-');
                 var tupleObj = new Object();
                 tupleObj.isin = values[0];
                 tupleObj.quantite = values[1] == undefined ? 0 : Number(values[1]);
                 tupleObj.prixrevient = values[2] == undefined ? 0 : Number(values[2]);
-                data.push(tupleObj);
+                return tupleObj;
             });
-            return data;
+            console.log('portfolio=' + JSON.stringify(this.portfolio));
+        },
+        extractPortfolioFromText() {
+            var patterns = this.boursoPortfolio.match(/[0-9A-Z]{12}\s+[0-9]+\s+[0-9,]+/g);
+            this.portfolio = patterns.map(pattern => {
+                var tupleObj = new Object();
+                tupleObj.isin = pattern.substring(0, 12);
+                tupleObj.quantite = Number(pattern.substring(12).trimStart().match(/[0-9]+/g)[0]);
+                tupleObj.prixrevient = Number(pattern.substring(pattern.indexOf('\t')).replace(',', '.'));
+                return tupleObj;
+            });
+            console.log('portfolio=' + JSON.stringify(this.portfolio));
         }
 
     },
@@ -178,8 +189,8 @@ new Vue({
         var date = urlParams.get('date') == null ? this.dates[0] : this.parsedate(urlParams.get('date'));
         console.log('date=' + date.string)
         // portfolio
-        this.portfolio = this.extractPortfolioFromUrl(urlParams.get('portfolio'));
-        console.log('portfolio=' + JSON.stringify(this.portfolio));
+        this.extractPortfolioFromUrl(urlParams.get('portfolio'));
+
         // retrieve stability warrants
         var url = this.url(date);
         fetch(url)

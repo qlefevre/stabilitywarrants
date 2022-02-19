@@ -98,6 +98,13 @@
                   </ul>
                 </v-col>
               </v-row>
+              <v-row>
+                <v-textarea
+                v-model="boursoPortfolio"
+                label="Default style"
+              ></v-textarea>
+              <v-btn @click="extractPortfolioFromText">Importer les valeurs du compte titre</v-btn>
+              </v-row>
             </v-container>
           </v-tab-item>
         </v-tabs>
