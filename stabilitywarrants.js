@@ -166,7 +166,7 @@ new Vue({
         },
         getPvStyle(pv) {
             if (pv < 0) return 'color:red;'
-            return 'color:green;'
+            return 'color:forestgreen;'
         },
         extractPortfolioFromUrl(portfolioparam) {
             if (portfolioparam == undefined) this.portfolio = [];
