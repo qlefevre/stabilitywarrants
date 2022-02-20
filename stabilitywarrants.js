@@ -169,15 +169,17 @@ new Vue({
             return 'color:forestgreen;'
         },
         extractPortfolioFromUrl(portfolioparam) {
-            if (portfolioparam == undefined) this.portfolio = [];
-            this.portfolio = portfolioparam.split(',').map(tuple => {
-                var values = tuple.split('-');
-                var tupleObj = new Object();
-                tupleObj.isin = values[0];
-                tupleObj.quantite = values[1] == undefined ? 0 : Number(values[1]);
-                tupleObj.prixrevient = values[2] == undefined ? 0 : Number(values[2]);
-                return tupleObj;
-            });
+            if (portfolioparam == undefined || portfolioparam == null)
+                this.portfolio = [];
+            else
+                this.portfolio = portfolioparam.split(',').map(tuple => {
+                    var values = tuple.split('-');
+                    var tupleObj = new Object();
+                    tupleObj.isin = values[0];
+                    tupleObj.quantite = values[1] == undefined ? 0 : Number(values[1]);
+                    tupleObj.prixrevient = values[2] == undefined ? 0 : Number(values[2]);
+                    return tupleObj;
+                });
             console.log('portfolio=' + JSON.stringify(this.portfolio));
         },
         extractPortfolioFromText() {
