@@ -153,11 +153,10 @@ new Vue({
             return date;
 
         },
-        portfoliocodes: function () {
-            return this.portfolioWarrants.map(warrant => warrant['isin']).join();
-        },
-        portfolioshortcodes: function () {
-            return this.portfolioWarrants.map(warrant => warrant['isin']).map(isin => isin.substring(7)).join();
+        portfoliocodes: function (short) {
+            return this.portfolioWarrants.map(warrant =>
+                warrant.isin + '-' + warrant.quantite + '-' + warrant.prixrevient)
+                .map(isin => short ? isin.substring(7) : isin).join();
         },
         getPerfStyle(perf) {
             if (perf < 5) return 'color:red;font-weight:bold;'
@@ -192,6 +191,9 @@ new Vue({
                 return tupleObj;
             });
             console.log('portfolio=' + JSON.stringify(this.portfolio));
+        },
+        disabledIssuer(issuer) {
+            return this.warrants.filter(warrant => issuer == warrant['issuer']).length == 0;
         }
 
     },

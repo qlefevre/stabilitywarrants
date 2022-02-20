@@ -31,7 +31,8 @@
                 <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
                 </v-select>
                 <v-chip-group v-model="filterissuers" column multiple active-class="primary--text">
-                  <v-chip filter v-for="issuer in issuers" :value="issuer.key" :key="issuer.key">
+                  <v-chip filter v-for="issuer in issuers" :value="issuer.key" :key="issuer.key"
+                    :disabled="disabledIssuer(issuer.key)">
                     {{issuer.name}}
                   </v-chip>
                 </v-chip-group>
@@ -97,11 +98,11 @@
                   </ul>
                   </br>
                   <ul>
-                    <li> <a :href="'index.html?portfolio='+portfoliocodes()" style="word-wrap: break-word">
-                        index.html?portfolio={{portfoliocodes()}}</a>
+                    <li> <a :href="'index.html?portfolio='+portfoliocodes(false)" style="word-wrap: break-word">
+                        index.html?portfolio={{portfoliocodes(false)}}</a>
                     </li>
-                    <li> <a :href="'index.html?portfolio='+portfolioshortcodes()" style="word-wrap: break-word">
-                        index.html?portfolio={{portfolioshortcodes()}}</a>
+                    <li> <a :href="'index.html?portfolio='+portfoliocodes(true)" style="word-wrap: break-word">
+                        index.html?portfolio={{portfoliocodes(true)}}</a>
                     </li>
                   </ul>
                 </v-col>
