@@ -6,7 +6,7 @@ new Vue({
             filtersousjacent: 'CAC 40',
             filtermaturitydays: [30],
             filterperf: true,
-            filterissuers: ['SG', 'UC'],
+            filterissuers: ['SG'],
             headers: [
                 {
                     text: 'Isin',

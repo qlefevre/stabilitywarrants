@@ -41,7 +41,7 @@
                 <v-col>
                   <v-data-table :headers="headers" :items="filteredWarrants"
                     :sort-by="['sous-jacent', 'plage','ecartcibleabs']" :sort-desc="[false, true, false]"
-                    :footer-props="{'items-per-page-options': [30, 50, 100]}" multi-sort dense class="elevation-1">
+                    :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense class="elevation-1">
                     <template v-slot:item.isin="{item}">
                       <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
                     </template>
@@ -63,9 +63,8 @@
               <v-row no-gutters>
                 <v-col>
                   <v-data-table :headers="portfolioHeaders" :items="portfolioWarrants"
-                    :sort-by="['sous-jacent','maturitejours','plage','ecartcibleabs']"
-                    :sort-desc="[false,false, true, false]" :footer-props="{'items-per-page-options': [30, 50, 100]}"
-                    multi-sort dense class="elevation-1">
+                    :sort-by="['maturitejours','sous-jacent','plage']" :sort-desc="[false,false, true, false]"
+                    :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense class="elevation-1">
                     <template v-slot:item.isin="{item}">
                       <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
                     </template>
