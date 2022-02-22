@@ -32,7 +32,8 @@
                 </v-select>
                 <v-chip-group v-model="filterissuers" column multiple active-class="primary--text">
                   <v-chip filter v-for="issuer in issuers" :value="issuer.key" :key="issuer.key"
-                    :disabled="disabledIssuer(issuer.key)">
+                    :disabled="disabledIssuer(issuer.key)" :color="disabledIssuer(issuer.key) ?'red' : ''"
+                    :text-color="disabledIssuer(issuer.key) ?'white' : ''">
                     {{issuer.name}}
                   </v-chip>
                 </v-chip-group>
