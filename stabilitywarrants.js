@@ -50,6 +50,7 @@ new Vue({
                 { text: 'Perf max %', value: 'perfmax' },
                 { text: 'Quantité', value: 'quantite' },
                 { text: 'Prix de revient', value: 'prixrevient' },
+                { text: 'Valeur Achat', value: 'achat' },
                 { text: '+/- latentes', value: 'pvlatentes' },
                 { text: '+/- potentielles %', value: '+/-potentielles' },
                 { text: '+/- potentielles', value: 'pvpotentielles' },
