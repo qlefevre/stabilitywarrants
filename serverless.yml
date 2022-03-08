@@ -1,6 +1,6 @@
 service: stabilitywarrants
 configValidationMode: off
-frameworkVersion: '2 || 3'
+frameworkVersion: "2 || 3"
 
 provider:
   name: scaleway
@@ -13,23 +13,23 @@ provider:
 
 functions:
   extract-sg:
-    handler: functions/extract-sg.handle
+    handler: functions/extract_sg.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
     description: Télécharge les stability warrants de la Société Générale
     events:
       - schedule:
-          rate: '10 0 * * *'
+          rate: "10 0 * * *"
   extract-uc:
-    handler: functions/extract-uc.handle
+    handler: functions/extract_uc.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
     description: Télécharge les stability warrants d'Unicredit
     events:
       - schedule:
-          rate: '10 0 * * *'
+          rate: "10 0 * * *"
   merge:
     handler: functions/merge.handle
     minScale: 0
@@ -38,7 +38,7 @@ functions:
     description: Fusionne les fichiers CSV
     events:
       - schedule:
-          rate: '12 0 * * *'
+          rate: "12 0 * * *"
   transform:
     handler: functions/transform.handle
     minScale: 0
@@ -47,16 +47,16 @@ functions:
     description: Transforme le fichier CSV
     events:
       - schedule:
-          rate: '13 0 * * *'
+          rate: "13 0 * * *"
   csv-to-json:
-    handler: functions/csv-to-json.handle
+    handler: functions/csv_to_json.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
     description: Transforme le fichier CSV en JSON
     events:
       - schedule:
-          rate: '14 0 * * *'
+          rate: "14 0 * * *"
 
 plugins:
   - serverless-scaleway-functions
@@ -73,11 +73,11 @@ custom:
 
 package:
   patterns:
-    - '!node_modules/**'
-    - '!.gitignore'
-    - '!.git/**'
-    - '!.idea/**'
-    - '!*.html'
-    - '!*.md'
-    - '!*.txt'
-    - '!docs/**'
+    - "!node_modules/**"
+    - "!.gitignore"
+    - "!.git/**"
+    - "!.idea/**"
+    - "!*.html"
+    - "!*.md"
+    - "!*.txt"
+    - "!docs/**"
