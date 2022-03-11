@@ -160,8 +160,8 @@ new Vue({
                 .map(isin => short ? isin.substring(7) : isin).join();
         },
         getPerfStyle(perf) {
-            if (perf < 5) return 'color:red;font-weight:bold;'
-            else if (perf < 10) return 'color:orange;font-weight:bold;'
+            if (perf < 7) return 'color:red;font-weight:bold;'
+            else if (perf < 12) return 'color:orange;font-weight:bold;'
             else return ''
         },
         getPvStyle(pv) {
@@ -195,8 +195,17 @@ new Vue({
         },
         disabledIssuer(issuer) {
             return this.warrants.filter(warrant => issuer == warrant['issuer']).length == 0;
+        },
+        sumPvlatentes(maturitejours) {
+            return this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)
+                .map(warrant => warrant.pvlatentes)
+                .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(2);
+        },
+        sumPvpotentielles(maturitejours) {
+            return this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)
+                .map(warrant => warrant.pvpotentielles)
+                .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(2);
         }
-
     },
     mounted() {
         var urlParams = new URLSearchParams(window.location.search);

@@ -6,6 +6,12 @@
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <style>
+    .v-data-table>.v-data-table__wrapper>table>tbody>tr>th.group-maturite-jours {
+      font-size: .875rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -65,7 +71,8 @@
                 <v-col>
                   <v-data-table :headers="portfolioHeaders" :items="portfolioWarrants"
                     :sort-by="['maturitejours','sous-jacent','plage']" :sort-desc="[false,false, true, false]"
-                    :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense class="elevation-1">
+                    :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense group-by="maturitejours"
+                    class="elevation-1">
                     <template v-slot:item.isin="{item}">
                       <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
                     </template>
@@ -80,6 +87,20 @@
                     </template>
                     <template v-slot:item.pvpotentielles="{item}">
                       <span :style="getPvStyle(item.pvpotentielles)">{{item.pvpotentielles}}</span>
+                    </template>
+                    <template v-slot:group.header="{items, isOpen, toggle}">
+                      <th class="group-maturite-jours" colspan="2">
+                        {{portfolioHeaders[5].text}}: {{ items[0].maturitejours }}
+                      </th>
+                      <th :colspan="portfolioHeaders.length-6"></th>
+                      <th class="group-maturite-jours"><span :style="getPvStyle(sumPvlatentes(items[0].maturitejours))">
+                          {{sumPvlatentes(items[0].maturitejours)}}</span>
+                      </th>
+                      <th></th>
+                      <th class="group-maturite-jours"><span
+                          :style="getPvStyle(sumPvpotentielles(items[0].maturitejours))">
+                          {{sumPvpotentielles(items[0].maturitejours)}}</span>
+                      </th>
                     </template>
                   </v-data-table>
                 </v-col>
@@ -121,6 +142,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   <script src="stabilitywarrants.js"></script>
+
 </body>
 
 </html>
