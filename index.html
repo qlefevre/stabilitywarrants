@@ -57,13 +57,7 @@
                 </v-switch>
                 <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
                 </v-select>
-                <v-chip-group v-model="filterissuers" column multiple active-class="primary--text">
-                  <v-chip filter v-for="issuer in issuers" :value="issuer.key" :key="issuer.key"
-                    :disabled="disabledIssuer(issuer.key)" :color="disabledIssuer(issuer.key) ?'red' : ''"
-                    :text-color="disabledIssuer(issuer.key) ?'white' : ''">
-                    {{issuer.name}}
-                  </v-chip>
-                </v-chip-group>
+                <issuer-filter v-model="filterissuers" :issuers="issuers" :warrants="warrants"></issuer-filter>
               </v-row>
               <v-row no-gutters>
                 <div class="pivotpoint">
@@ -184,7 +178,9 @@
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/http-vue-loader@1.4.2/src/httpVueLoader.min.js"></script>
   <script src="stabilitywarrants.js"></script>
+
 
 </body>
 

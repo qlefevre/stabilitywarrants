@@ -1,5 +1,8 @@
 new Vue({
     el: '#app',
+    components: {
+        'issuer-filter': httpVueLoader('/vuejs/src/components/issuer-filter.vue')
+    },
     vuetify: new Vuetify(),
     data() {
         return {
