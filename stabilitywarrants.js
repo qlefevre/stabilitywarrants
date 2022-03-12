@@ -59,7 +59,8 @@ new Vue({
             issuers: [{ key: 'SG', name: 'Société Générale' }, { key: 'UC', name: 'Unicredit' }],
             warrants: [],
             portfolio: [],
-            boursoPortfolio: ''
+            boursoPortfolio: '',
+            pivotpoint: { "S3": 5601.19, "S2": 6017.04, "S1": 6337.93, "P": 6753.78, "R1": 7074.67, "R2": 7490.52, "R3": 7811.41 }
         }
     },
     computed: {
