@@ -31,8 +31,11 @@ module.exports = {
   computed: {
     custfilterissuers: {
       get() {
-        console.log("get " + this.value);
-        return this.value;
+        var filterissuers = this.value.filter(
+          (issuer) => !this.disabledIssuer(issuer)
+        );
+        console.log("get " + filterissuers);
+        return filterissuers;
       },
       set(val) {
         console.log("set " + val);
@@ -52,7 +55,7 @@ module.exports = {
 </script>
 
 <style>
-.v-chip.disabled-issuer {
+.v-chip.v-chip--disabled.disabled-issuer {
   color: white !important;
   background-color: red;
 }
