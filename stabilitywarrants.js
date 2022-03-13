@@ -1,7 +1,8 @@
 new Vue({
     el: '#app',
     components: {
-        'issuer-filter': httpVueLoader('/vuejs/src/components/issuer-filter.vue')
+        'issuer-filter': httpVueLoader('/vuejs/src/components/issuer-filter.vue'),
+        'pivot-point': httpVueLoader('/vuejs/src/components/pivot-point.vue')
     },
     vuetify: new Vuetify(),
     data() {
@@ -59,7 +60,6 @@ new Vue({
                 { text: '+/- potentielles', value: 'pvpotentielles' },
             ],
             maturitydays: [30, 60, 90, 120, 150],
-            issuers: [{ key: 'SG', name: 'Société Générale' }, { key: 'UC', name: 'Unicredit' }],
             warrants: [],
             portfolio: [],
             boursoPortfolio: '',
@@ -196,9 +196,6 @@ new Vue({
                 return tupleObj;
             });
             console.log('portfolio=' + JSON.stringify(this.portfolio));
-        },
-        disabledIssuer(issuer) {
-            return this.warrants.filter(warrant => issuer == warrant['issuer']).length == 0;
         },
         sumPvlatentes(maturitejours) {
             return this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)

@@ -6,31 +6,9 @@
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-
   <style>
     .v-data-table>.v-data-table__wrapper>table>tbody>tr>th.group-maturite-jours {
       font-size: .875rem;
-    }
-
-    .support {
-      color: red;
-    }
-
-    .pivot {
-      color: blue;
-    }
-
-    .resistance {
-      color: green;
-    }
-
-    .pivotpoint span {
-      padding: 0px 5px 0px 20px;
-    }
-
-    .pivotpoint {
-      margin: 0 auto;
-      width: auto;
     }
   </style>
 </head>
@@ -57,18 +35,10 @@
                 </v-switch>
                 <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
                 </v-select>
-                <issuer-filter v-model="filterissuers" :issuers="issuers" :warrants="warrants"></issuer-filter>
+                <issuer-filter v-model="filterissuers" :warrants="warrants"></issuer-filter>
               </v-row>
               <v-row no-gutters>
-                <div class="pivotpoint">
-                  <span class="support">S3:</span> {{this.pivotpoint.S3}}
-                  <span class="support">S2:</span> {{this.pivotpoint.S2}}
-                  <span class="support">S1:</span> {{this.pivotpoint.S1}}
-                  <span class="pivot">Pivot:</span> {{this.pivotpoint.P}}
-                  <span class="resistance">R1:</span> {{this.pivotpoint.R1}}
-                  <span class="resistance">R2:</span> {{this.pivotpoint.R2}}
-                  <span class="resistance">R3:</span> {{this.pivotpoint.R3}}
-                </div>
+                <pivot-point v-model="pivotpoint"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <v-col>
@@ -94,15 +64,7 @@
                 </v-col>
               </v-row>
               <v-row no-gutters>
-                <div class="pivotpoint">
-                  <span class="support">S3:</span> {{this.pivotpoint.S3}}
-                  <span class="support">S2:</span> {{this.pivotpoint.S2}}
-                  <span class="support">S1:</span> {{this.pivotpoint.S1}}
-                  <span class="pivot">Pivot:</span> {{this.pivotpoint.P}}
-                  <span class="resistance">R1:</span> {{this.pivotpoint.R1}}
-                  <span class="resistance">R2:</span> {{this.pivotpoint.R2}}
-                  <span class="resistance">R3:</span> {{this.pivotpoint.R3}}
-                </div>
+                <pivot-point v-model="pivotpoint"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <v-col>
