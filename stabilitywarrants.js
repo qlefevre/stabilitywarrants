@@ -1,8 +1,8 @@
 new Vue({
     el: '#app',
     components: {
-        'issuer-filter': httpVueLoader('/vuejs/src/components/issuer-filter.vue'),
-        'pivot-point': httpVueLoader('/vuejs/src/components/pivot-point.vue')
+        'issuer-filter': httpVueLoader('vuejs/src/components/issuer-filter.vue'),
+        'pivot-point': httpVueLoader('vuejs/src/components/pivot-point.vue')
     },
     vuetify: new Vuetify(),
     data() {
