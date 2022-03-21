@@ -2,13 +2,14 @@ new Vue({
     el: '#app',
     components: {
         'issuer-filter': httpVueLoader('vuejs/src/components/issuer-filter.vue'),
+        'maturity-filter': httpVueLoader('vuejs/src/components/maturity-filter.vue'),
         'pivot-point': httpVueLoader('vuejs/src/components/pivot-point.vue')
     },
     vuetify: new Vuetify(),
     data() {
         return {
             filtersousjacent: 'CAC 40',
-            filtermaturitydays: [30],
+            filtermaturity: [new Date().getMonth() + 1],
             filterperf: true,
             filterissuers: ['SG'],
             headers: [
@@ -59,7 +60,6 @@ new Vue({
                 { text: '+/- potentielles %', value: '+/-potentielles' },
                 { text: '+/- potentielles', value: 'pvpotentielles' },
             ],
-            maturitydays: [30, 60, 90, 120, 150],
             warrants: [],
             portfolio: [],
             boursoPortfolio: '',
@@ -77,13 +77,12 @@ new Vue({
                     warrant['perfmin'] > 15 &&
                     warrant['perfmin'] > warrant['perfmax']);
             }
-            // Maturité jours
-            var minVal = Math.min.apply(Math, this.filtermaturitydays) - 30;
-            var maxVal = Math.max.apply(Math, this.filtermaturitydays);
-            //console.log('min '+minVal+' max '+maxVal)
-            warrants0 = warrants0.filter(warrant =>
-                minVal < warrant['maturitejours'] && warrant['maturitejours'] < maxVal);
-
+            // Maturité (mois choisi)
+            if (this.filtermaturity.length > 0) {
+                var patterns = this.filtermaturity.map(month => '/' + month.toString().padStart(2, '0') + '/');
+                //console.log('mois: ' + patterns)
+                warrants0 = warrants0.filter(warrant => patterns.some(pattern => warrant['maturite'].includes(pattern)));
+            }
             return warrants0;
         },
         portfolioWarrants() {

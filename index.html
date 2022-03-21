@@ -30,12 +30,7 @@
           <v-tab-item key="stabilitywarrants">
             <v-container fluid>
               <v-row no-gutters>
-                <v-chip-group label="Maturité jours" v-model="filtermaturitydays" column multiple
-                  active-class="primary--text">
-                  <v-chip filter v-for="maturityday in maturitydays" :value="maturityday" :key="maturityday">
-                    {{(maturityday - 30) + ' - ' + maturityday + 'J'}}
-                  </v-chip>
-                </v-chip-group>
+                <maturity-filter v-model="filtermaturity" :warrants="warrants"></maturity-filter>
                 <v-switch v-model="filterperf" label="Perf Max > 8% & Perf Min > 15%">
                 </v-switch>
                 <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
