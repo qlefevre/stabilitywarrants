@@ -9,7 +9,7 @@ new Vue({
     data() {
         return {
             filtersousjacent: 'CAC 40',
-            filtermaturity: [new Date().getMonth() + 1],
+            filtermaturity: [],
             filterperf: true,
             filterissuers: ['SG'],
             headers: [
@@ -221,6 +221,9 @@ new Vue({
             .then(response => response.json())
             .then(data => {
                 this.warrants = data;
+                var strmat = this.warrants.map(warrant => warrant['maturite']).sort()[0];
+                this.filtermaturity = [Number(strmat.substring(strmat.indexOf('/') + 1, strmat.lastIndexOf('/')))];
+                console.log('filtermaturity ' + this.filtermaturity)
             });
     }
-})
+});
