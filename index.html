@@ -48,6 +48,12 @@
                     <template v-slot:item.isin="{item}">
                       <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
                     </template>
+                    <template v-slot:item.perfmin="{item}">
+                      <span :style="getPerfStyle(item.perfmin)">{{item.perfmin}}</span>
+                    </template>
+                    <template v-slot:item.perfmax="{item}">
+                      <span :style="getPerfStyle(item.perfmax)">{{item.perfmax}}</span>
+                    </template>
                   </v-data-table>
                 </v-col>
               </v-row>

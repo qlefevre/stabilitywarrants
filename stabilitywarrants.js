@@ -73,9 +73,8 @@ new Vue({
             // stratégies perf
             if (this.filterperf) {
                 warrants0 = warrants0.filter(warrant =>
-                    warrant['perfmax'] > 8 &&
-                    warrant['perfmin'] > 15 &&
-                    warrant['perfmin'] > warrant['perfmax']);
+                    warrant['perfmax'] > 12 &&
+                    warrant['perfmin'] > 15);
             }
             // Maturité (mois choisi)
             if (this.filtermaturity.length > 0) {
