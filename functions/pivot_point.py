@@ -17,14 +17,14 @@ class OHLC:
 class PivotPoint:
 	def __init__(self,ohlc):
 		self.ohlc = ohlc
-		l,h,c = ohlc.low, ohlc.high, ohlc.close
-		self.p = round((h + l + c) / 3)
+		o,l,h,c = ohlc.open,ohlc.low, ohlc.high, ohlc.close
+		self.p = round(( h + l + c) / 3)
 		self.l = ohlc.low
 		self.h = ohlc.high
-	def r1(self):
-		return  2 * (self.p - self.l)
+	def r1(self): 	
+		return  (2 * self.p) - self.l
 	def s1(self):
-		return 2 * (self.p - self.h)
+		return (2 * self.p) - self.h
 	def r2(self):
 		return self.p + (self.h - self.l)
 	def s2(self):
@@ -38,8 +38,8 @@ class PivotPoint:
 	
 
 def extractOhlc(values):
-	for x in range(len(values)):
-		print(values[x])
+	#for x in range(len(values)):
+	#	print(values[x])
 	# plus haut de la période
 	high = round(max(map(lambda val: val['price'],values)))
 	# plus bas de la période
@@ -56,6 +56,8 @@ f.close()
 
 # Récupère les 20 derniers éléments
 last20days = data[-20:]
+
+print('PP 20 days')
 ohlc20days = extractOhlc(last20days)
 print(ohlc20days)
 pivotPoint20days = PivotPoint(ohlc20days)
@@ -66,6 +68,8 @@ date = datetime.today()
 month = (date.month+11)%12
 month_pattern = str(date.year)+'-'+str(month).zfill(2)+'-'
 lastmonth = list(filter(lambda val: val['time'].startswith(month_pattern), data))
+
+print('PP month')
 ohlcLastMonth = extractOhlc(lastmonth)
 print(ohlcLastMonth)
 pivotPointLastMonth = PivotPoint(ohlcLastMonth)
