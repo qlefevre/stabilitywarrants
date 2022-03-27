@@ -63,6 +63,7 @@ print(ohlc20days)
 pivotPoint20days = PivotPoint(ohlc20days)
 print(pivotPoint20days)
 
+# principal problème les données avec le plus bas et plus haut
 
 date = datetime.today()
 month = (date.month+11)%12
