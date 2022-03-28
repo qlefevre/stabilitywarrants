@@ -75,3 +75,8 @@ ohlcLastMonth = extractOhlc(lastmonth)
 print(ohlcLastMonth)
 pivotPointLastMonth = PivotPoint(ohlcLastMonth)
 print(pivotPointLastMonth)
+
+ohlc3 = OHLC(7052,7169,6432,6658)
+print(ohlc3)
+pivotPoint3 = PivotPoint(ohlc3)
+print(pivotPoint3)
