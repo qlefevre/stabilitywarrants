@@ -4,6 +4,7 @@
  
 import json
 from datetime import datetime
+import csv
 
 class OHLC:
 	def __init__(self,open, high, low, close):
@@ -80,3 +81,11 @@ ohlc3 = OHLC(7052,7169,6432,6658)
 print(ohlc3)
 pivotPoint3 = PivotPoint(ohlc3)
 print(pivotPoint3)
+
+with open('data.csv', newline='') as readcsvfile:
+	reader = csv.DictReader(readcsvfile, delimiter=',')
+	for row in reader:
+		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
+		print(ohlcLastMonth)
+		pivotPointLastMonth = PivotPoint(ohlcLastMonth)
+		print(pivotPointLastMonth)
