@@ -50,6 +50,34 @@ def extractOhlc(values):
 	ohlc = OHLC(open,high,low,close)
 	return ohlc
  
+
+now = datetime.now()
+previousMonthIdx = (now.month+11)%12
+previousMonth = datetime(now.year,previousMonthIdx,1)
+currentMonth = datetime(now.year,now.month,1)
+# mois précédent 
+urlLastMonth = 'https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(previousMonth)))+'&period2='+str(int(datetime.timestamp(currentMonth)-86400))+'&interval=1mo&events=history'
+print (urlLastMonth)
+# mois courant 
+urlCurrentMonth = 'https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(currentMonth)))+'&period2='+str(int(datetime.timestamp(currentMonth)))+'&interval=1mo&events=history'
+print (urlCurrentMonth)
+
+with open(urlLastMonth, newline='') as readcsvfile:
+	reader = csv.DictReader(readcsvfile, delimiter=',')
+	for row in reader:
+		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
+		print(ohlcLastMonth)
+		pivotPointLastMonth = PivotPoint(ohlcLastMonth)
+		print(pivotPointLastMonth)
+
+with open(urlCurrentMonth, newline='') as readcsvfile:
+	reader = csv.DictReader(readcsvfile, delimiter=',')
+	for row in reader:
+		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
+		print(ohlcLastMonth)
+		pivotPointLastMonth = PivotPoint(ohlcLastMonth)
+		print(pivotPointLastMonth)
+ 
 # Chargement des données
 f = open('max.json')
 data = json.load(f)
@@ -82,7 +110,15 @@ print(ohlc3)
 pivotPoint3 = PivotPoint(ohlc3)
 print(pivotPoint3)
 
-with open('data.csv', newline='') as readcsvfile:
+with open(url, newline='') as readcsvfile:
+	reader = csv.DictReader(readcsvfile, delimiter=',')
+	for row in reader:
+		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
+		print(ohlcLastMonth)
+		pivotPointLastMonth = PivotPoint(ohlcLastMonth)
+		print(pivotPointLastMonth)
+
+with open(url, newline='') as readcsvfile:
 	reader = csv.DictReader(readcsvfile, delimiter=',')
 	for row in reader:
 		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
