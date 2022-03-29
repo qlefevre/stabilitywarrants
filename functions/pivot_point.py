@@ -5,6 +5,7 @@
 import json
 from datetime import datetime
 import csv
+import urllib.request
 
 class OHLC:
 	def __init__(self,open, high, low, close):
@@ -62,7 +63,9 @@ print (urlLastMonth)
 urlCurrentMonth = 'https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(currentMonth)))+'&period2='+str(int(datetime.timestamp(currentMonth)))+'&interval=1mo&events=history'
 print (urlCurrentMonth)
 
-with open(urlLastMonth, newline='') as readcsvfile:
+print('PP month')
+csvLastMonth, headers = urllib.request.urlretrieve(urlLastMonth)
+with open(csvLastMonth, newline='') as readcsvfile:
 	reader = csv.DictReader(readcsvfile, delimiter=',')
 	for row in reader:
 		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
@@ -70,7 +73,9 @@ with open(urlLastMonth, newline='') as readcsvfile:
 		pivotPointLastMonth = PivotPoint(ohlcLastMonth)
 		print(pivotPointLastMonth)
 
-with open(urlCurrentMonth, newline='') as readcsvfile:
+print('PP 20 days')		
+csvCurrentMonth, headers = urllib.request.urlretrieve(urlCurrentMonth)
+with open(csvCurrentMonth, newline='') as readcsvfile:
 	reader = csv.DictReader(readcsvfile, delimiter=',')
 	for row in reader:
 		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
@@ -78,50 +83,3 @@ with open(urlCurrentMonth, newline='') as readcsvfile:
 		pivotPointLastMonth = PivotPoint(ohlcLastMonth)
 		print(pivotPointLastMonth)
  
-# Chargement des données
-f = open('max.json')
-data = json.load(f)
-f.close()
-
-# Récupère les 20 derniers éléments
-last20days = data[-20:]
-
-print('PP 20 days')
-ohlc20days = extractOhlc(last20days)
-print(ohlc20days)
-pivotPoint20days = PivotPoint(ohlc20days)
-print(pivotPoint20days)
-
-# principal problème les données avec le plus bas et plus haut
-
-date = datetime.today()
-month = (date.month+11)%12
-month_pattern = str(date.year)+'-'+str(month).zfill(2)+'-'
-lastmonth = list(filter(lambda val: val['time'].startswith(month_pattern), data))
-
-print('PP month')
-ohlcLastMonth = extractOhlc(lastmonth)
-print(ohlcLastMonth)
-pivotPointLastMonth = PivotPoint(ohlcLastMonth)
-print(pivotPointLastMonth)
-
-ohlc3 = OHLC(7052,7169,6432,6658)
-print(ohlc3)
-pivotPoint3 = PivotPoint(ohlc3)
-print(pivotPoint3)
-
-with open(url, newline='') as readcsvfile:
-	reader = csv.DictReader(readcsvfile, delimiter=',')
-	for row in reader:
-		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
-		print(ohlcLastMonth)
-		pivotPointLastMonth = PivotPoint(ohlcLastMonth)
-		print(pivotPointLastMonth)
-
-with open(url, newline='') as readcsvfile:
-	reader = csv.DictReader(readcsvfile, delimiter=',')
-	for row in reader:
-		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
-		print(ohlcLastMonth)
-		pivotPointLastMonth = PivotPoint(ohlcLastMonth)
-		print(pivotPointLastMonth)
