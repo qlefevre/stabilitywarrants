@@ -17,27 +17,29 @@ class OHLC:
 		return 'OHLC '+str(self.open)+' '+str(self.high)+' '+str(self.low)+' '+str(self.close)
 
 class PivotPoint:
-	def __init__(self,ohlc):
+	def __init__(self,ohlc,name):
 		self.ohlc = ohlc
+		self.name = name
 		o,l,h,c = ohlc.open,ohlc.low, ohlc.high, ohlc.close
 		self.p = round(( h + l + c) / 3)
 		self.l = ohlc.low
 		self.h = ohlc.high
 	def r1(self): 	
-		return  (2 * self.p) - self.l
+		return  round((2 * self.p) - self.l)
 	def s1(self):
-		return (2 * self.p) - self.h
+		return round((2 * self.p) - self.h)
 	def r2(self):
-		return self.p + (self.h - self.l)
+		return round(self.p + (self.h - self.l))
 	def s2(self):
-		return self.p - (self.h - self.l)
+		return round(self.p - (self.h - self.l))
 	def r3(self):
-		return self.r1() + (self.h - self.l)
+		return round(self.r1() + (self.h - self.l))
 	def s3(self):
-		return self.s1() - (self.h - self.l)
+		return round(self.s1() - (self.h - self.l))
 	def __repr__(self):
 		return 'Pivot Point s3 '+str(self.s3())+' s2 '+str(self.s2())+' s1 '+str(self.s1())+' p '+str(self.p)+' r1 '+str(self.r1())+' r2 '+str(self.r2())+' r3 '+ str(self.r3())
-	
+	def json(self):
+		return '{"period":"'+self.name+'", "pivotpoint" : { "S3": '+str(self.s3())+', "S2": '+str(self.s2())+', "S1": '+str(self.s1())+', "P": '+str(self.p)+', "R1": '+str(self.r1())+', "R2": '+str(self.r2())+', "R3": '+str(self.r3())+' }'
 
 def extractOhlc(values):
 	#for x in range(len(values)):
@@ -70,8 +72,9 @@ with open(csvLastMonth, newline='') as readcsvfile:
 	for row in reader:
 		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
 		print(ohlcLastMonth)
-		pivotPointLastMonth = PivotPoint(ohlcLastMonth)
+		pivotPointLastMonth = PivotPoint(ohlcLastMonth,'Mensuel')
 		print(pivotPointLastMonth)
+		print(pivotPointLastMonth.json())
 
 print('PP 20 days')		
 csvCurrentMonth, headers = urllib.request.urlretrieve(urlCurrentMonth)
@@ -80,6 +83,7 @@ with open(csvCurrentMonth, newline='') as readcsvfile:
 	for row in reader:
 		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
 		print(ohlcLastMonth)
-		pivotPointLastMonth = PivotPoint(ohlcLastMonth)
+		pivotPointLastMonth = PivotPoint(ohlcLastMonth,'20 jours')
 		print(pivotPointLastMonth)
+		print(pivotPointLastMonth.json())
  
