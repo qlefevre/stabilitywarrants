@@ -38,7 +38,10 @@
                 <issuer-filter v-model="filterissuers" :warrants="warrants"></issuer-filter>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-model="pivotpoint"></pivot-point>
+                <pivot-point v-model="pivotpoint[0]"></pivot-point>
+              </v-row>
+              <v-row no-gutters>
+                <pivot-point v-model="pivotpoint[1]"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <v-col>
@@ -70,7 +73,10 @@
                 </v-col>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-model="pivotpoint"></pivot-point>
+                <pivot-point v-model="pivotpoint[0]"></pivot-point>
+              </v-row>
+              <v-row no-gutters>
+                <pivot-point v-model="pivotpoint[1]"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <v-col>

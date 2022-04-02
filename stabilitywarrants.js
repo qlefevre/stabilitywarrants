@@ -216,6 +216,14 @@ new Vue({
 
         // retrieve stability warrants
         var url = this.url(date);
+        var ppurl = url.replace('stabilitywarrants', 'pivotpoint');
+        console.log('pivot point url: ' + ppurl);
+        fetch(ppurl)
+            .then(response => response.json())
+            .then(data => {
+                this.pivotpoint = data
+                console.log('pivot point: ' + this.pivotpoint)
+            });
         fetch(url)
             .then(response => response.json())
             .then(data => {

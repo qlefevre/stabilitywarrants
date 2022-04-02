@@ -1,18 +1,19 @@
 <template>
   <div class="pivotpoint">
-    <span class="support">S3:</span> {{ this.value.S3 }}
-    <span class="support">S2:</span> {{ this.value.S2 }}
-    <span class="support">S1:</span> {{ this.value.S1 }}
-    <span class="pivot">Pivot:</span> {{ this.value.P }}
-    <span class="resistance">R1:</span> {{ this.value.R1 }}
-    <span class="resistance">R2:</span> {{ this.value.R2 }}
-    <span class="resistance">R3:</span> {{ this.value.R3 }}
+    {{ this.value.period }}
+    <span class="support">S3:</span> {{ this.value.pivotpoint.S3 }}
+    <span class="support">S2:</span> {{ this.value.pivotpoint.S2 }}
+    <span class="support">S1:</span> {{ this.value.pivotpoint.S1 }}
+    <span class="pivot">Pivot:</span> {{ this.value.pivotpoint.P }}
+    <span class="resistance">R1:</span> {{ this.value.pivotpoint.R1 }}
+    <span class="resistance">R2:</span> {{ this.value.pivotpoint.R2 }}
+    <span class="resistance">R3:</span> {{ this.value.pivotpoint.R3 }}
   </div>
 </template>
 
 <script>
 module.exports = {
-  props: ["value"]
+  props: ["value"],
 };
 </script>
 
