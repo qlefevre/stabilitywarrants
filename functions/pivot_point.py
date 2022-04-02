@@ -6,6 +6,7 @@ import json
 from datetime import datetime
 import csv
 import urllib.request
+import utils
 
 class OHLC:
 	def __init__(self,open, high, low, close):
@@ -65,6 +66,8 @@ print (urlLastMonth)
 urlCurrentMonth = 'https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(currentMonth)))+'&period2='+str(int(datetime.timestamp(currentMonth)))+'&interval=1mo&events=history'
 print (urlCurrentMonth)
 
+
+content = '['
 print('PP month')
 csvLastMonth, headers = urllib.request.urlretrieve(urlLastMonth)
 with open(csvLastMonth, newline='') as readcsvfile:
@@ -75,6 +78,7 @@ with open(csvLastMonth, newline='') as readcsvfile:
 		pivotPointLastMonth = PivotPoint(ohlcLastMonth,'Mensuel')
 		print(pivotPointLastMonth)
 		print(pivotPointLastMonth.json())
+		content += pivotPointLastMonth.json()+','
 
 print('PP 20 days')		
 csvCurrentMonth, headers = urllib.request.urlretrieve(urlCurrentMonth)
@@ -86,4 +90,10 @@ with open(csvCurrentMonth, newline='') as readcsvfile:
 		pivotPointLastMonth = PivotPoint(ohlcLastMonth,'20 jours')
 		print(pivotPointLastMonth)
 		print(pivotPointLastMonth.json())
+		content += pivotPointLastMonth.json()+']'
  
+print(content)
+pivotpoint_json = utils.createTempFile()
+with open(pivotpoint_json, 'w', encoding='utf8') as file_json:
+            file_json.write(content)
+utils.upload_file(pivotpoint_json, 'json/%Y/%m/pivotpoint-%Y-%m-%d.json')
