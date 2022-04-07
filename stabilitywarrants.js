@@ -36,7 +36,8 @@ new Vue({
                 { text: 'Cible', value: 'cible' },
                 { text: 'Ecart cible abs', value: 'ecartcibleabs' },
                 { text: 'Perf min %', value: 'perfmin' },
-                { text: 'Perf max %', value: 'perfmax' }
+                { text: 'Perf max %', value: 'perfmax' },
+                { text: 'Valeur Achat', value: 'achat' }
             ],
             portfolioHeaders: [
                 {
@@ -216,9 +217,8 @@ new Vue({
 
         // retrieve stability warrants
         var url = this.url(date);
-        var ppurl = url.replace('stabilitywarrants', 'pivotpoint');
-        console.log('pivot point url: ' + ppurl);
-        fetch(ppurl)
+        var ppUrl = url.replace('stabilitywarrants', 'pivotpoint');
+        fetch(ppUrl)
             .then(response => response.json())
             .then(data => {
                 this.pivotpoint = data

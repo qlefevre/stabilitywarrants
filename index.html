@@ -122,28 +122,36 @@
             <v-container>
               <v-row no-gutters>
                 <v-col>
+                  <h1 class="text-subtitle-1">
+                    <v-icon color="gray darken-2">mdi-clock-remove-outline</v-icon>&nbsp;Par Date
+                  </h1>
                   <v-chip-group label="Semaine" v-model="dates" class="day-links">
                     <v-chip link v-for="(date, index) in dates" :value="date" :key="index">
                       <a :href="'index.html'+index==0?'':'?date='+date.string">
-                        {{date.string}}</a>
+                        {{date.string}}
+                      </a>
                     </v-chip>
                   </v-chip-group>
-
-
-                  </br>
-                  <ul>
-                    <li> <a :href="'index.html?portfolio='+portfoliocodes(false)" style="word-wrap: break-word">
-                        index.html?portfolio={{portfoliocodes(false)}}</a>
-                    </li>
-                    <li> <a :href="'index.html?portfolio='+portfoliocodes(true)" style="word-wrap: break-word">
-                        index.html?portfolio={{portfoliocodes(true)}}</a>
-                    </li>
-                  </ul>
+                  <h1 class="text-subtitle-1">
+                    <v-icon color="gray darken-2">mdi-credit-card-clock</v-icon>&nbsp;Par date avec compte titres
+                  </h1>
+                  <v-chip-group label="Semaine" v-model="dates" class="day-links">
+                    <v-chip link v-for="(date, index) in dates" :value="date" :key="index">
+                      <a :href="'index.html?'+(index==0?'':'date='+date.string+'&')+'portfolio='+portfoliocodes(false)">
+                        {{date.string}}
+                      </a>
+                    </v-chip>
+                  </v-chip-group>
                 </v-col>
               </v-row>
               <v-row>
-                <v-textarea v-model="boursoPortfolio" label="Default style"></v-textarea>
-                <v-btn @click="extractPortfolioFromText">Importer les valeurs du compte titre</v-btn>
+                <v-col>
+                  <h1 class="text-subtitle-1">
+                    <v-icon color="gray darken-2">mdi-credit-card-refresh</v-icon>&nbsp;Import du compte titres
+                  </h1>
+                  <v-textarea v-model="boursoPortfolio" label="Default style"></v-textarea>
+                  <v-btn @click="extractPortfolioFromText">Importer les valeurs</v-btn>
+                </v-col>
               </v-row>
             </v-container>
           </v-tab-item>
