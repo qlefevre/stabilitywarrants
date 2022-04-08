@@ -65,18 +65,20 @@
           <v-tab-item fluid>
             <v-container>
               <v-row no-gutters>
+                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[0]"></pivot-point>
+              </v-row>
+              <v-row no-gutters>
+                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[1]"></pivot-point>
+              </v-row>
+              <v-row no-gutters>
                 <v-col>Total +/- latentes: <span
                     :style="getPvStyle(capitalGains.pvlatentes)">{{capitalGains.pvlatentes}}</span>
                 </v-col>
                 <v-col>Total +/- potentielles: <span
                     :style="getPvStyle(capitalGains.pvpotentielles)">{{capitalGains.pvpotentielles}}</span>
                 </v-col>
-              </v-row>
-              <v-row no-gutters>
-                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[0]"></pivot-point>
-              </v-row>
-              <v-row no-gutters>
-                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[1]"></pivot-point>
+                <v-col>Montant total: {{portfolioWarrantsTotalAmount}}</span>
+                </v-col>
               </v-row>
               <v-row no-gutters>
                 <v-col>
@@ -103,7 +105,11 @@
                       <th class="group-maturite-jours" colspan="2">
                         {{portfolioHeaders[5].text}}: {{ items[0].maturitejours }}
                       </th>
-                      <th :colspan="portfolioHeaders.length-6"></th>
+                      <th class="group-maturite-jours" colspan="3"
+                        v-html="'Montant: '+sumWarrants(items[0].maturitejours)">
+
+                      </th>
+                      <th :colspan="portfolioHeaders.length-9"></th>
                       <th class="group-maturite-jours"><span :style="getPvStyle(sumPvlatentes(items[0].maturitejours))">
                           {{sumPvlatentes(items[0].maturitejours)}}</span>
                       </th>
