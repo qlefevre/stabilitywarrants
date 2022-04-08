@@ -186,20 +186,33 @@ new Vue({
             console.log('portfolio=' + JSON.stringify(this.portfolio));
         },
         extractPortfolioFromText() {
+            var portfolio = null;
             // Est-ce une url portfolio=isin-qty-price ?
             var patterns = this.boursoPortfolio.match(/[0-9A-Z]{12}-[0-9]+-[0-9.]+/g);
             if (patterns != null) {
-                this.portfolio = patterns.map(pattern => {
+                portfolio = patterns.map(pattern => {
                     var tupleObj = new Object();
                     tupleObj.isin = pattern.substring(0, 12);
                     tupleObj.quantite = Number(pattern.substring(13).match(/[0-9]+/g)[0]);
                     tupleObj.prixrevient = Number(pattern.substring(pattern.lastIndexOf('-') + 1));
                     return tupleObj;
                 });
-            } else {
-                // Est-ce un copier coller en direct de bourso ?
-                var patterns = this.boursoPortfolio.match(/[0-9A-Z]{12}\s+[0-9]+\s+[0-9,]+/g);
-                this.portfolio = patterns.map(pattern => {
+            }
+            // Est-ce le contenu de l'export des positions en csv
+            var patterns = this.boursoPortfolio.match(/[0-9A-Z]{12};[0-9]+,[0-9]+;[0-9]+,[0-9]+/g);
+            if (portfolio == null && patterns != null) {
+                portfolio = patterns.map(pattern => {
+                    var tupleObj = new Object();
+                    tupleObj.isin = pattern.substring(0, 12);
+                    tupleObj.quantite = Number(pattern.substring(13, pattern.lastIndexOf(';')).replace(',', '.'));
+                    tupleObj.prixrevient = Number(pattern.substring(pattern.lastIndexOf(';') + 1).replace(',', '.'));
+                    return tupleObj;
+                });
+            }
+            // Est-ce un copier coller en direct de bourso ?
+            var patterns = this.boursoPortfolio.match(/[0-9A-Z]{12}\s+[0-9]+\s+[0-9,]+/g);
+            if (portfolio == null && patterns != null) {
+                portfolio = patterns.map(pattern => {
                     var tupleObj = new Object();
                     tupleObj.isin = pattern.substring(0, 12);
                     tupleObj.quantite = Number(pattern.substring(12).trimStart().match(/[0-9]+/g)[0]);
@@ -207,6 +220,7 @@ new Vue({
                     return tupleObj;
                 });
             }
+            this.portfolio = portfolio;
             console.log('portfolio=' + JSON.stringify(this.portfolio));
         },
         sumPvlatentes(maturitejours) {
