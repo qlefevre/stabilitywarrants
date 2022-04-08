@@ -38,10 +38,10 @@
                 <issuer-filter v-model="filterissuers" :warrants="warrants"></issuer-filter>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-model="pivotpoint[0]"></pivot-point>
+                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[0]"></pivot-point>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-model="pivotpoint[1]"></pivot-point>
+                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[1]"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <v-col>
@@ -73,10 +73,10 @@
                 </v-col>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-model="pivotpoint[0]"></pivot-point>
+                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[0]"></pivot-point>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-model="pivotpoint[1]"></pivot-point>
+                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[1]"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <v-col>
@@ -149,8 +149,11 @@
                   <h1 class="text-subtitle-1">
                     <v-icon color="gray darken-2">mdi-credit-card-refresh</v-icon>&nbsp;Import du compte titres
                   </h1>
-                  <v-textarea v-model="boursoPortfolio" label="Default style"></v-textarea>
+                  <v-textarea v-model="boursoPortfolio" label="Texte copier/coller"></v-textarea>
                   <v-btn @click="extractPortfolioFromText">Importer les valeurs</v-btn>
+                  <v-file-input hide-input accept=".csv,.txt" label="Export des positions au format csv"
+                    v-model="chosenFile" @change="loadPortfolio" style="display: inline-block;">
+                  </v-file-input>
                 </v-col>
               </v-row>
             </v-container>

@@ -64,7 +64,8 @@ new Vue({
             warrants: [],
             portfolio: [],
             boursoPortfolio: '',
-            pivotpoint: { "S3": 5601.19, "S2": 6017.04, "S1": 6337.93, "P": 6753.78, "R1": 7074.67, "R2": 7490.52, "R3": 7811.41 }
+            pivotpoint: [],
+            chosenFile: []
         }
     },
     computed: {
@@ -222,6 +223,14 @@ new Vue({
             }
             this.portfolio = portfolio;
             console.log('portfolio=' + JSON.stringify(this.portfolio));
+        },
+        loadPortfolio() {
+            // Charge le contenu du fichier dans la zone de texte
+            var fr = new FileReader();
+            fr.onload = (event) => {
+                this.boursoPortfolio = event.target.result;
+            }
+            fr.readAsText(this.chosenFile);
         },
         sumPvlatentes(maturitejours) {
             return this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)
