@@ -4,6 +4,7 @@
  
 import json
 from datetime import datetime
+from datetime import timedelta
 import csv
 import urllib.request
 import utils
@@ -59,11 +60,14 @@ now = datetime.now()
 previousMonthIdx = (now.month+11)%12
 previousMonth = datetime(now.year,previousMonthIdx,1)
 currentMonth = datetime(now.year,now.month,1)
+to30days = datetime(now.year,now.month,now.day)
+from30days = to30days - timedelta(30)
+
 # mois précédent 
 urlLastMonth = 'https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(previousMonth)))+'&period2='+str(int(datetime.timestamp(currentMonth)-86400))+'&interval=1mo&events=history'
 print (urlLastMonth)
 # mois courant 
-urlCurrentMonth = 'https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(currentMonth)))+'&period2='+str(int(datetime.timestamp(currentMonth)))+'&interval=1mo&events=history'
+urlCurrentMonth = 'https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(from30days)))+'&period2='+str(int(datetime.timestamp(to30days)))+'&interval=1wk&events=history'
 print (urlCurrentMonth)
 
 

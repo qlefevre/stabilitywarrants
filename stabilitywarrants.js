@@ -263,7 +263,8 @@ new Vue({
         // portfolio
         this.extractPortfolioFromUrl(urlParams.get('portfolio'));
 
-        // retrieve stability warrants
+        // télécharge les stability warrants /json/2022/04/stabilitywarrants-2022-04-12.json
+        // télécharge les points pivots /json/2022/04/pivotpoint-2022-04-12.json
         var url = this.url(date);
         var ppUrl = url.replace('stabilitywarrants', 'pivotpoint');
         fetch(ppUrl)
@@ -280,5 +281,15 @@ new Vue({
                 this.filtermaturity = [Number(strmat.substring(strmat.indexOf('/') + 1, strmat.lastIndexOf('/')))];
                 console.log('filtermaturity ' + this.filtermaturity)
             });
+        // stockage local du portefeuille
+        if (localStorage.portfolio) {
+            this.portfolio = JSON.parse(localStorage.portfolio);
+        }
+    },
+    watch: {
+        // stockage local du portefeuille
+        portfolio(newPortfolio) {
+            localStorage.portfolio = JSON.stringify(newPortfolio);
+        }
     }
 });
