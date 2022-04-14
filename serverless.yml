@@ -18,46 +18,47 @@ functions:
     maxScale: 1
     memorySize: 128
     description: Télécharge les stability warrants de la Société Générale
-    events:
-      - schedule:
-          rate: "10 0 * * *"
   extract-uc:
     handler: functions/extract_uc.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
     description: Télécharge les stability warrants d'Unicredit
-    events:
-      - schedule:
-          rate: "10 0 * * *"
   merge:
     handler: functions/merge.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
     description: Fusionne les fichiers CSV
-    events:
-      - schedule:
-          rate: "12 0 * * *"
   transform:
     handler: functions/transform.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
     description: Transforme le fichier CSV
-    events:
-      - schedule:
-          rate: "13 0 * * *"
   csv-to-json:
     handler: functions/csv_to_json.handle
     minScale: 0
     maxScale: 1
     memorySize: 128
     description: Transforme le fichier CSV en JSON
+  run-all-functions:
+    handler: functions/run_all_functions.handle
+    minScale: 0
+    maxScale: 1
+    memorySize: 128
+    description: Exécute toutes les fonctions de la chaîne
     events:
       - schedule:
-          rate: "14 0 * * *"
-          extract-sg:
+          rate: "10 0 * * *"
+      - schedule:
+          rate: "10 8 * * *"
+      - schedule:
+          rate: "0 12 * * *"
+      - schedule:
+          rate: "30 17 * * *"
+      - schedule:
+          rate: "0 22 * * *"
   pivot-point:
     handler: functions/pivot_point.handle
     minScale: 0
