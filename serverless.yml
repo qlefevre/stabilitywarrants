@@ -50,15 +50,15 @@ functions:
     description: Exécute toutes les fonctions de la chaîne
     events:
       - schedule:
-          rate: "10 0 * * *"
+          rate: "10 2 * * *"
       - schedule:
-          rate: "10 8 * * *"
+          rate: "10 10 * * *"
       - schedule:
-          rate: "0 12 * * *"
+          rate: "0 14 * * *"
       - schedule:
-          rate: "30 17 * * *"
+          rate: "30 19 * * *"
       - schedule:
-          rate: "0 22 * * *"
+          rate: "0 0 * * *"
   pivot-point:
     handler: functions/pivot_point.handle
     minScale: 0
