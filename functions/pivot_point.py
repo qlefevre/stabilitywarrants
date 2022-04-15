@@ -52,9 +52,17 @@ def extractOhlc(values):
 	low = round(min(map(lambda val: val['price'],values)))
 	open = round(values[0]['price'])
 	close =round( values[-1]['price'])
-	ohlc = OHLC(open,high,low,close)
-	return ohlc
- 
+	return OHLC(open,high,low,close)
+
+def twentyDaysOhlc(pohlcs:list[OHLC]):
+	ohlcs = pohlcs[-4:]
+	open = ohlcs[0].open
+	close = ohlcs[3].close
+	low = min(map(lambda ohlc: ohlc.low,ohlcs))
+	high = max(map(lambda ohlc: ohlc.high,ohlcs))
+	return OHLC(open,high,low,close)
+
+
 
 now = datetime.now()
 previousMonthIdx = (now.month+11)%12
@@ -81,21 +89,30 @@ with open(csvLastMonth, newline='') as readcsvfile:
 		print(ohlcLastMonth)
 		pivotPointLastMonth = PivotPoint(ohlcLastMonth,'Mensuel')
 		print(pivotPointLastMonth)
-		print(pivotPointLastMonth.json())
+		#print(pivotPointLastMonth.json())
 		content += pivotPointLastMonth.json()+','
 
-print('PP 20 days')		
+print('PP 20 days')
+ohlcs20days = []
 csvCurrentMonth, headers = urllib.request.urlretrieve(urlCurrentMonth)
 with open(csvCurrentMonth, newline='') as readcsvfile:
 	reader = csv.DictReader(readcsvfile, delimiter=',')
 	for row in reader:
-		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
-		print(ohlcLastMonth)
-		pivotPointLastMonth = PivotPoint(ohlcLastMonth,'20 jours')
-		print(pivotPointLastMonth)
-		print(pivotPointLastMonth.json())
-		content += pivotPointLastMonth.json()+']'
+		if(row['Volume'] != '0'):
+			ohlc20day = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
+			#print(ohlc20days)
+			ohlcs20days.append(ohlc20day)
+# lignes trouvées
+print(ohlcs20days)
+# transforme les 4 semaines en 1 mois 
+ohlc20daysComputed = twentyDaysOhlc(ohlcs20days)
+print(ohlc20daysComputed)
+pivotPoint20days = PivotPoint(ohlc20daysComputed,'20 jours')
+print(pivotPoint20days)
+#print(pivotPoint20days.json())
+content += pivotPoint20days.json()+']'
  
+print('json')
 print(content)
 pivotpoint_json = utils.createTempFile()
 with open(pivotpoint_json, 'w', encoding='utf8') as file_json:
