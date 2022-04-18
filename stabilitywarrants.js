@@ -282,7 +282,7 @@ new Vue({
                 console.log('filtermaturity ' + this.filtermaturity)
             });
         // stockage local du portefeuille
-        if (localStorage.portfolio) {
+        if (!this.portfolio.length && localStorage.portfolio) {
             this.portfolio = JSON.parse(localStorage.portfolio);
         }
     },
