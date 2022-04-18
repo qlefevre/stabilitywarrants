@@ -92,6 +92,9 @@
                       <a :href="bourso(item)" target="_blank">{{item.isin.substring(0,6)}}<br
                           class="hidden-lg-and-up">{{item.isin.substring(6)}}</a>
                     </template>
+                    <template v-slot:item.bornes="{item}">
+                      {{item.bornebasse}} {{item.bornehaute}}
+                    </template>
                     <template v-slot:item.perfmin="{item}">
                       <span :style="getPerfStyle(item.perfmin)">{{item.perfmin}}</span>
                     </template>
@@ -106,10 +109,16 @@
                     </template>
                     <template v-slot:group.header="{items, isOpen, toggle}">
                       <th class="group-maturite-jours" colspan="4">
-                        {{portfolioHeaders[5].text}}: {{ items[0].maturitejours }}
-                        <br>Montant: {{sumWarrants(items[0].maturitejours)}}
+                        <span class="hidden-lg-and-up">{{portfolioHeaders[5].text}}: {{ items[0].maturitejours }} jours
+                          <br></span>Montant: {{sumWarrants(items[0].maturitejours)}}
                       </th>
-                      <th :colspan="portfolioHeaders.length-10"></th>
+                      <th class="group-maturite-jours hidden-md-and-down">
+                        {{ items[0].maturitejours }} jours
+                      </th>
+                      <th :colspan="portfolioHeaders.length-13"></th>
+                      <!-- bornes -->
+                      <!--<th class="hidden-md-and-down" colspan="2"></th>-->
+                      <th colspan="1"></th>
                       <th class="hidden-md-and-down" colspan="2"></th>
                       <th class="group-maturite-jours"><span :style="getPvStyle(sumPvlatentes(items[0].maturitejours))">
                           {{sumPvlatentes(items[0].maturitejours)}}</span>
