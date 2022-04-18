@@ -36,11 +36,16 @@ module.exports = {
 }
 .pivotpoint div.libelle {
   text-align: right;
-  width: 90px;
+  width: 78px;
 }
 .pivotpoint div {
   padding: 0px 5px 0px 12px;
   display: inline-block;
+}
+@media (max-width: 960px) {
+  .pivotpoint div {
+    padding: 0px 2px 0px 4px;
+  }
 }
 .pivotpoint {
   margin: 0 auto;

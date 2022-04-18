@@ -47,9 +47,11 @@
                 <v-col>
                   <v-data-table :headers="headers" :items="filteredWarrants"
                     :sort-by="['sous-jacent', 'plage','ecartcibleabs']" :sort-desc="[false, true, false]"
-                    :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense class="elevation-1">
+                    :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense class="elevation-1"
+                    mobile-breakpoint="100">
                     <template v-slot:item.isin="{item}">
-                      <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
+                      <a :href="bourso(item)" target="_blank">{{item.isin.substring(0,6)}}<br
+                          class="hidden-lg-and-up">{{item.isin.substring(6)}}</a>
                     </template>
                     <template v-slot:item.perfmin="{item}">
                       <span :style="getPerfStyle(item.perfmin)">{{item.perfmin}}</span>
@@ -85,9 +87,10 @@
                   <v-data-table :headers="portfolioHeaders" :items="portfolioWarrants"
                     :sort-by="['maturitejours','sous-jacent','plage']" :sort-desc="[false,false, true, false]"
                     :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense group-by="maturitejours"
-                    class="elevation-1">
+                    class="elevation-1" mobile-breakpoint="100">
                     <template v-slot:item.isin="{item}">
-                      <a :href="bourso(item)" target="_blank">{{item.isin}}</a>
+                      <a :href="bourso(item)" target="_blank">{{item.isin.substring(0,6)}}<br
+                          class="hidden-lg-and-up">{{item.isin.substring(6)}}</a>
                     </template>
                     <template v-slot:item.perfmin="{item}">
                       <span :style="getPerfStyle(item.perfmin)">{{item.perfmin}}</span>
@@ -102,19 +105,17 @@
                       <span :style="getPvStyle(item.pvpotentielles)">{{item.pvpotentielles}}</span>
                     </template>
                     <template v-slot:group.header="{items, isOpen, toggle}">
-                      <th class="group-maturite-jours" colspan="2">
+                      <th class="group-maturite-jours" colspan="4">
                         {{portfolioHeaders[5].text}}: {{ items[0].maturitejours }}
+                        <br>Montant: {{sumWarrants(items[0].maturitejours)}}
                       </th>
-                      <th class="group-maturite-jours" colspan="3"
-                        v-html="'Montant: '+sumWarrants(items[0].maturitejours)">
-
-                      </th>
-                      <th :colspan="portfolioHeaders.length-9"></th>
+                      <th :colspan="portfolioHeaders.length-10"></th>
+                      <th class="hidden-md-and-down" colspan="2"></th>
                       <th class="group-maturite-jours"><span :style="getPvStyle(sumPvlatentes(items[0].maturitejours))">
                           {{sumPvlatentes(items[0].maturitejours)}}</span>
                       </th>
-                      <th></th>
-                      <th class="group-maturite-jours"><span
+                      <th class="hidden-md-and-down"></th>
+                      <th class="group-maturite-jours hidden-md-and-down"><span
                           :style="getPvStyle(sumPvpotentielles(items[0].maturitejours))">
                           {{sumPvpotentielles(items[0].maturitejours)}}</span>
                       </th>

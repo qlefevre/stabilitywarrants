@@ -31,10 +31,10 @@ new Vue({
                 { text: 'Borne basse', value: 'bornebasse' },
                 { text: 'Borne haute', value: 'bornehaute' },
                 { text: 'Maturité', value: 'maturite' },
-                { text: 'Maturité jours', value: 'maturitejours' },
-                { text: 'Plage', value: 'plage' },
-                { text: 'Cible', value: 'cible' },
-                { text: 'Ecart cible abs', value: 'ecartcibleabs' },
+                { text: 'Maturité jours', value: 'maturitejours', align: ' hidden-md-and-down' },
+                { text: 'Plage', value: 'plage', align: ' hidden-md-and-down' },
+                { text: 'Cible', value: 'cible', align: ' hidden-md-and-down' },
+                { text: 'Ecart cible abs', value: 'ecartcibleabs', align: ' hidden-md-and-down' },
                 { text: 'Perf min %', value: 'perfmin' },
                 { text: 'Perf max %', value: 'perfmax' },
                 { text: 'Valeur Achat', value: 'achat' }
@@ -49,17 +49,17 @@ new Vue({
                 { text: 'Sous-jacent', value: 'sous-jacent' },
                 { text: 'Borne basse', value: 'bornebasse' },
                 { text: 'Borne haute', value: 'bornehaute' },
-                { text: 'Maturité', value: 'maturite' },
+                { text: 'Maturité', value: 'maturite', align: ' hidden-md-and-down' },
                 { text: 'Maturité jours', value: 'maturitejours' },
-                { text: 'Plage', value: 'plage' },
+                { text: 'Plage', value: 'plage', align: ' hidden-md-and-down' },
                 { text: 'Perf min %', value: 'perfmin' },
                 { text: 'Perf max %', value: 'perfmax' },
                 { text: 'Quantité', value: 'quantite' },
                 { text: 'Prix de revient', value: 'prixrevient' },
                 { text: 'Valeur Achat', value: 'achat' },
                 { text: '+/- latentes', value: 'pvlatentes' },
-                { text: '+/- potentielles %', value: '+/-potentielles' },
-                { text: '+/- potentielles', value: 'pvpotentielles' },
+                { text: '+/- potentielles %', value: '+/-potentielles', align: ' hidden-md-and-down' },
+                { text: '+/- potentielles', value: 'pvpotentielles', align: ' hidden-md-and-down' },
             ],
             warrants: [],
             portfolio: [],
@@ -251,8 +251,8 @@ new Vue({
                 .map(warrant => warrant.quantite * warrant.prixrevient)
                 .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(2);
             var totalAmount = this.portfolioWarrantsTotalAmount;
-            return sumWarrants.toString().padStart(8, ' ').replaceAll(' ', '&nbsp;') + ' ('
-                + (sumWarrants / totalAmount * 100).toFixed(2) + '%)';
+            // return sumWarrants.toString().padStart(8, ' ').replaceAll(' ', '&nbsp;') + 
+            return sumWarrants + ' (' + (sumWarrants / totalAmount * 100).toFixed(2) + '%)';
         }
     },
     mounted() {
