@@ -34,11 +34,11 @@ module.exports = {
         var filterissuers = this.value.filter(
           (issuer) => !this.disabledIssuer(issuer)
         );
-        console.log("get " + filterissuers);
+        //console.log("get " + filterissuers);
         return filterissuers;
       },
       set(val) {
-        console.log("set " + val);
+        //console.log("set " + val);
         this.$emit("input", val);
       },
     },

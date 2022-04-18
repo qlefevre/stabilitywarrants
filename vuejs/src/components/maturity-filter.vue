@@ -45,25 +45,23 @@ module.exports = {
         /*var mFM = this.monthsFromMaturities();
         var filtermaturity0 = mFM.includes(this.value) ? this.value : mFM[0];*/
         var filtermaturity0 = this.value;
-        console.log(
-          "maturity->get: " + filtermaturity0 + " (" + this.value + ")"
-        );
+        //console.log("maturity->get: " + filtermaturity0 + " (" + this.value + ")");
         return filtermaturity0;
       },
       set(val) {
-        console.log("maturity->set: " + val);
+        //console.log("maturity->set: " + val);
         this.$emit("input", val);
       },
     },
     monthsFromMaturities() {
-      console.log(this.warrants.map((sw) => sw["maturite"]));
+      //console.log(this.warrants.map((sw) => sw["maturite"]));
       var maturities = this.warrants
         .map((sw) => sw["maturite"])
         .map((str) => str.substring(str.indexOf("/") + 1, str.lastIndexOf("/")))
         .map((str) => Number(str));
       maturities = Array.from(new Set(maturities));
       maturities.sort();
-      console.log("maturites " + maturities);
+      //console.log("maturites " + maturities);
       return maturities;
     },
   },

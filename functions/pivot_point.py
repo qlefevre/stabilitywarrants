@@ -98,7 +98,7 @@ csvCurrentMonth, headers = urllib.request.urlretrieve(urlCurrentMonth)
 with open(csvCurrentMonth, newline='') as readcsvfile:
 	reader = csv.DictReader(readcsvfile, delimiter=',')
 	for row in reader:
-		if(row['Volume'] != '0'):
+		if(row['Volume'] != '0' and row['Volume'] != 'null'):
 			ohlc20day = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
 			#print(ohlc20days)
 			ohlcs20days.append(ohlc20day)
