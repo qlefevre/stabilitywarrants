@@ -138,6 +138,9 @@ new Vue({
         portfolioWarrantsTotalAmount() {
             return this.portfolioWarrants.map(warrant => warrant.quantite * warrant.prixrevient)
                 .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(2);
+        },
+        ppArray(){
+            return this.pivotpoint[this.filtersousjacent];
         }
     },
     methods: {

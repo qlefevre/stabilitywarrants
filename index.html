@@ -38,10 +38,10 @@
                 <issuer-filter v-model="filterissuers" :warrants="warrants"></issuer-filter>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[0]"></pivot-point>
+                <pivot-point v-if="ppArray.length > 0" v-model="ppArray[0]"></pivot-point>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[1]"></pivot-point>
+                <pivot-point v-if="ppArray.length > 0" v-model="ppArray[1]"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <v-col>
@@ -67,10 +67,16 @@
           <v-tab-item key="portfolio">
             <v-container fluid>
               <v-row no-gutters>
-                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[0]"></pivot-point>
+                <pivot-point v-if="pivotpoint['CAC 40'].length > 0" v-model="pivotpoint['CAC 40'][0]"></pivot-point>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-if="pivotpoint.length > 0" v-model="pivotpoint[1]"></pivot-point>
+                <pivot-point v-if="pivotpoint['CAC 40'].length > 0" v-model="pivotpoint['CAC 40'][1]"></pivot-point>
+              </v-row>
+              <v-row no-gutters>
+                <pivot-point v-if="pivotpoint['DAX'].length > 0" v-model="pivotpoint['DAX'][0]"></pivot-point>
+              </v-row>
+              <v-row no-gutters>
+                <pivot-point v-if="pivotpoint['DAX'].length > 0" v-model="pivotpoint['DAX'][1]"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <v-col>Total +/- latentes: <span

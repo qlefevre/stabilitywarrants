@@ -64,7 +64,7 @@ def twentyDaysOhlc(pohlcs:list[OHLC]):
 	return OHLC(open,high,low,close)
 
 def pivotPoint(name,symbol):
-	content = ''
+	content = '"'+name+'":['
 	# calcul des dates
 	now = datetime.now()
 	previousMonthIdx = (now.month+11)%12
@@ -76,10 +76,10 @@ def pivotPoint(name,symbol):
 	print('PP '+name)
 
 	# mois précédent 
-	urlLastMonth = '  https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(previousMonth)))+'&period2='+str(int(datetime.timestamp(currentMonth)-86400))+'&interval=1mo&events=history'
+	urlLastMonth = '  https://query1.finance.yahoo.com/v7/finance/download/%5E'+symbol+'?period1='+str(int(datetime.timestamp(previousMonth)))+'&period2='+str(int(datetime.timestamp(currentMonth)-86400))+'&interval=1mo&events=history'
 	print (urlLastMonth)
 	# mois courant 
-	urlCurrentMonth = '  https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(from30days)))+'&period2='+str(int(datetime.timestamp(to30days)))+'&interval=1wk&events=history'
+	urlCurrentMonth = '  https://query1.finance.yahoo.com/v7/finance/download/%5E'+symbol+'?period1='+str(int(datetime.timestamp(from30days)))+'&period2='+str(int(datetime.timestamp(to30days)))+'&interval=1wk&events=history'
 	print (urlCurrentMonth)
 
 	print('PP month')
@@ -109,10 +109,10 @@ def pivotPoint(name,symbol):
 	print('  '+str(ohlc20daysComputed))
 	pivotPoint20days = PivotPoint(ohlc20daysComputed,name,'20 jours')
 	print('  '+str(pivotPoint20days))
-	content += pivotPoint20days.json()
+	content += pivotPoint20days.json()+']'
 	return content
 
-content = '['+pivotPoint('CAC 40','FCHI')+','+pivotPoint('DAX','GDAXI')+']'
+content = '{'+pivotPoint('CAC 40','FCHI')+','+pivotPoint('DAX','GDAXI')+'}'
 print('json')
 print(content)
 pivotpoint_json = utils.createTempFile()
