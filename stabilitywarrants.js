@@ -237,14 +237,9 @@ new Vue({
             }
             fr.readAsText(this.chosenFile);
         },
-        sumPvlatentes(maturitejours) {
+        sumCol(maturitejours,applyfunction) {
             return this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)
-                .map(warrant => warrant.pvlatentes)
-                .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(2);
-        },
-        sumPvpotentielles(maturitejours) {
-            return this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)
-                .map(warrant => warrant.pvpotentielles)
+                .map(applyfunction)
                 .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(2);
         },
         sumWarrants(maturitejours) {
