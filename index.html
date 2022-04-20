@@ -119,17 +119,17 @@
                       <!-- bornes -->
                       <th class="hidden-md-and-down" colspan="2"></th>
                       <th class="group-maturite-jours">
-                        {{sumCol(items[0].maturitejours,warrant => warrant.quantite)}}
+                        {{sumCol(items[0].maturitejours,warrant => warrant.quantite,0)}}
                       </th>
                       <th colspan="2"></th>
                       <th class="group-maturite-jours"><span
-                          :style="getPvStyle(sumCol(items[0].maturitejours,warrant => warrant.pvlatentes))">
-                          {{sumCol(items[0].maturitejours,warrant => warrant.pvlatentes)}}</span>
+                          :style="getPvStyle(sumCol(items[0].maturitejours,warrant => warrant.pvlatentes,2))">
+                          {{sumCol(items[0].maturitejours,warrant => warrant.pvlatentes,2)}}</span>
                       </th>
                       <th class="hidden-md-and-down"></th>
                       <th class="group-maturite-jours hidden-md-and-down"><span
-                          :style="getPvStyle(sumCol(items[0].maturitejours,warrant => warrant.pvpotentielles))">
-                          {{sumCol(items[0].maturitejours,warrant => warrant.pvpotentielles)}}</span>
+                          :style="getPvStyle(sumCol(items[0].maturitejours,warrant => warrant.pvpotentielles,2))">
+                          {{sumCol(items[0].maturitejours,warrant => warrant.pvpotentielles,2)}}</span>
                       </th>
                     </template>
                   </v-data-table>

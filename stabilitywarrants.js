@@ -237,10 +237,10 @@ new Vue({
             }
             fr.readAsText(this.chosenFile);
         },
-        sumCol(maturitejours,applyfunction) {
+        sumCol(maturitejours,applyfunction,fixed) {
             return this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)
                 .map(applyfunction)
-                .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(2);
+                .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(fixed);
         },
         sumWarrants(maturitejours) {
             var sumWarrants = this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)
