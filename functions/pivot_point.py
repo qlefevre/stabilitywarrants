@@ -19,8 +19,9 @@ class OHLC:
 		return 'OHLC '+str(self.open)+' '+str(self.high)+' '+str(self.low)+' '+str(self.close)
 
 class PivotPoint:
-	def __init__(self,ohlc,name):
+	def __init__(self,ohlc,name,period):
 		self.ohlc = ohlc
+		self.period = period
 		self.name = name
 		o,l,h,c = ohlc.open,ohlc.low, ohlc.high, ohlc.close
 		self.p = round(( h + l + c) / 3)
@@ -41,7 +42,7 @@ class PivotPoint:
 	def __repr__(self):
 		return 'Pivot Point s3 '+str(self.s3())+' s2 '+str(self.s2())+' s1 '+str(self.s1())+' p '+str(self.p)+' r1 '+str(self.r1())+' r2 '+str(self.r2())+' r3 '+ str(self.r3())
 	def json(self):
-		return '{"period":"'+self.name+'", "pivotpoint" : { "S3": '+str(self.s3())+', "S2": '+str(self.s2())+', "S1": '+str(self.s1())+', "P": '+str(self.p)+', "R1": '+str(self.r1())+', "R2": '+str(self.r2())+', "R3": '+str(self.r3())+' }}'
+		return '{"period":"'+self.period+'", "name":"'+self.name+'", "pivotpoint" : { "S3": '+str(self.s3())+', "S2": '+str(self.s2())+', "S1": '+str(self.s1())+', "P": '+str(self.p)+', "R1": '+str(self.r1())+', "R2": '+str(self.r2())+', "R3": '+str(self.r3())+' }}'
 
 def extractOhlc(values):
 	#for x in range(len(values)):
@@ -62,56 +63,56 @@ def twentyDaysOhlc(pohlcs:list[OHLC]):
 	high = max(map(lambda ohlc: ohlc.high,ohlcs))
 	return OHLC(open,high,low,close)
 
+def pivotPoint(name,symbol):
+	content = ''
+	# calcul des dates
+	now = datetime.now()
+	previousMonthIdx = (now.month+11)%12
+	previousMonth = datetime(now.year,previousMonthIdx,1)
+	currentMonth = datetime(now.year,now.month,1)
+	to30days = datetime(now.year,now.month,now.day)
+	from30days = to30days - timedelta(30)
 
+	print('PP '+name)
 
-now = datetime.now()
-previousMonthIdx = (now.month+11)%12
-previousMonth = datetime(now.year,previousMonthIdx,1)
-currentMonth = datetime(now.year,now.month,1)
-to30days = datetime(now.year,now.month,now.day)
-from30days = to30days - timedelta(30)
+	# mois précédent 
+	urlLastMonth = '  https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(previousMonth)))+'&period2='+str(int(datetime.timestamp(currentMonth)-86400))+'&interval=1mo&events=history'
+	print (urlLastMonth)
+	# mois courant 
+	urlCurrentMonth = '  https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(from30days)))+'&period2='+str(int(datetime.timestamp(to30days)))+'&interval=1wk&events=history'
+	print (urlCurrentMonth)
 
-# mois précédent 
-urlLastMonth = 'https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(previousMonth)))+'&period2='+str(int(datetime.timestamp(currentMonth)-86400))+'&interval=1mo&events=history'
-print (urlLastMonth)
-# mois courant 
-urlCurrentMonth = 'https://query1.finance.yahoo.com/v7/finance/download/%5EFCHI?period1='+str(int(datetime.timestamp(from30days)))+'&period2='+str(int(datetime.timestamp(to30days)))+'&interval=1wk&events=history'
-print (urlCurrentMonth)
+	print('PP month')
+	csvLastMonth, headers = urllib.request.urlretrieve(urlLastMonth)
+	with open(csvLastMonth, newline='') as readcsvfile:
+		reader = csv.DictReader(readcsvfile, delimiter=',')
+		for row in reader:
+			ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
+			print('  '+str(ohlcLastMonth))
+			pivotPointLastMonth = PivotPoint(ohlcLastMonth,name,'Mensuel')
+			print('  '+str(pivotPointLastMonth))
+			content += pivotPointLastMonth.json()+','
 
+	print('PP 20 days')
+	ohlcs20days = []
+	csvCurrentMonth, headers = urllib.request.urlretrieve(urlCurrentMonth)
+	with open(csvCurrentMonth, newline='') as readcsvfile:
+		reader = csv.DictReader(readcsvfile, delimiter=',')
+		for row in reader:
+			if(row['Volume'] != '0' and row['Volume'] != 'null'):
+				ohlc20day = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
+				ohlcs20days.append(ohlc20day)
+	# lignes trouvées
+	print('  '+str(ohlcs20days))
+	# transforme les 4 semaines en 1 mois 
+	ohlc20daysComputed = twentyDaysOhlc(ohlcs20days)
+	print('  '+str(ohlc20daysComputed))
+	pivotPoint20days = PivotPoint(ohlc20daysComputed,name,'20 jours')
+	print('  '+str(pivotPoint20days))
+	content += pivotPoint20days.json()
+	return content
 
-content = '['
-print('PP month')
-csvLastMonth, headers = urllib.request.urlretrieve(urlLastMonth)
-with open(csvLastMonth, newline='') as readcsvfile:
-	reader = csv.DictReader(readcsvfile, delimiter=',')
-	for row in reader:
-		ohlcLastMonth = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
-		print(ohlcLastMonth)
-		pivotPointLastMonth = PivotPoint(ohlcLastMonth,'Mensuel')
-		print(pivotPointLastMonth)
-		#print(pivotPointLastMonth.json())
-		content += pivotPointLastMonth.json()+','
-
-print('PP 20 days')
-ohlcs20days = []
-csvCurrentMonth, headers = urllib.request.urlretrieve(urlCurrentMonth)
-with open(csvCurrentMonth, newline='') as readcsvfile:
-	reader = csv.DictReader(readcsvfile, delimiter=',')
-	for row in reader:
-		if(row['Volume'] != '0' and row['Volume'] != 'null'):
-			ohlc20day = OHLC(round(float(row['Open']),2),round(float(row['High']),2),round(float(row['Low']),2),round(float(row['Close']),2))
-			#print(ohlc20days)
-			ohlcs20days.append(ohlc20day)
-# lignes trouvées
-print(ohlcs20days)
-# transforme les 4 semaines en 1 mois 
-ohlc20daysComputed = twentyDaysOhlc(ohlcs20days)
-print(ohlc20daysComputed)
-pivotPoint20days = PivotPoint(ohlc20daysComputed,'20 jours')
-print(pivotPoint20days)
-#print(pivotPoint20days.json())
-content += pivotPoint20days.json()+']'
- 
+content = '['+pivotPoint('CAC 40','FCHI')+','+pivotPoint('DAX','GDAXI')+']'
 print('json')
 print(content)
 pivotpoint_json = utils.createTempFile()
