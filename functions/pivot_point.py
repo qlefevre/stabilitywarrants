@@ -112,10 +112,17 @@ def pivotPoint(name,symbol):
 	content += pivotPoint20days.json()+']'
 	return content
 
-content = '{'+pivotPoint('CAC 40','FCHI')+','+pivotPoint('DAX','GDAXI')+'}'
-print('json')
-print(content)
-pivotpoint_json = utils.createTempFile()
-with open(pivotpoint_json, 'w', encoding='utf8') as file_json:
-            file_json.write(content)
-utils.upload_file(pivotpoint_json, 'json/%Y/%m/pivotpoint-%Y-%m-%d.json')
+def handle(event, context):
+	"""
+	   Calcule les points pivots en mensuel et sur 4 semaines glissantes
+	"""
+	content = '{'+pivotPoint('CAC 40','FCHI')+','+pivotPoint('DAX','GDAXI')+'}'
+	print('json')
+	print(content)
+	pivotpoint_json = utils.createTempFile()
+	with open(pivotpoint_json, 'w', encoding='utf8') as file_json:
+		file_json.write(content)
+	utils.upload_file(pivotpoint_json, 'json/%Y/%m/pivotpoint-%Y-%m-%d.json')
+
+if __name__ == '__main__':
+    handle(None, None)
