@@ -139,8 +139,12 @@ new Vue({
             return this.portfolioWarrants.map(warrant => warrant.quantite * warrant.prixrevient)
                 .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(2);
         },
-        ppArray(){
-            return this.pivotpoint[this.filtersousjacent];
+        ppArray() {
+            array = this.pivotpoint[this.filtersousjacent];
+            if (array === undefined) {
+                array = [];
+            }
+            return array;
         }
     },
     methods: {
@@ -240,7 +244,7 @@ new Vue({
             }
             fr.readAsText(this.chosenFile);
         },
-        sumCol(maturitejours,applyfunction,fixed) {
+        sumCol(maturitejours, applyfunction, fixed) {
             return this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)
                 .map(applyfunction)
                 .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(fixed);
