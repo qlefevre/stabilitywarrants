@@ -64,16 +64,20 @@ def handle(event, context):
             file_csv.write(data)
         datacsv = data[data.find('ISIN'):]
         with open(stabilitywarrants_cf_csv, 'w') as file_csv:
-            file_csv.write('issuer;isin;sous-jacent;borne basse;borne haute;maturite;achat;vente;prix sous-jacent\n')
-            reader = csv.DictReader(io.StringIO(datacsv, newline='\r'), delimiter=';')
+            file_csv.write(
+                'issuer;mnemo;isin;sous-jacent;borne basse;borne haute;maturite;achat;vente;prix sous-jacent\n')
+            reader = csv.DictReader(io.StringIO(
+                datacsv, newline='\r'), delimiter=';')
             for row in reader:
                 file_csv.write(transformRow(row))
-    utils.upload_file(stabilitywarrants_uc_csv, 'raw/uc/csv/%Y/%m/stabilitywarrants-raw-uc-%Y-%m-%d.csv')
-    utils.upload_file(stabilitywarrants_cf_csv, 'sw/uc/%Y/%m/stabilitywarrants-uc-%Y-%m-%d.csv')
+    utils.upload_file(stabilitywarrants_uc_csv,
+                      'raw/uc/csv/%Y/%m/stabilitywarrants-raw-uc-%Y-%m-%d.csv')
+    utils.upload_file(stabilitywarrants_cf_csv,
+                      'sw/uc/%Y/%m/stabilitywarrants-uc-%Y-%m-%d.csv')
 
 
 def transformRow(row):
-    data = 'UC;'+row['ISIN'] + ';' + utils.cleanName(row['Sous-jacent']) + ';' + extractString(
+    data = 'UC;'+row['Mnémo'] + ';'+row['ISIN'] + ';' + utils.cleanName(row['Sous-jacent']) + ';' + extractString(
         row['Niveau de la barrière basse']) + ';'
     data += extractString(row['Niveau de la borne haute']) + ';' + row['Date d\'observation finale'].replace('.',
                                                                                                              '/') + ';'

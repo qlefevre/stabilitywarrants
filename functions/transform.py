@@ -24,15 +24,16 @@ def transformRow(row):
     perfMax = 0
     if prixsousjacent != 0:
         perfMin = round((1-(borneBasse / prixsousjacent)) * 100, 2)
-        perfMax = round((borneHaute/prixsousjacent-1)*100,2)
-    
+        perfMax = round((borneHaute/prixsousjacent-1)*100, 2)
+
     achat = toNumber(row['achat'])
     pvpotentielles = 0
     if achat != 0:
-        pvpotentielles = round((10/achat-1)*100,2)
+        pvpotentielles = round((10/achat-1)*100, 2)
 
     newRow = {
-        'issuer':row['issuer'],
+        'issuer': row['issuer'],
+        'mnemo': row['mnemo'],
         'isin': row['isin'],
         'sous-jacent': row['sous-jacent'],
         'borne basse': formatNumber(borneBasse),
@@ -46,9 +47,9 @@ def transformRow(row):
         'cible': formatNumber(cible),
         'ecart cible': formatNumber(ecartcible),
         'ecart cible abs': formatNumber(abs(ecartcible)),
-        'perf min':perfMin,
-        'perf max':perfMax,
-        '+/- potentielles':pvpotentielles,
+        'perf min': perfMin,
+        'perf max': perfMax,
+        '+/- potentielles': pvpotentielles,
         '_num_plage': plage,
         '_num_ecart_cible_abs': abs(ecartcible)
     }
@@ -60,7 +61,8 @@ def handle(event, context):
        Transforme le fichier CSV
     """
     print('Transforme le fichier CSV')
-    stabilitywarrants_raw_csv = utils.download_file('sw/all/%Y/%m/stabilitywarrants-all-%Y-%m-%d.csv')
+    stabilitywarrants_raw_csv = utils.download_file(
+        'sw/all/%Y/%m/stabilitywarrants-all-%Y-%m-%d.csv')
     stabilitywarrants_csv = utils.createTempFile()
     lines = []
     with open(stabilitywarrants_raw_csv, newline='') as readcsvfile:
@@ -72,14 +74,16 @@ def handle(event, context):
     lines = sorted(lines, key=operator.itemgetter('_num_plage'), reverse=True)
     lines = sorted(lines, key=operator.itemgetter('sous-jacent'))
     with open(stabilitywarrants_csv, 'w', newline='') as writecsvfile:
-        fieldnames = ['issuer','isin', 'sous-jacent', 'borne basse', 'borne haute', 'maturite', 'maturite jours',
+        fieldnames = ['issuer', 'mnemo', 'isin', 'sous-jacent', 'borne basse', 'borne haute', 'maturite', 'maturite jours',
                       'achat', 'vente', 'prix sous-jacent', 'plage', 'cible', 'ecart cible', 'ecart cible abs',
-                      'perf min','perf max','+/- potentielles']
-        writer = csv.DictWriter(writecsvfile, fieldnames=fieldnames, extrasaction='ignore', delimiter=';')
+                      'perf min', 'perf max', '+/- potentielles']
+        writer = csv.DictWriter(
+            writecsvfile, fieldnames=fieldnames, extrasaction='ignore', delimiter=';')
         writer.writeheader()
         for row in lines:
             writer.writerow(row)
-    utils.upload_file(stabilitywarrants_csv, 'csv/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
+    utils.upload_file(stabilitywarrants_csv,
+                      'csv/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
 
     return {
         "body": "sort ok",
