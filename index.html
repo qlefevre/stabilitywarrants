@@ -50,8 +50,7 @@
                     :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense class="elevation-1"
                     mobile-breakpoint="100">
                     <template v-slot:item.isin="{item}">
-                      <a :href="bourso(item)" target="_blank">{{item.isin.substring(0,6)}}<br
-                          class="hidden-lg-and-up">{{item.isin.substring(6)}}</a>
+                      <isin v-model="item"></isin>
                     </template>
                     <template v-slot:item.perfmin="{item}">
                       <span :style="getPerfStyle(item.perfmin)">{{item.perfmin}}</span>
@@ -99,8 +98,7 @@
                     :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense group-by="maturitejours"
                     class="elevation-1" mobile-breakpoint="100">
                     <template v-slot:item.isin="{item}">
-                      <a :href="bourso(item)" target="_blank">{{item.isin.substring(0,6)}}<br
-                          class="hidden-lg-and-up">{{item.isin.substring(6)}}</a>
+                      <isin v-model="item"></isin>
                     </template>
                     <template v-slot:item.bornes="{item}">
                       {{item.bornebasse}} {{item.bornehaute}}

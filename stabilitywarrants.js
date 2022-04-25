@@ -3,7 +3,8 @@ new Vue({
     components: {
         'issuer-filter': httpVueLoader('vuejs/src/components/issuer-filter.vue'),
         'maturity-filter': httpVueLoader('vuejs/src/components/maturity-filter.vue'),
-        'pivot-point': httpVueLoader('vuejs/src/components/pivot-point.vue')
+        'pivot-point': httpVueLoader('vuejs/src/components/pivot-point.vue'),
+        'isin': httpVueLoader('vuejs/src/components/isin.vue')
     },
     vuetify: new Vuetify(),
     data() {
@@ -148,10 +149,6 @@ new Vue({
         }
     },
     methods: {
-        bourso: function (item) {
-            var prefix = item.issuer == 'SG' ? '3rP' : '2rP';
-            return 'https://www.boursorama.com/bourse/produits-de-bourse/cours/stability-warrants/' + prefix + item.isin
-        },
         url: function (date) {
             var url = 'https://testqle.s3.nl-ams.scw.cloud/json/%Y/%m/stabilitywarrants-%Y-%m-%d.json';
             url = url.replaceAll('%Y', date.year);
