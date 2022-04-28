@@ -141,9 +141,12 @@ new Vue({
                 .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(2);
         },
         ppArray() {
-            array = this.pivotpoint[this.filtersousjacent];
-            if (array === undefined) {
-                array = [];
+            array = []
+            if (this.pivotpoint.length > 0) {
+                array = this.pivotpoint[this.filtersousjacent];
+                if (array === undefined) {
+                    array = [];
+                }
             }
             return array;
         }
@@ -268,11 +271,18 @@ new Vue({
         var url = this.url(date);
         var ppUrl = url.replace('stabilitywarrants', 'pivotpoint');
         fetch(ppUrl)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    console.log('Error ' + response.status + ' for ' + ppUrl);
+                    return [];
+                } else {
+                    return response.json();
+                }
+            })
             .then(data => {
                 this.pivotpoint = data
                 console.log('pivot point: ' + this.pivotpoint)
-            });
+            })
         fetch(url)
             .then(response => response.json())
             .then(data => {

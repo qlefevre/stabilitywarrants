@@ -33,8 +33,14 @@
                 <maturity-filter v-model="filtermaturity" :warrants="warrants"></maturity-filter>
                 <v-switch v-model="filterperf" label="Perf Max > 12% & Perf Min > 15%">
                 </v-switch>
+                <!--
                 <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
                 </v-select>
+-->
+                <v-chip-group v-model="filtersousjacent" column active-class="primary--text">
+                  <v-chip filter value="CAC 40" key="CAC 40">CAC 40</v-chip>
+                  <v-chip filter value="DAX" key="DAX">DAX</v-chip>
+                </v-chip-group>
                 <issuer-filter v-model="filterissuers" :warrants="warrants"></issuer-filter>
               </v-row>
               <v-row no-gutters>
@@ -66,19 +72,23 @@
           <v-tab-item key="portfolio">
             <v-container fluid>
               <v-row no-gutters>
-                <pivot-point v-if="portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'CAC 40').length > 0"
+                <pivot-point
+                  v-if="pivotpoint.length > 0 && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'CAC 40').length > 0"
                   v-model="pivotpoint['CAC 40'][0]"></pivot-point>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-if="portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'CAC 40').length > 0"
+                <pivot-point
+                  v-if="pivotpoint.length > 0 && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'CAC 40').length > 0"
                   v-model="pivotpoint['CAC 40'][1]"></pivot-point>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-if="portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'DAX').length > 0"
+                <pivot-point
+                  v-if="pivotpoint.length > 0 && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'DAX').length > 0"
                   v-model="pivotpoint['DAX'][0]"></pivot-point>
               </v-row>
               <v-row no-gutters>
-                <pivot-point v-if="portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'DAX').length > 0"
+                <pivot-point
+                  v-if="pivotpoint.length > 0 && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'DAX').length > 0"
                   v-model="pivotpoint['DAX'][1]"></pivot-point>
               </v-row>
               <v-row no-gutters>
