@@ -73,22 +73,22 @@
             <v-container fluid>
               <v-row no-gutters>
                 <pivot-point
-                  v-if="pivotpoint.length > 0 && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'CAC 40').length > 0"
+                  v-if="isPPLoaded && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'CAC 40').length > 0"
                   v-model="pivotpoint['CAC 40'][0]"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <pivot-point
-                  v-if="pivotpoint.length > 0 && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'CAC 40').length > 0"
+                  v-if="isPPLoaded && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'CAC 40').length > 0"
                   v-model="pivotpoint['CAC 40'][1]"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <pivot-point
-                  v-if="pivotpoint.length > 0 && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'DAX').length > 0"
+                  v-if="isPPLoaded && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'DAX').length > 0"
                   v-model="pivotpoint['DAX'][0]"></pivot-point>
               </v-row>
               <v-row no-gutters>
                 <pivot-point
-                  v-if="pivotpoint.length > 0 && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'DAX').length > 0"
+                  v-if="isPPLoaded && portfolioWarrants.filter(warrant => warrant['sous-jacent'] == 'DAX').length > 0"
                   v-model="pivotpoint['DAX'][1]"></pivot-point>
               </v-row>
               <v-row no-gutters>

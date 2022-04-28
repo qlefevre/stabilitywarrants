@@ -66,7 +66,7 @@ new Vue({
             warrants: [],
             portfolio: [],
             boursoPortfolio: '',
-            pivotpoint: [],
+            pivotpoint: {},
             chosenFile: []
         }
     },
@@ -142,13 +142,16 @@ new Vue({
         },
         ppArray() {
             array = []
-            if (this.pivotpoint.length > 0) {
+            if (this.isPPLoaded) {
                 array = this.pivotpoint[this.filtersousjacent];
                 if (array === undefined) {
                     array = [];
                 }
             }
             return array;
+        },
+        isPPLoaded() {
+            return Object.keys(this.pivotpoint).length > 0;
         }
     },
     methods: {
@@ -274,7 +277,7 @@ new Vue({
             .then(response => {
                 if (!response.ok) {
                     console.log('Error ' + response.status + ' for ' + ppUrl);
-                    return [];
+                    return {};
                 } else {
                     return response.json();
                 }
