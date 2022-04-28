@@ -72,6 +72,7 @@ functions:
 plugins:
   - serverless-scaleway-functions
   - serverless-python-requirements
+  - serverless-offline-scaleway
 
 custom:
   pythonRequirements:
