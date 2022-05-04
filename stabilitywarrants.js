@@ -259,6 +259,11 @@ new Vue({
             var totalAmount = this.portfolioWarrantsTotalAmount;
             // return sumWarrants.toString().padStart(8, ' ').replaceAll(' ', '&nbsp;') + 
             return sumWarrants + ' (' + (sumWarrants / totalAmount * 100).toFixed(2) + '%)';
+        },
+        maturiteJoursOuvrables(maturitejours) {
+            var weeks = Math.round(maturitejours / 7);
+            var days = maturitejours - 2 * weeks;
+            return days;
         }
     },
     mounted() {

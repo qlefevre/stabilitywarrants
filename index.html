@@ -131,7 +131,12 @@
                           <br></span>Montant: {{sumWarrants(items[0].maturitejours)}}
                       </th>
                       <th class="group-maturite-jours hidden-md-and-down">
-                        {{ items[0].maturitejours }} jours
+                        <v-tooltip right>
+                          <template v-slot:activator="{ on, attrs }">
+                            <span v-bind="attrs" v-on="on"> {{ items[0].maturitejours }} jours</span>
+                          </template>
+                          <span>{{maturiteJoursOuvrables(items[0].maturitejours)}} jours ouvrables</span>
+                        </v-tooltip>
                       </th>
                       <th colspan="1"></th>
                       <!-- bornes -->
