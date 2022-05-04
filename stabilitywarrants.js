@@ -253,12 +253,15 @@ new Vue({
                 .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(fixed);
         },
         sumWarrants(maturitejours) {
-            var sumWarrants = this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)
-                .map(warrant => warrant.quantite * warrant.prixrevient)
-                .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(2);
+            var sumWarrants = this.sumCol(maturitejours, warrant => warrant.quantite * warrant.prixrevient, 2);
             var totalAmount = this.portfolioWarrantsTotalAmount;
             // return sumWarrants.toString().padStart(8, ' ').replaceAll(' ', '&nbsp;') + 
             return sumWarrants + ' (' + (sumWarrants / totalAmount * 100).toFixed(2) + '%)';
+        },
+        pvPotentiellesPourcentage(maturitejours) {
+            var sumWarrants = this.sumCol(maturitejours, warrant => warrant.quantite * warrant.prixrevient, 2);
+            var quantite = this.sumCol(maturitejours, warrant => warrant.quantite, 0);
+            return (((quantite * 10 / sumWarrants) - 1)*100).toFixed(2);
         },
         maturiteJoursOuvrables(maturitejours) {
             var weeks = Math.round(maturitejours / 7);

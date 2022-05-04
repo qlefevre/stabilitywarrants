@@ -149,7 +149,10 @@
                           :style="getPvStyle(sumCol(items[0].maturitejours,warrant => warrant.pvlatentes,2))">
                           {{sumCol(items[0].maturitejours,warrant => warrant.pvlatentes,2)}}</span>
                       </th>
-                      <th class="hidden-md-and-down"></th>
+                      <th class="group-maturite-jours hidden-md-and-down"><span
+                          :style="getPvStyle(pvPotentiellesPourcentage(items[0].maturitejours))">
+                          {{pvPotentiellesPourcentage(items[0].maturitejours)}}</span>
+                      </th>
                       <th class="group-maturite-jours hidden-md-and-down"><span
                           :style="getPvStyle(sumCol(items[0].maturitejours,warrant => warrant.pvpotentielles,2))">
                           {{sumCol(items[0].maturitejours,warrant => warrant.pvpotentielles,2)}}</span>
