@@ -261,7 +261,12 @@ new Vue({
         pvPotentiellesPourcentage(maturitejours) {
             var sumWarrants = this.sumCol(maturitejours, warrant => warrant.quantite * warrant.prixrevient, 2);
             var quantite = this.sumCol(maturitejours, warrant => warrant.quantite, 0);
-            return (((quantite * 10 / sumWarrants) - 1)*100).toFixed(2);
+            return (((quantite * 10 / sumWarrants) - 1) * 100).toFixed(2);
+        },
+        prixDeRevientMoyen(maturitejours) {
+            var sumWarrants = this.sumCol(maturitejours, warrant => warrant.quantite * warrant.prixrevient, 2);
+            var quantite = this.sumCol(maturitejours, warrant => warrant.quantite, 0);
+            return (sumWarrants / quantite).toFixed(2);
         },
         maturiteJoursOuvrables(maturitejours) {
             var weeks = Math.round(maturitejours / 7);

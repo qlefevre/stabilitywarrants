@@ -144,7 +144,10 @@
                       <th class="group-maturite-jours">
                         {{sumCol(items[0].maturitejours,warrant => warrant.quantite,0)}}
                       </th>
-                      <th colspan="2"></th>
+                      <th class="group-maturite-jours">
+                        {{prixDeRevientMoyen(items[0].maturitejours)}}
+                      </th>
+                      <th></th>
                       <th class="group-maturite-jours"><span
                           :style="getPvStyle(sumCol(items[0].maturitejours,warrant => warrant.pvlatentes,2))">
                           {{sumCol(items[0].maturitejours,warrant => warrant.pvlatentes,2)}}</span>
