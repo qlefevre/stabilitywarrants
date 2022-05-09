@@ -4,7 +4,7 @@ import json
 import utils
 
 
-def fixNumberAndProperties(row):
+def fix_number_and_properties(row):
     # suppression des espaces dans les noms
     row = {x.replace(' ', ''): v
            for x, v in row.items()}
@@ -22,7 +22,7 @@ def handle(event, context):
 
     stabilitywarrants_csv = utils.download_file(
         'csv/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
-    stabilitywarrants_json = utils.createTempFile()
+    stabilitywarrants_json = utils.create_temp_file()
     with open(stabilitywarrants_csv, 'r') as file_csv:
         fieldnames = file_csv.readline().strip().split(';')
         file_csv.seek(0)
@@ -34,7 +34,7 @@ def handle(event, context):
                 if index > 0:
                     if index > 1:
                         file_json.write(',')
-                    row = fixNumberAndProperties(row)
+                    row = fix_number_and_properties(row)
                     json.dump(row, file_json, ensure_ascii=False,
                               separators=(',', ':'))
             file_json.write(']')

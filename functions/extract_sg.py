@@ -10,29 +10,34 @@ def handle(event, context):
     """
     print('Download stability warrants from Société Générale')
 
-    url = 'https://bourse.societegenerale.fr/EmcWebApi/api/ProductSearch/Export?PageNum=1&ProductClassificationId=8'
+    url = 'https://bourse.societegenerale.fr/EmcWebApi/api/ProductSearch/Export?'
+    +'PageNum=1&ProductClassificationId=8'
     print('download ' + url)
 
     stabilitywarrants_sg_xlsx, headers = urllib.request.urlretrieve(url)
-    stabilitywarrants_sg_csv = utils.createTempFile()
-    stabilitywarrants_cf_csv = utils.createTempFile()
+    stabilitywarrants_sg_csv = utils.create_temp_file()
+    stabilitywarrants_cf_csv = utils.create_temp_file()
     with open(stabilitywarrants_cf_csv, 'w') as cf_csv_file:
-        cf_csv_file.write(
-            'issuer;mnemo;isin;sous-jacent;borne basse;borne haute;maturite;achat;vente;prix sous-jacent\n')
+        cf_csv_file.write('issuer;mnemo;isin;sous-jacent;borne basse;borne haute;'
+                          + 'maturite;achat;vente;prix sous-jacent\n')
         with open(stabilitywarrants_sg_csv, 'w') as csv_file:
             rows = utils.xlsx(stabilitywarrants_sg_xlsx)
             for idx, row in enumerate(rows):
                 csv_file.write(
-                    row['A'] + ';' + row['B'] + ';' + row['C'] + ';' + row['D'] + ';' + row['E'] + ';' + row[
-                        'F'] + ';' +
-                    row['G'] + ';' + row['H'] + ';' + row['I'] + ';' + row['J'] + '\n')
+                    row['A'] + ';' + row['B'] + ';' +
+                    row['C'] + ';' + row['D'] + ';'
+                    + row['E'] + ';' + row['F'] + ';' +
+                    row['G'] + ';' + row['H'] + ';'
+                    + row['I'] + ';' + row['J'] + '\n')
                 if idx > 0:
                     cf_csv_file.write(
-                        'SG;'+row['A']+';'+row['B'] + ';' + utils.cleanName(row['C']) + ';' + extractString(
-                            row['D']) + ';' + extractString(
-                            row['E']) + ';' + extractString(row['F']) + ';' +
-                        extractString(row['G']) + ';' + extractString(row['H']) + ';' + row['J'].partition(' ')[
-                            0] + '\n')
+                        'SG;'+row['A']+';'+row['B'] + ';' +
+                        utils.cleanName(row['C']) + ';'
+                        + extractString(row['D']) + ';' +
+                        extractString(row['E']) + ';'
+                        + extractString(row['F']) + ';' +
+                        extractString(row['G']) + ';'
+                        + extractString(row['H']) + ';' + row['J'].partition(' ')[0] + '\n')
 
     utils.upload_file(stabilitywarrants_sg_xlsx,
                       'raw/sg/xlsx/%Y/%m/stabilitywarrants-raw-sg-%Y-%m-%d.xslx')

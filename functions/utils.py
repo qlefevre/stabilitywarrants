@@ -13,12 +13,13 @@ from botocore.exceptions import ClientError
 def xlsx(fname):
     import zipfile
     from xml.etree.ElementTree import iterparse
-    z = zipfile.ZipFile(fname)
-    strings = [el.text for e, el in iterparse(z.open('xl/sharedStrings.xml')) if el.tag.endswith('}t')]
+    zip_file = zipfile.ZipFile(fname)
+    strings = [el.text for e, el in iterparse(zip_file.open(
+        'xl/sharedStrings.xml')) if el.tag.endswith('}t')]
     rows = []
     row = {}
     value = ''
-    for e, el in iterparse(z.open('xl/worksheets/sheet1.xml')):
+    for el in iterparse(zip_file.open('xl/worksheets/sheet1.xml')):
         if el.tag.endswith('}v'):  # <v>84</v>
             value = el.text
         if el.tag.endswith('}c'):  # <c r="A3" t="s"><v>84</v></c>
@@ -43,7 +44,7 @@ def upload_file(file_name, object_name=None):
     :param object_name: S3 object name. If not specified then file_name is used
     :return: True if file was uploaded, else False
     """
-    url = 'https://s3.nl-ams.scw.cloud';
+    url = 'https://s3.nl-ams.scw.cloud'
     bucket = 'testqle'
 
     # If S3 object_name was not specified, use file_name
@@ -59,7 +60,8 @@ def upload_file(file_name, object_name=None):
     s3_client = boto3.client('s3',
                              region_name='nl-ams',
                              endpoint_url=url,
-                             aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                             aws_access_key_id=os.environ.get(
+                                 'AWS_ACCESS_KEY_ID'),
                              aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'))
 
     # Define the configuration rules
@@ -72,14 +74,16 @@ def upload_file(file_name, object_name=None):
             'MaxAgeSeconds': 3000
         }]
     }
-    s3_client.put_bucket_cors(Bucket='testqle', CORSConfiguration=cors_configuration)
+    s3_client.put_bucket_cors(
+        Bucket='testqle', CORSConfiguration=cors_configuration)
     with open(file_name, 'rb') as f_in:
         with gzip.open(file_name + '.gz', 'wb') as f_out:
             shutil.copyfileobj(f_in, f_out)
 
     try:
-        response = s3_client.upload_file(file_name + '.gz', bucket, object_name,
-                                         ExtraArgs={'ACL': 'public-read', 'ContentEncoding': 'gzip'})
+        extra_args = {'ACL': 'public-read', 'ContentEncoding': 'gzip'}
+        s3_client.upload_file(file_name + '.gz', bucket,
+                              object_name, extra_args)
     except ClientError as e:
         logging.error(e)
         return False
@@ -90,23 +94,23 @@ def download_file(object_name):
     object_name = datetime.today().strftime(object_name)
     url = 'https://testqle.s3.nl-ams.scw.cloud/' + object_name
     print('download ' + url)
-    file, headers = urllib.request.urlretrieve(url)
+    downloaded_file, headers = urllib.request.urlretrieve(url)
     if headers.get('Content-Encoding') == 'gzip':
-        ungzipped = createTempFile()
-        with gzip.open(file, 'rb') as f_in:
+        ungzipped = create_temp_file()
+        with gzip.open(downloaded_file, 'rb') as f_in:
             with open(ungzipped, 'wb') as f_out:
                 shutil.copyfileobj(f_in, f_out)
-        file = ungzipped
-    return file
+        downloaded_file = ungzipped
+    return downloaded_file
 
 
-def createTempFile():
-    file = tempfile.NamedTemporaryFile(delete=False)
-    file.close()
-    return file.name
+def create_temp_file():
+    new_file = tempfile.NamedTemporaryFile(delete=False)
+    new_file.close()
+    return new_file.name
 
 
-def toNumber(value: str):
+def to_number(value: str):
     if value == '-':
         value = '0'
     result = value.partition(' ')[0].replace(',', '.')
@@ -114,18 +118,18 @@ def toNumber(value: str):
     return int(result) if result.isdigit() else round(float(result), 2)
 
 
-def formatNumber(value: float):
-    val = round(value, 2)
-    return int(val) if float(val).is_integer() else ('%0.2f' % val).replace('.', ',')
+def format_number(value: float):
+    result = round(value, 2)
+    return int(result) if float(result).is_integer() else ('%0.2f' % result).replace('.', ',')
 
 
-def extractString(value: str):
-    str = value.partition(' ')[0]
-    str = str.replace(',0000', '')
-    str = str.replace(',00', '')
-    if ',' in str and '00' in str:
-        str = str[:-2]
-    return str
+def extract_string(value: str):
+    result = value.partition(' ')[0]
+    result = result.replace(',0000', '')
+    result = result.replace(',00', '')
+    if ',' in result and '00' in result:
+        result = result[:-2]
+    return result
 
 
 def cleanName(name: str):

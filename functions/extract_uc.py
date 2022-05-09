@@ -18,9 +18,11 @@ def handle(event, context):
     print('download ' + url)
 
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+        + ' Chrome/97.0.4692.71 Safari/537.36',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,'
+        + '*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Encoding': 'gzip'
     }
     values = {
@@ -55,8 +57,8 @@ def handle(event, context):
     }
     data = urllib.parse.urlencode(values).encode('ascii')
     req = urllib.request.Request(url, data, headers)
-    stabilitywarrants_uc_csv = utils.createTempFile()
-    stabilitywarrants_cf_csv = utils.createTempFile()
+    stabilitywarrants_uc_csv = utils.create_temp_file()
+    stabilitywarrants_cf_csv = utils.create_temp_file()
     with urllib.request.urlopen(req) as response:
         content = gzip.decompress(response.read())
         data = content.decode('iso-8859-1').replace('\r\n', '\r')
@@ -69,14 +71,14 @@ def handle(event, context):
             reader = csv.DictReader(io.StringIO(
                 datacsv, newline='\r'), delimiter=';')
             for row in reader:
-                file_csv.write(transformRow(row))
+                file_csv.write(transform_row(row))
     utils.upload_file(stabilitywarrants_uc_csv,
                       'raw/uc/csv/%Y/%m/stabilitywarrants-raw-uc-%Y-%m-%d.csv')
     utils.upload_file(stabilitywarrants_cf_csv,
                       'sw/uc/%Y/%m/stabilitywarrants-uc-%Y-%m-%d.csv')
 
 
-def transformRow(row):
+def transform_row(row):
     data = 'UC;'+row['Mnémo'] + ';'+row['ISIN'] + ';' + utils.cleanName(row['Sous-jacent']) + ';' + extractString(
         row['Niveau de la barrière basse']) + ';'
     data += extractString(row['Niveau de la borne haute']) + ';' + row['Date d\'observation finale'].replace('.',

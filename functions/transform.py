@@ -63,7 +63,7 @@ def handle(event, context):
     print('Transforme le fichier CSV')
     stabilitywarrants_raw_csv = utils.download_file(
         'sw/all/%Y/%m/stabilitywarrants-all-%Y-%m-%d.csv')
-    stabilitywarrants_csv = utils.createTempFile()
+    stabilitywarrants_csv = utils.create_temp_file()
     lines = []
     with open(stabilitywarrants_raw_csv, newline='') as readcsvfile:
         reader = csv.DictReader(readcsvfile, delimiter=';')
