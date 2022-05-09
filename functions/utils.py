@@ -19,7 +19,7 @@ def xlsx(fname):
     rows = []
     row = {}
     value = ''
-    for el in iterparse(zip_file.open('xl/worksheets/sheet1.xml')):
+    for inconnu, el in iterparse(zip_file.open('xl/worksheets/sheet1.xml')):
         if el.tag.endswith('}v'):  # <v>84</v>
             value = el.text
         if el.tag.endswith('}c'):  # <c r="A3" t="s"><v>84</v></c>
@@ -132,7 +132,7 @@ def extract_string(value: str):
     return result
 
 
-def cleanName(name: str):
+def clean_name(name: str):
     name = name.replace('.', '')
     name = name.replace(' SA', '').replace(' SE', '')
     name = name.split(' NV')[0]

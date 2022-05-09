@@ -23,7 +23,7 @@ class PivotPoint:
         self.ohlc = ohlc
         self.period = period
         self.name = name
-        l, h, c = ohlc.open, ohlc.low, ohlc.high, ohlc.close
+        l, h, c = ohlc.low, ohlc.high, ohlc.close
         self.p = round((h + l + c) / 3)
         self.low = ohlc.low
         self.high = ohlc.high

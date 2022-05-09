@@ -1,7 +1,7 @@
 import urllib.request
 
 import utils
-from utils import extractString
+from utils import extract_string
 
 
 def handle(event, context):
@@ -10,8 +10,7 @@ def handle(event, context):
     """
     print('Download stability warrants from Société Générale')
 
-    url = 'https://bourse.societegenerale.fr/EmcWebApi/api/ProductSearch/Export?'
-    +'PageNum=1&ProductClassificationId=8'
+    url = 'https://bourse.societegenerale.fr/EmcWebApi/api/ProductSearch/Export?PageNum=1&ProductClassificationId=8'
     print('download ' + url)
 
     stabilitywarrants_sg_xlsx, headers = urllib.request.urlretrieve(url)
@@ -32,12 +31,13 @@ def handle(event, context):
                 if idx > 0:
                     cf_csv_file.write(
                         'SG;'+row['A']+';'+row['B'] + ';' +
-                        utils.cleanName(row['C']) + ';'
-                        + extractString(row['D']) + ';' +
-                        extractString(row['E']) + ';'
-                        + extractString(row['F']) + ';' +
-                        extractString(row['G']) + ';'
-                        + extractString(row['H']) + ';' + row['J'].partition(' ')[0] + '\n')
+                        utils.clean_name(row['C']) + ';'
+                        + extract_string(row['D']) + ';'
+                        + extract_string(row['E']) + ';'
+                        + extract_string(row['F']) + ';'
+                        + extract_string(row['G']) + ';'
+                        + extract_string(row['H']) + ';'
+                        + row['J'].partition(' ')[0] + '\n')
 
     utils.upload_file(stabilitywarrants_sg_xlsx,
                       'raw/sg/xlsx/%Y/%m/stabilitywarrants-raw-sg-%Y-%m-%d.xslx')

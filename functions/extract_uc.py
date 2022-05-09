@@ -5,7 +5,7 @@ import urllib.parse
 import urllib.request
 
 import utils
-from utils import extractString
+from utils import extract_string
 
 
 def handle(event, context):
@@ -79,11 +79,11 @@ def handle(event, context):
 
 
 def transform_row(row):
-    data = 'UC;'+row['Mnémo'] + ';'+row['ISIN'] + ';' + utils.cleanName(row['Sous-jacent']) + ';' + extractString(
+    data = 'UC;'+row['Mnémo'] + ';'+row['ISIN'] + ';' + utils.clean_name(row['Sous-jacent']) + ';' + extract_string(
         row['Niveau de la barrière basse']) + ';'
-    data += extractString(row['Niveau de la borne haute']) + ';' + row['Date d\'observation finale'].replace('.',
-                                                                                                             '/') + ';'
-    data += extractString(row['Achat']) + ';' + extractString(row['Vente']) + ';' + extractString(
+    data += extract_string(row['Niveau de la borne haute']) + ';' + \
+        row['Date d\'observation finale'].replace('.', '/') + ';'
+    data += extract_string(row['Achat']) + ';' + extract_string(row['Vente']) + ';' + extract_string(
         row['Prix du sous-jacent']) + '\n'
     return data
 
