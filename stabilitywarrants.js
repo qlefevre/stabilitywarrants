@@ -4,7 +4,9 @@ new Vue({
         'issuer-filter': httpVueLoader('vuejs/src/components/issuer-filter.vue'),
         'maturity-filter': httpVueLoader('vuejs/src/components/maturity-filter.vue'),
         'pivot-point': httpVueLoader('vuejs/src/components/pivot-point.vue'),
-        'isin': httpVueLoader('vuejs/src/components/isin.vue')
+        'isin': httpVueLoader('vuejs/src/components/isin.vue'),
+        'table-stabilitywarrants': httpVueLoader('vuejs/src/components/table-stabilitywarrants.vue'),
+        'table-portfolio': httpVueLoader('vuejs/src/components/table-portfolio.vue')
     },
     vuetify: new Vuetify(),
     data() {
@@ -178,11 +180,7 @@ new Vue({
                 warrant.isin + '-' + warrant.quantite + '-' + warrant.prixrevient)
                 .map(isin => short ? isin.substring(7) : isin).join();
         },
-        getPerfStyle(perf) {
-            if (perf < 7) return 'color:red;font-weight:bold;'
-            else if (perf < 12) return 'color:orange;font-weight:bold;'
-            else return ''
-        },
+
         getPvStyle(pv) {
             if (pv < 0) return 'color:red;'
             return 'color:forestgreen;'
@@ -247,32 +245,8 @@ new Vue({
             }
             fr.readAsText(this.chosenFile);
         },
-        sumCol(maturitejours, applyfunction, fixed) {
-            return this.portfolioWarrants.filter(warrant => warrant.maturitejours == maturitejours)
-                .map(applyfunction)
-                .reduce((s0, s1) => Number(s0) + Number(s1), 0).toFixed(fixed);
-        },
-        sumWarrants(maturitejours) {
-            var sumWarrants = this.sumCol(maturitejours, warrant => warrant.quantite * warrant.prixrevient, 2);
-            var totalAmount = this.portfolioWarrantsTotalAmount;
-            // return sumWarrants.toString().padStart(8, ' ').replaceAll(' ', '&nbsp;') + 
-            return sumWarrants + ' (' + (sumWarrants / totalAmount * 100).toFixed(2) + '%)';
-        },
-        pvPotentiellesPourcentage(maturitejours) {
-            var sumWarrants = this.sumCol(maturitejours, warrant => warrant.quantite * warrant.prixrevient, 2);
-            var quantite = this.sumCol(maturitejours, warrant => warrant.quantite, 0);
-            return (((quantite * 10 / sumWarrants) - 1) * 100).toFixed(2);
-        },
-        prixDeRevientMoyen(maturitejours) {
-            var sumWarrants = this.sumCol(maturitejours, warrant => warrant.quantite * warrant.prixrevient, 2);
-            var quantite = this.sumCol(maturitejours, warrant => warrant.quantite, 0);
-            return (sumWarrants / quantite).toFixed(2);
-        },
-        maturiteJoursOuvrables(maturitejours) {
-            var weeks = Math.round(maturitejours / 7);
-            var days = maturitejours - 2 * weeks;
-            return days;
-        }
+
+
     },
     mounted() {
         var urlParams = new URLSearchParams(window.location.search);

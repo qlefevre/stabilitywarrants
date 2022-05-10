@@ -51,20 +51,7 @@
               </v-row>
               <v-row no-gutters>
                 <v-col>
-                  <v-data-table :headers="headers" :items="filteredWarrants"
-                    :sort-by="['sous-jacent', 'plage','ecartcibleabs']" :sort-desc="[false, true, false]"
-                    :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense class="elevation-1"
-                    mobile-breakpoint="100">
-                    <template v-slot:item.isin="{item}">
-                      <isin v-model="item"></isin>
-                    </template>
-                    <template v-slot:item.perfmin="{item}">
-                      <span :style="getPerfStyle(item.perfmin)">{{item.perfmin}}</span>
-                    </template>
-                    <template v-slot:item.perfmax="{item}">
-                      <span :style="getPerfStyle(item.perfmax)">{{item.perfmax}}</span>
-                    </template>
-                  </v-data-table>
+                  <table-stabilitywarrants :headers="headers" :items="filteredWarrants"></table-stabilitywarrants>
                 </v-col>
               </v-row>
             </v-container>
@@ -103,65 +90,8 @@
               </v-row>
               <v-row no-gutters>
                 <v-col>
-                  <v-data-table :headers="portfolioHeaders" :items="portfolioWarrants"
-                    :sort-by="['maturitejours','sous-jacent','plage']" :sort-desc="[false,false, true, false]"
-                    :footer-props="{'items-per-page-options': [-1,50,100]}" multi-sort dense group-by="maturitejours"
-                    class="elevation-1" mobile-breakpoint="100">
-                    <template v-slot:item.isin="{item}">
-                      <isin v-model="item"></isin>
-                    </template>
-                    <template v-slot:item.bornes="{item}">
-                      {{item.bornebasse}} {{item.bornehaute}}
-                    </template>
-                    <template v-slot:item.perfmin="{item}">
-                      <span :style="getPerfStyle(item.perfmin)">{{item.perfmin}}</span>
-                    </template>
-                    <template v-slot:item.perfmax="{item}">
-                      <span :style="getPerfStyle(item.perfmax)">{{item.perfmax}}</span>
-                    </template>
-                    <template v-slot:item.pvlatentes="{item}">
-                      <span :style="getPvStyle(item.pvlatentes)">{{item.pvlatentes}}</span>
-                    </template>
-                    <template v-slot:item.pvpotentielles="{item}">
-                      <span :style="getPvStyle(item.pvpotentielles)">{{item.pvpotentielles}}</span>
-                    </template>
-                    <template v-slot:group.header="{items, isOpen, toggle}">
-                      <th class="group-maturite-jours" colspan="4">
-                        <span class="hidden-lg-and-up">{{portfolioHeaders[5].text}}: {{ items[0].maturitejours }} jours
-                          <br></span>Montant: {{sumWarrants(items[0].maturitejours)}}
-                      </th>
-                      <th class="group-maturite-jours hidden-md-and-down">
-                        <v-tooltip right>
-                          <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on"> {{ items[0].maturitejours }} jours</span>
-                          </template>
-                          <span>{{maturiteJoursOuvrables(items[0].maturitejours)}} jours ouvrables</span>
-                        </v-tooltip>
-                      </th>
-                      <th colspan="1"></th>
-                      <!-- bornes -->
-                      <th class="hidden-md-and-down" colspan="2"></th>
-                      <th class="group-maturite-jours">
-                        {{sumCol(items[0].maturitejours,warrant => warrant.quantite,0)}}
-                      </th>
-                      <th class="group-maturite-jours">
-                        {{prixDeRevientMoyen(items[0].maturitejours)}}
-                      </th>
-                      <th></th>
-                      <th class="group-maturite-jours"><span
-                          :style="getPvStyle(sumCol(items[0].maturitejours,warrant => warrant.pvlatentes,2))">
-                          {{sumCol(items[0].maturitejours,warrant => warrant.pvlatentes,2)}}</span>
-                      </th>
-                      <th class="group-maturite-jours hidden-md-and-down"><span
-                          :style="getPvStyle(pvPotentiellesPourcentage(items[0].maturitejours))">
-                          {{pvPotentiellesPourcentage(items[0].maturitejours)}}</span>
-                      </th>
-                      <th class="group-maturite-jours hidden-md-and-down"><span
-                          :style="getPvStyle(sumCol(items[0].maturitejours,warrant => warrant.pvpotentielles,2))">
-                          {{sumCol(items[0].maturitejours,warrant => warrant.pvpotentielles,2)}}</span>
-                      </th>
-                    </template>
-                  </v-data-table>
+                  <table-portfolio :headers="portfolioHeaders" :items="portfolioWarrants">
+                  </table-portfolio>
                 </v-col>
               </v-row>
             </v-container>
