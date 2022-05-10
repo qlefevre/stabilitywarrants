@@ -105,6 +105,11 @@ def download_file(object_name):
 
 
 def create_temp_file():
+    """Create temporary file
+
+    Returns:
+        str: le nom du fichier temporaire
+    """
     new_file = tempfile.NamedTemporaryFile(delete=False)
     new_file.close()
     return new_file.name
@@ -123,7 +128,7 @@ def format_number(value: float):
     return int(result) if float(result).is_integer() else ('%0.2f' % result).replace('.', ',')
 
 
-def extract_string(value: str):
+def extract_string(value: str) -> str:
     result = value.partition(' ')[0]
     result = result.replace(',0000', '')
     result = result.replace(',00', '')

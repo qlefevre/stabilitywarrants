@@ -5,8 +5,11 @@ from utils import extract_string
 
 
 def handle(event, context):
-    """
-    Download stability warrants from Société Générale
+    """Download stability warrants from Société Générale
+
+    Args:
+        event : l'évènement associé à cette fonction lambda
+        context : le contexte associé à cette fonction lambda
     """
     print('Download stability warrants from Société Générale')
 
