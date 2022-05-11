@@ -49,14 +49,34 @@ functions:
     memorySize: 128
     description: Exécute toutes les fonctions de la chaîne
     events:
+      # 00h10
       - schedule:
           rate: "10 2 * * *"
+      # 8h05   
       - schedule:
-          rate: "10 10 * * *"
+          rate: "05 10 * * *"
+      # 9h05   
+      - schedule:
+          rate: "05 11 * * *"
+      # 12h00
       - schedule:
           rate: "0 14 * * *"
+      # 13h00
+      - schedule:
+          rate: "0 15 * * *"
+      # 14h00
+      - schedule:
+          rate: "0 16 * * *"
+      # 17h30
       - schedule:
           rate: "30 19 * * *"
+      # 18h
+      - schedule:
+          rate: "0 20 * * *"
+      # 19h
+      - schedule:
+          rate: "0 21 * * *"
+      # 22h
       - schedule:
           rate: "0 0 * * *"
   pivot-point:
@@ -66,8 +86,9 @@ functions:
     memorySize: 128
     description: Calcul des point pivots du CAC40
     events:
+      # 22h05
       - schedule:
-          rate: "10 0 * * *"
+          rate: "05 0 * * *"
 
 plugins:
   - serverless-scaleway-functions
