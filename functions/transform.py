@@ -28,9 +28,6 @@ def transform_row(row):
         perf_max = round((borne_haute/prixsousjacent-1)*100, 2)
 
     achat = to_number(row['achat'])
-    pvpotentielles = 0
-    if achat != 0:
-        pvpotentielles = round((10/achat-1)*100, 2)
 
     new_row = {
         'issuer': row['issuer'],
@@ -50,7 +47,6 @@ def transform_row(row):
         'ecart cible abs': format_number(abs(ecartcible)),
         'perf min': perf_min,
         'perf max': perf_max,
-        '+/- potentielles': pvpotentielles,
         '_num_plage': plage,
         '_num_ecart_cible_abs': abs(ecartcible)
     }

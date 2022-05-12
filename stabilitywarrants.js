@@ -62,7 +62,7 @@ new Vue({
                 { text: 'Prix de revient', value: 'prixrevient' },
                 { text: 'Valeur Achat', value: 'achat' },
                 { text: '+/- latentes', value: 'pvlatentes' },
-                { text: '+/- potentielles %', value: '+/-potentielles', align: ' hidden-md-and-down' },
+                { text: '+/- potentielles %', value: 'pvpotentiellespercentage', align: ' hidden-md-and-down' },
                 { text: '+/- potentielles', value: 'pvpotentielles', align: ' hidden-md-and-down' },
             ],
             warrants: [],
@@ -102,6 +102,7 @@ new Vue({
                     warrantPf.quantite = pFVal.quantite;
                     warrantPf.pvlatentes = ((warrantPf.achat - warrantPf.prixrevient) * warrantPf.quantite).toFixed(2);
                     warrantPf.pvpotentielles = ((10 - warrantPf.prixrevient) * warrantPf.quantite).toFixed(2);
+                    warrantPf.pvpotentiellespercentage = (warrantPf.pvpotentielles / (warrantPf.prixrevient * warrantPf.quantite) * 100).toFixed(2);
                     return warrantPf;
                 });
 
