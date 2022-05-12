@@ -2,9 +2,7 @@
   <v-data-table
     :headers="this.headers"
     :items="this.items"
-    :sort-by="['sous-jacent', 'plage', 'ecartcibleabs']"
-    :sort-desc="[false, true, false]"
-    :footer-props="{ 'items-per-page-options': [-1, 50, 100] }"
+    v-bind="$attrs"
     multi-sort
     dense
     class="elevation-1"
@@ -14,10 +12,26 @@
       <isin v-model="item"></isin>
     </template>
     <template v-slot:item.perfmin="{ item }">
-      <span :style="getPerfStyle(item.perfmin)">{{ item.perfmin }}</span>
+      <span :class="getStyle(item.perfmin)">{{ item.perfmin }}</span>
     </template>
     <template v-slot:item.perfmax="{ item }">
-      <span :style="getPerfStyle(item.perfmax)">{{ item.perfmax }}</span>
+      <span :class="getStyle(item.perfmax)">{{ item.perfmax }}</span>
+    </template>
+
+    <template v-slot:item.bornes="{ item }">
+      {{ item.bornebasse }} {{ item.bornehaute }}
+    </template>
+    <template v-slot:item.pvlatentes="{ item }">
+      <span :style="getPvStyle(item.pvlatentes)">{{ item.pvlatentes }}</span>
+    </template>
+    <template v-slot:item.pvpotentielles="{ item }">
+      <span :style="getPvStyle(item.pvpotentielles)">{{
+        item.pvpotentielles
+      }}</span>
+    </template>
+
+    <template slot="group.header" slot-scope="data">
+      <slot name="group.header" v-bind="data"></slot>
     </template>
   </v-data-table>
 </template>
@@ -26,10 +40,14 @@
 module.exports = {
   props: ["items", "headers"],
   methods: {
-    getPerfStyle(perf) {
-      if (perf < 7) return "color:red;font-weight:bold;";
-      else if (perf < 12) return "color:orange;font-weight:bold;";
+    getStyle(perf) {
+      if (perf < 7) return "red-value";
+      else if (perf < 12) return "orange-value";
       else return "";
+    },
+    getPvStyle(pv) {
+      if (pv < 0) return "red-pv";
+      return "green-pv";
     },
   },
   components: {
@@ -39,4 +57,5 @@ module.exports = {
 </script>
 
 <style>
+@import "table.css";
 </style>

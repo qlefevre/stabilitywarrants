@@ -1,36 +1,10 @@
 <template>
-  <v-data-table
+  <table-stabilitywarrants
     :headers="this.headers"
     :items="this.items"
-    :sort-by="['maturitejours', 'sous-jacent', 'plage']"
-    :sort-desc="[false, false, true, false]"
-    :footer-props="{ 'items-per-page-options': [-1, 50, 100] }"
-    multi-sort
-    dense
+    v-bind="$attrs"
     group-by="maturitejours"
-    class="elevation-1"
-    mobile-breakpoint="100"
   >
-    <template v-slot:item.isin="{ item }">
-      <isin v-model="item"></isin>
-    </template>
-    <template v-slot:item.bornes="{ item }">
-      {{ item.bornebasse }} {{ item.bornehaute }}
-    </template>
-    <template v-slot:item.perfmin="{ item }">
-      <span :style="getPerfStyle(item.perfmin)">{{ item.perfmin }}</span>
-    </template>
-    <template v-slot:item.perfmax="{ item }">
-      <span :style="getPerfStyle(item.perfmax)">{{ item.perfmax }}</span>
-    </template>
-    <template v-slot:item.pvlatentes="{ item }">
-      <span :style="getPvStyle(item.pvlatentes)">{{ item.pvlatentes }}</span>
-    </template>
-    <template v-slot:item.pvpotentielles="{ item }">
-      <span :style="getPvStyle(item.pvpotentielles)">{{
-        item.pvpotentielles
-      }}</span>
-    </template>
     <template v-slot:group.header="{ items, isOpen, toggle }">
       <th class="group-maturite-jours" colspan="4">
         <span class="hidden-lg-and-up"
@@ -63,7 +37,7 @@
       <th></th>
       <th class="group-maturite-jours">
         <span
-          :style="
+          :class="
             getPvStyle(
               sumCol(items[0].maturitejours, (warrant) => warrant.pvlatentes, 2)
             )
@@ -76,14 +50,14 @@
       </th>
       <th class="group-maturite-jours hidden-md-and-down">
         <span
-          :style="getPvStyle(pvPotentiellesPourcentage(items[0].maturitejours))"
+          :class="getPvStyle(pvPotentiellesPourcentage(items[0].maturitejours))"
         >
           {{ pvPotentiellesPourcentage(items[0].maturitejours) }}</span
         >
       </th>
       <th class="group-maturite-jours hidden-md-and-down">
         <span
-          :style="
+          :class="
             getPvStyle(
               sumCol(
                 items[0].maturitejours,
@@ -103,7 +77,7 @@
         >
       </th>
     </template>
-  </v-data-table>
+  </table-stabilitywarrants>
 </template>
 
 <script>
@@ -118,14 +92,14 @@ module.exports = {
     },
   },
   methods: {
-    getPerfStyle(perf) {
-      if (perf < 7) return "color:red;font-weight:bold;";
-      else if (perf < 12) return "color:orange;font-weight:bold;";
+    getStyle(perf) {
+      if (perf < 7) return "red-value";
+      else if (perf < 12) return "orange-value";
       else return "";
     },
     getPvStyle(pv) {
-      if (pv < 0) return "color:red;";
-      return "color:forestgreen;";
+      if (pv < 0) return "red-pv";
+      return "green-pv";
     },
 
     sumCol(maturitejours, applyfunction, fixed) {
@@ -183,10 +157,13 @@ module.exports = {
     },
   },
   components: {
-    isin: httpVueLoader("vuejs/src/components/isin.vue"),
+    "table-stabilitywarrants": httpVueLoader(
+      "vuejs/src/components/table-stabilitywarrants.vue"
+    ),
   },
 };
 </script>
 
 <style>
+@import "table.css";
 </style>

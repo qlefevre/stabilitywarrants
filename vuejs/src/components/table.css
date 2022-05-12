@@ -1,0 +1,15 @@
+.red-value {
+    color: red;
+    font-weight: bold;
+}
+.orange-value {
+    color: orange;
+    font-weight: bold;
+}
+
+.red-pv {
+    color: red;
+}
+.green-pv {
+    color: forestgreen;
+}

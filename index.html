@@ -51,7 +51,9 @@
               </v-row>
               <v-row no-gutters>
                 <v-col>
-                  <table-stabilitywarrants :headers="headers" :items="filteredWarrants"></table-stabilitywarrants>
+                  <table-stabilitywarrants :headers="headers" :items="filteredWarrants"
+                    :sort-by="['sous-jacent', 'plage', 'ecartcibleabs']" :sort-desc="[false, true, false]"
+                    :footer-props="{ 'items-per-page-options': [-1, 50, 100] }"></table-stabilitywarrants>
                 </v-col>
               </v-row>
             </v-container>
@@ -90,7 +92,9 @@
               </v-row>
               <v-row no-gutters>
                 <v-col>
-                  <table-portfolio :headers="portfolioHeaders" :items="portfolioWarrants">
+                  <table-portfolio :headers="portfolioHeaders" :items="portfolioWarrants"
+                    :sort-by="['maturitejours', 'sous-jacent', 'plage']" :sort-desc="[false, false, true, false]"
+                    :footer-props="{ 'items-per-page-options': [-1, 50, 100] }">
                   </table-portfolio>
                 </v-col>
               </v-row>
