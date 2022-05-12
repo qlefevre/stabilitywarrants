@@ -22,10 +22,10 @@
       {{ item.bornebasse }} {{ item.bornehaute }}
     </template>
     <template v-slot:item.pvlatentes="{ item }">
-      <span :style="getPvStyle(item.pvlatentes)">{{ item.pvlatentes }}</span>
+      <span :class="getPvStyle(item.pvlatentes)">{{ item.pvlatentes }}</span>
     </template>
     <template v-slot:item.pvpotentielles="{ item }">
-      <span :style="getPvStyle(item.pvpotentielles)">{{
+      <span :class="getPvStyle(item.pvpotentielles)">{{
         item.pvpotentielles
       }}</span>
     </template>
