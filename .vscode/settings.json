@@ -5,5 +5,15 @@
     "python.linting.flake8Args": [
         "--max-line-length=120",
         "--verbose"
-    ]
+    ],
+    "vetur.format.defaultFormatterOptions": {
+        "js-beautify-html": {},
+        "prettyhtml": {
+            "printWidth": 150,
+            "singleQuote": false,
+            "wrapAttributes": false,
+            "sortAttributes": false
+        }
+    },
+    "vetur.format.defaultFormatter.html": "js-beautify-html"
 }

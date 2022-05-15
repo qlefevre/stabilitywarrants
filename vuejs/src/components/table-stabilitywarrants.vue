@@ -8,7 +8,7 @@
     class="elevation-1"
     mobile-breakpoint="100"
   >
-    <template v-slot:item.isin="{ item }">
+    <template v-slot:item.isin="{item}">
       <isin v-model="item"></isin>
     </template>
     <template v-slot:item.perfmin="{ item }">
@@ -17,7 +17,6 @@
     <template v-slot:item.perfmax="{ item }">
       <span :class="getStyle(item.perfmax)">{{ item.perfmax }}</span>
     </template>
-
     <template v-slot:item.bornes="{ item }">
       {{ item.bornebasse }} {{ item.bornehaute }}
     </template>
@@ -25,18 +24,20 @@
       <span :class="getPvStyle(item.pvlatentes)">{{ item.pvlatentes }}</span>
     </template>
     <template v-slot:item.pvpotentielles="{ item }">
-      <span :class="getPvStyle(item.pvpotentielles)">{{
-        item.pvpotentielles
-      }}</span>
+      <span :class="getPvStyle(item.pvpotentielles)">{{ item.pvpotentielles }}</span>
     </template>
     <template v-slot:item.pvpotentiellespercentage="{ item }">
-      <span :class="getPvStyle(item.pvpotentiellespercentage)">{{
-        item.pvpotentiellespercentage
-      }}</span>
+      <span :class="getPvStyle(item.pvpotentiellespercentage)">{{ item.pvpotentiellespercentage }}</span>
     </template>
 
-    <template slot="group.header" slot-scope="data">
-      <slot name="group.header" v-bind="data"></slot>
+    <template
+      slot="group.header"
+      slot-scope="data"
+    >
+      <slot
+        name="group.header"
+        v-bind="data"
+      ></slot>
     </template>
   </v-data-table>
 </template>
