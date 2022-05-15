@@ -155,6 +155,5 @@ module.exports = {
 };
 </script>
 
-<style>
-@import "/vuejs/src/components/table.css";
+<style src="./table.css">
 </style>

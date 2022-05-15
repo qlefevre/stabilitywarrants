@@ -4,7 +4,16 @@ const options = {
         vue: Vue,
     },
     getFile(url) {
-        return fetch(url).then(response => response.ok ? response.text() : Promise.reject(response));
+        return fetch(url).then(response => {
+            if (!response.ok) {
+               return Promise.reject(response)
+            } else {
+                console.log(url)
+                content = response.text()
+                content = url.endsWith("-mixin.js") ? { content: content, type: ".mjs" } : content;
+                return content;
+            }
+        });
     },
     addStyle(styleStr) {
         const style = document.createElement('style');
