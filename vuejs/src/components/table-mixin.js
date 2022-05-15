@@ -1,5 +1,5 @@
 // define a mixin object
-tableMixin = {
+var tableMixin = {
     methods: {
         getStyle(perf) {
             if (perf < 7) return "red-value";
