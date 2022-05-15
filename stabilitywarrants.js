@@ -1,12 +1,31 @@
+const { loadModule } = window['vue2-sfc-loader'];
+const options = {
+    moduleCache: {
+        vue: Vue,
+    },
+    getFile(url) {
+        return fetch(url).then(response => response.ok ? response.text() : Promise.reject(response));
+    },
+    addStyle(styleStr) {
+        const style = document.createElement('style');
+        style.textContent = styleStr;
+        const ref = document.head.getElementsByTagName('style')[0] || null;
+        document.head.insertBefore(style, ref);
+    },
+    log(type, ...args) {
+        console.log(type, ...args);
+    }
+}
+
 new Vue({
     el: '#app',
     components: {
-        'issuer-filter': httpVueLoader('vuejs/src/components/issuer-filter.vue'),
-        'maturity-filter': httpVueLoader('vuejs/src/components/maturity-filter.vue'),
-        'pivot-point': httpVueLoader('vuejs/src/components/pivot-point.vue'),
-        'isin': httpVueLoader('vuejs/src/components/isin.vue'),
-        'table-stabilitywarrants': httpVueLoader('vuejs/src/components/table-stabilitywarrants.vue'),
-        'table-portfolio': httpVueLoader('vuejs/src/components/table-portfolio.vue')
+        'issuer-filter': () => loadModule('vuejs/src/components/issuer-filter.vue', options),
+        'maturity-filter': () => loadModule('vuejs/src/components/maturity-filter.vue', options),
+        'pivot-point': () => loadModule('vuejs/src/components/pivot-point.vue', options),
+        'isin': () => loadModule('vuejs/src/components/isin.vue', options),
+        'table-stabilitywarrants': () => loadModule('vuejs/src/components/table-stabilitywarrants.vue', options),
+        'table-portfolio': () => loadModule('vuejs/src/components/table-portfolio.vue', options)
     },
     vuetify: new Vuetify(),
     data() {

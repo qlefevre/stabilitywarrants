@@ -62,5 +62,5 @@ module.exports = {
 </script>
 
 <style>
-@import "table.css";
+@import "/vuejs/src/components/table.css";
 </style>
