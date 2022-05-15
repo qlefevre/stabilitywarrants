@@ -1,19 +1,14 @@
 {
-    "python.linting.pycodestyleEnabled": false,
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [
         "--max-line-length=120",
         "--verbose"
     ],
+    "prettier.printWidth": 120,
     "vetur.format.defaultFormatterOptions": {
-        "js-beautify-html": {},
-        "prettyhtml": {
-            "printWidth": 150,
-            "singleQuote": false,
-            "wrapAttributes": false,
-            "sortAttributes": false
+        "prettier": {
+            "printWidth": 120
         }
-    },
-    "vetur.format.defaultFormatter.html": "js-beautify-html"
+    }
 }
