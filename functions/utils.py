@@ -129,6 +129,14 @@ def format_number(value: float):
 
 
 def extract_string(value: str) -> str:
+    """Extracts number from string
+
+    Args:
+      value: string containing a number
+
+    Returns:
+      the number from string
+    """
     result = value.partition(' ')[0]
     result = result.replace(',0000', '')
     result = result.replace(',00', '')
