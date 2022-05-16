@@ -52,7 +52,7 @@
               <v-row no-gutters>
                 <v-col>
                   <table-stabilitywarrants :headers="headers" :items="filteredWarrants"
-                    :sort-by="['sous-jacent', 'plage', 'ecartcibleabs']" :sort-desc="[false, true, false]"
+                    :sort-by="['perfmin']" :sort-desc="[false]"
                     :footer-props="{ 'items-per-page-options': [-1, 50, 100] }"></table-stabilitywarrants>
                 </v-col>
               </v-row>
