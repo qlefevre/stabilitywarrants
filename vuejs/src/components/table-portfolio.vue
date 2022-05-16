@@ -86,5 +86,5 @@ module.exports = {
 };
 </script>
 
-<style src="./table.css">
+<style src="vuejs/src/components/table.css">
 </style>
