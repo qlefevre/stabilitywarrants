@@ -136,6 +136,7 @@ def extract_string(value: str) -> str:
       7800,00 Points -> 7800
       13,0000 EUR -> 13
       22,50 EUR -> 22
+      7,5000 -> 7,50
       
     Args:
       value: string containing a number
