@@ -75,8 +75,11 @@ module.exports = {
       return (sumWarrants / quantite).toFixed(2);
     },
     maturiteJoursOuvrables(maturitejours) {
-      var weeks = Math.round(maturitejours / 7);
-      var days = maturitejours - 2 * weeks;
+      var days = maturitejours;
+      if(days >= 7){
+        var weeks = Math.round(maturitejours / 7);
+        days = maturitejours - 2 * weeks;
+      }
       return days;
     },
   },
