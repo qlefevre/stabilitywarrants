@@ -77,7 +77,7 @@ module.exports = {
     maturiteJoursOuvrables(maturitejours) {
       var days = maturitejours;
       if(days >= 7){
-        var weeks = Math.round(maturitejours / 7);
+        var weeks = Math.floor(maturitejours / 7);
         days = maturitejours - 2 * weeks;
       }
       return days;
