@@ -128,21 +128,21 @@ def format_number(value: float):
     return int(result) if float(result).is_integer() else ('%0.2f' % result).replace('.', ',')
 
 
-def extract_string(value: str) -> str:
+def extract_number(value: str) -> str:
     """Extracts number from string
 
-    Example: 
-      7600,0000 POINTS -> 7600
-      7800,00 Points -> 7800
-      13,0000 EUR -> 13
-      22,50 EUR -> 22
-      7,5000 -> 7,50
-      
+    Example:
+    - 7600,0000 POINTS -> 7600
+    - 7800,00 Points -> 7800
+    - 13,0000 EUR -> 13
+    - 22,50 EUR -> 22
+    - 7,5000 -> 7,50
+
     Args:
-      value: string containing a number
+      value (str): string containing a number
 
     Returns:
-      the number from string
+      str: the number from string
     """
     result = value.partition(' ')[0]
     result = result.replace(',0000', '')

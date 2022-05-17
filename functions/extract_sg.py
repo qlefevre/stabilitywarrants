@@ -1,7 +1,7 @@
 import urllib.request
 
 import utils
-from utils import extract_string
+from utils import extract_number
 
 
 def handle(event, context):
@@ -35,11 +35,11 @@ def handle(event, context):
                     cf_csv_file.write(
                         'SG;'+row['A']+';'+row['B'] + ';' +
                         utils.clean_name(row['C']) + ';'
-                        + extract_string(row['D']) + ';'
-                        + extract_string(row['E']) + ';'
-                        + extract_string(row['F']) + ';'
-                        + extract_string(row['G']) + ';'
-                        + extract_string(row['H']) + ';'
+                        + extract_number(row['D']) + ';'
+                        + extract_number(row['E']) + ';'
+                        + extract_number(row['F']) + ';'
+                        + extract_number(row['G']) + ';'
+                        + extract_number(row['H']) + ';'
                         + row['J'].partition(' ')[0] + '\n')
 
     utils.upload_file(stabilitywarrants_sg_xlsx,
