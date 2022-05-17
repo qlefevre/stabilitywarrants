@@ -52,7 +52,7 @@
               <v-row no-gutters>
                 <v-col>
                   <table-stabilitywarrants :headers="headers" :items="filteredWarrants"
-                    :sort-by="['perfmin']" :sort-desc="[false]"
+                    :sort-by="['maturitejours',perfmin']" :sort-desc="[false,false]"
                     :footer-props="{ 'items-per-page-options': [-1, 50, 100] }"></table-stabilitywarrants>
                 </v-col>
               </v-row>
