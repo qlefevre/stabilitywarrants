@@ -60,7 +60,7 @@ module.exports = {
         .map((str) => str.substring(str.indexOf("/") + 1, str.lastIndexOf("/")))
         .map((str) => Number(str));
       maturities = Array.from(new Set(maturities));
-      maturities.sort();
+      maturities.sort((a, b) => a - b);
       console.log("maturites " + maturities);
       return maturities;
     },
