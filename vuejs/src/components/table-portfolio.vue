@@ -2,7 +2,7 @@
   <table-stabilitywarrants :headers="this.headers" :items="this.items" v-bind="$attrs" group-by="maturitejours">
     <template v-slot:group.header="{ items, isOpen, toggle }">
       <th class="group-maturite-jours" colspan="4">
-        <span class="hidden-lg-and-up">{{ headers[5].text }}: {{ items[0].maturitejours }} jours </span><br />
+        <span class="hidden-lg-and-up">{{ headers[5].text }}: {{ items[0].maturitejours }} jours<br /></span>
         Montant: {{ sumWarrants(items[0].maturitejours) }}
       </th>
       <th class="group-maturite-jours hidden-md-and-down">
@@ -76,7 +76,7 @@ module.exports = {
     },
     maturiteJoursOuvrables(maturitejours) {
       var days = maturitejours;
-      if(days >= 7){
+      if (days >= 7) {
         var weeks = Math.floor(maturitejours / 7);
         days = maturitejours - 2 * weeks;
       }
