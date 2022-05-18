@@ -324,8 +324,8 @@ new Vue({
             if(sousjacent === 'DAX'){
                 console.log(sousjacent);
                 console.log(this.filterissuers);
-                if(!this.filterissuers.includes(sousjacent)){
-                    this.filterissuers.push(sousjacent);
+                if(!this.filterissuers.includes('UC')){
+                    this.filterissuers.push('UC');
                 }
                  console.log(this.filterissuers);
             }
