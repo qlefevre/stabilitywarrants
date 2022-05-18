@@ -321,7 +321,7 @@ new Vue({
             localStorage.portfolio = JSON.stringify(newPortfolio);
         },
         filtersousjacent: function (sousjacent) {
-            if(sousjacent === 'DAX'){
+            if(sousjacent !== 'CAC 40'){
                 if(!this.filterissuers.includes('UC')){
                     this.filterissuers.push('UC');
                 }
