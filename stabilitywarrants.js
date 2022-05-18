@@ -100,6 +100,18 @@ new Vue({
             chosenFile: []
         }
     },
+    watch: {
+        filtersousjacent: function (sousjacent) {
+            if(sousjacent === 'DAX'){
+                console.log(sousjacent);
+                console.log(this.filterissuers);
+                if(!this.filterissuers.includes(sousjacent)){
+                    this.filterissuers.push(sousjacent);
+                }
+                 console.log(this.filterissuers);
+            }
+        }
+    },
     computed: {
         filteredWarrants() {
             // émetteurs
