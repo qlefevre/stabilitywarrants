@@ -8,7 +8,7 @@ const options = {
             if (!response.ok) {
                return Promise.reject(response)
             } else {
-                console.log(url)
+                //console.log(url)
                 content = response.text()
                 content = url.endsWith("-mixin.js") ? { content: content, type: ".mjs" } : content;
                 return content;
@@ -308,7 +308,7 @@ new Vue({
                 this.warrants = data;
                 var strmat = this.warrants.map(warrant => warrant['maturite']).sort()[0];
                 this.filtermaturity = [Number(strmat.substring(strmat.indexOf('/') + 1, strmat.lastIndexOf('/')))];
-                console.log('filtermaturity ' + this.filtermaturity)
+                //console.log('filtermaturity ' + this.filtermaturity)
             });
         // stockage local du portefeuille
         if (!this.portfolio.length && localStorage.portfolio) {
@@ -322,12 +322,11 @@ new Vue({
         },
         filtersousjacent: function (sousjacent) {
             if(sousjacent === 'DAX'){
-                console.log(sousjacent);
-                console.log(this.filterissuers);
                 if(!this.filterissuers.includes('UC')){
                     this.filterissuers.push('UC');
                 }
-                 console.log(this.filterissuers);
+                //console.log(sousjacent);
+                //console.log(this.filterissuers);
             }
         }
     }
