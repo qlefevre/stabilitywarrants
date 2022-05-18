@@ -36,7 +36,7 @@
                   </h1>
                   <maturity-filter v-model="filtermaturity" :warrants="warrants"></maturity-filter>
                  </v-col>
-                <v-col cols="3">
+                <v-col cols="2">
                   <h1 class="text-subtitle-1">
                     Sous-jacent
                   </h1>
@@ -45,14 +45,19 @@
                     <v-chip filter value="DAX" key="DAX">DAX</v-chip>
                   </v-chip-group>
                   </v-col>
-                   <v-col cols="3">
+                   <v-col cols="2">
                   <h1 class="text-subtitle-1">
                     Émetteur
                   </h1>
                  <issuer-filter v-model="filterissuers" :warrants="warrants"></issuer-filter>
                  </v-col>
+                <v-col cols="2">
+                   <h1 class="text-subtitle-1">
+                    Filtre perf%
+                  </h1>
                 <v-switch v-model="filterperf" label="Perf Max > 12% & Perf Min > 15%">
                 </v-switch>
+                  </v-col>
                 <!--
                 <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
                 </v-select>
