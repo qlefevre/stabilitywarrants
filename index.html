@@ -30,13 +30,13 @@
           <v-tab-item key="stabilitywarrants">
             <v-container fluid>
               <v-row no-gutters>
-                 <v-col>
+                 <v-col cols="6">
                   <h1 class="text-subtitle-1">
                     Maturité
                   </h1>
                   <maturity-filter v-model="filtermaturity" :warrants="warrants"></maturity-filter>
                  </v-col>
-                <v-col>
+                <v-col cols="3">
                   <h1 class="text-subtitle-1">
                     Sous-jacent
                   </h1>
@@ -45,7 +45,7 @@
                     <v-chip filter value="DAX" key="DAX">DAX</v-chip>
                   </v-chip-group>
                   </v-col>
-                   <v-col>
+                   <v-col cols="3">
                   <h1 class="text-subtitle-1">
                     Émetteur
                   </h1>
