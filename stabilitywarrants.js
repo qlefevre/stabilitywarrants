@@ -100,18 +100,6 @@ new Vue({
             chosenFile: []
         }
     },
-    watch: {
-        filtersousjacent: function (sousjacent) {
-            if(sousjacent === 'DAX'){
-                console.log(sousjacent);
-                console.log(this.filterissuers);
-                if(!this.filterissuers.includes(sousjacent)){
-                    this.filterissuers.push(sousjacent);
-                }
-                 console.log(this.filterissuers);
-            }
-        }
-    },
     computed: {
         filteredWarrants() {
             // émetteurs
@@ -331,6 +319,16 @@ new Vue({
         // stockage local du portefeuille
         portfolio(newPortfolio) {
             localStorage.portfolio = JSON.stringify(newPortfolio);
+        },
+        filtersousjacent: function (sousjacent) {
+            if(sousjacent === 'DAX'){
+                console.log(sousjacent);
+                console.log(this.filterissuers);
+                if(!this.filterissuers.includes(sousjacent)){
+                    this.filterissuers.push(sousjacent);
+                }
+                 console.log(this.filterissuers);
+            }
         }
     }
 });
