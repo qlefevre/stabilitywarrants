@@ -30,17 +30,29 @@
           <v-tab-item key="stabilitywarrants">
             <v-container fluid>
               <v-row no-gutters>
-                <maturity-filter v-model="filtermaturity" :warrants="warrants"></maturity-filter>
+                 <v-col>
+                  <h1 class="text-subtitle-1">
+                    Maturité
+                  </h1>
+                  <maturity-filter v-model="filtermaturity" :warrants="warrants"></maturity-filter>
+                 </v-col>
+                <v-col>
+                  <h1 class="text-subtitle-1">
+                    Sous-jacent
+                  </h1>
+                  <v-chip-group v-model="filtersousjacent" column active-class="primary--text">
+                    <v-chip filter value="CAC 40" key="CAC 40">CAC 40</v-chip>
+                    <v-chip filter value="DAX" key="DAX">DAX</v-chip>
+                  </v-chip-group>
+                  </v-col>
+                  
                 <v-switch v-model="filterperf" label="Perf Max > 12% & Perf Min > 15%">
                 </v-switch>
                 <!--
                 <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
                 </v-select>
 -->
-                <v-chip-group v-model="filtersousjacent" column active-class="primary--text">
-                  <v-chip filter value="CAC 40" key="CAC 40">CAC 40</v-chip>
-                  <v-chip filter value="DAX" key="DAX">DAX</v-chip>
-                </v-chip-group>
+                
                 <issuer-filter v-model="filterissuers" :warrants="warrants"></issuer-filter>
               </v-row>
               <v-row no-gutters>
