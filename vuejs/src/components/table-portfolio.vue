@@ -25,13 +25,18 @@
         </span>
       </th>
       <th class="group-maturite-jours hidden-md-and-down">
-        <span :class="getPvStyle(pvPotentiellesPourcentage(items[0].maturitejours))">
-          {{ pvPotentiellesPourcentage(items[0].maturitejours) }}
+        <span :class="getPvStyle(pvLatentesPourcentage(items[0].maturitejours))">
+          {{ pvLatentesPourcentage(items[0].maturitejours) }}
         </span>
       </th>
       <th class="group-maturite-jours hidden-md-and-down">
         <span :class="getPvStyle(sumCol(items[0].maturitejours, (warrant) => warrant.pvpotentielles, 2))">
           {{ sumCol(items[0].maturitejours, (warrant) => warrant.pvpotentielles, 2) }}
+        </span>
+      </th>
+      <th class="group-maturite-jours hidden-md-and-down">
+        <span :class="getPvStyle(pvPotentiellesPourcentage(items[0].maturitejours))">
+          {{ pvPotentiellesPourcentage(items[0].maturitejours) }}
         </span>
       </th>
     </template>
@@ -68,6 +73,11 @@ module.exports = {
       var sumWarrants = this.sumCol(maturitejours, (warrant) => warrant.quantite * warrant.prixrevient, 2);
       var quantite = this.sumCol(maturitejours, (warrant) => warrant.quantite, 0);
       return (((quantite * 10) / sumWarrants - 1) * 100).toFixed(2);
+    },
+    pvLatentesPourcentage(maturitejours) {
+      var sumWarrants = this.sumCol(maturitejours, (warrant) => warrant.quantite * warrant.prixrevient, 2);
+      var sumAchats = this.sumCol(maturitejours, (warrant) => warrant.quantite * warrant.achat, 2);
+      return ((sumAchats / sumWarrants - 1) * 100).toFixed(2);
     },
     prixDeRevientMoyen(maturitejours) {
       var sumWarrants = this.sumCol(maturitejours, (warrant) => warrant.quantite * warrant.prixrevient, 2);

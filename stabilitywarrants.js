@@ -82,17 +82,18 @@ new Vue({
                 { text: 'Borne basse', value: 'bornebasse', align: ' hidden-md-and-down' },
                 { text: 'Borne haute', value: 'bornehaute', align: ' hidden-md-and-down' },
                 { text: 'Bornes', value: 'bornes', align: ' hidden-lg-and-up' },
-                { text: 'Maturité', value: 'maturite', align: ' hidden-md-and-down' },
+                { text: 'Maturité', value: 'maturite', align: ' hidden-md-and-down', sortable: false },
                 { text: 'Maturité jours', value: 'maturitejours' },
                 { text: 'Plage', value: 'plage', align: ' hidden-md-and-down' },
                 { text: 'Perf min %', value: 'perfmin' },
                 { text: 'Perf max %', value: 'perfmax' },
-                { text: 'Quantité', value: 'quantite' },
-                { text: 'Prix de revient', value: 'prixrevient' },
-                { text: 'Valeur Achat', value: 'achat' },
-                { text: '+/- latentes', value: 'pvlatentes' },
-                { text: '+/- potentielles %', value: 'pvpotentiellespercentage', align: ' hidden-md-and-down' },
-                { text: '+/- potentielles', value: 'pvpotentielles', align: ' hidden-md-and-down' },
+                { text: 'Quantité', value: 'quantite', sortable: false },
+                { text: 'Prix de revient', value: 'prixrevient', sortable: false },
+                { text: 'Valeur Achat', value: 'achat', sortable: false },
+                { text: '+/- latentes', value: 'pvlatentes', sortable: false },
+                { text: '+/- % latentes', value: 'pvlatentespercentage', align: ' hidden-md-and-down', sortable: false },
+                { text: '+/- potentielles', value: 'pvpotentielles', align: ' hidden-md-and-down', sortable: false },
+                { text: '+/- % potentielles', value: 'pvpotentiellespercentage', align: ' hidden-md-and-down', sortable: false }
             ],
             warrants: [],
             portfolio: [],
@@ -130,8 +131,9 @@ new Vue({
                     warrantPf.prixrevient = pFVal.prixrevient;
                     warrantPf.quantite = pFVal.quantite;
                     warrantPf.pvlatentes = ((warrantPf.achat - warrantPf.prixrevient) * warrantPf.quantite).toFixed(2);
+                    warrantPf.pvlatentespercentage = ((warrantPf.achat / warrantPf.prixrevient - 1) * 100).toFixed(2);
                     warrantPf.pvpotentielles = ((10 - warrantPf.prixrevient) * warrantPf.quantite).toFixed(2);
-                    warrantPf.pvpotentiellespercentage = (warrantPf.pvpotentielles / (warrantPf.prixrevient * warrantPf.quantite) * 100).toFixed(2);
+                    warrantPf.pvpotentiellespercentage = ((10 / warrantPf.prixrevient - 1) * 100).toFixed(2);
                     return warrantPf;
                 });
 

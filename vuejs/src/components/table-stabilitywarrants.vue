@@ -21,6 +21,9 @@
     <template v-slot:item.pvlatentes="{ item }">
       <span :class="getPvStyle(item.pvlatentes)">{{ item.pvlatentes }}</span>
     </template>
+    <template v-slot:item.pvlatentespercentage="{ item }">
+      <span :class="getPvStyle(item.pvlatentespercentage)">{{ item.pvlatentespercentage }}</span>
+    </template>
     <template v-slot:item.pvpotentielles="{ item }">
       <span :class="getPvStyle(item.pvpotentielles)">{{ item.pvpotentielles }}</span>
     </template>
