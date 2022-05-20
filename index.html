@@ -127,28 +127,8 @@
           <v-tab-item key="debug">
             <v-container>
               <v-row no-gutters>
-                <v-col>
-                  <h1 class="text-subtitle-1">
-                    <v-icon color="gray darken-2">mdi-clock-remove-outline</v-icon>&nbsp;Par Date
-                  </h1>
-                  <v-chip-group label="Semaine" v-model="dates" class="day-links">
-                    <v-chip link v-for="(date, index) in dates" :value="date" :key="index">
-                      <a :href="'index.html'+index==0?'':'?date='+date.string">
-                        {{date.string}}
-                      </a>
-                    </v-chip>
-                  </v-chip-group>
-                  <h1 class="text-subtitle-1">
-                    <v-icon color="gray darken-2">mdi-credit-card-clock</v-icon>&nbsp;Par date avec compte titres
-                  </h1>
-                  <v-chip-group label="Semaine" v-model="dates" class="day-links">
-                    <v-chip link v-for="(date, index) in dates" :value="date" :key="index">
-                      <a :href="'index.html?'+(index==0?'':'date='+date.string+'&')+'portfolio='+portfoliocodes(false)">
-                        {{date.string}}
-                      </a>
-                    </v-chip>
-                  </v-chip-group>
-                </v-col>
+                <links v-model="dates" :data="false"></links>
+                <links v-model="dates" :data="true" :portfolio="portfolioWarrants"></links>
               </v-row>
               <v-row>
                 <v-col>

@@ -6,7 +6,7 @@ const options = {
     getFile(url) {
         return fetch(url).then(response => {
             if (!response.ok) {
-               return Promise.reject(response)
+                return Promise.reject(response)
             } else {
                 //console.log(url)
                 content = response.text()
@@ -34,7 +34,8 @@ new Vue({
         'pivot-point': () => loadModule('vuejs/src/components/pivot-point.vue', options),
         'isin': () => loadModule('vuejs/src/components/isin.vue', options),
         'table-stabilitywarrants': () => loadModule('vuejs/src/components/table-stabilitywarrants.vue', options),
-        'table-portfolio': () => loadModule('vuejs/src/components/table-portfolio.vue', options)
+        'table-portfolio': () => loadModule('vuejs/src/components/table-portfolio.vue', options),
+        'links': () => loadModule('vuejs/src/components/links.vue', options)
     },
     vuetify: new Vuetify(),
     data() {
@@ -204,11 +205,7 @@ new Vue({
             return date;
 
         },
-        portfoliocodes: function (short) {
-            return this.portfolioWarrants.map(warrant =>
-                warrant.isin + '-' + warrant.quantite + '-' + warrant.prixrevient)
-                .map(isin => short ? isin.substring(7) : isin).join();
-        },
+
 
         getPvStyle(pv) {
             if (pv < 0) return 'color:red;'
@@ -321,8 +318,8 @@ new Vue({
             localStorage.portfolio = JSON.stringify(newPortfolio);
         },
         filtersousjacent: function (sousjacent) {
-            if(sousjacent !== 'CAC 40'){
-                if(!this.filterissuers.includes('UC')){
+            if (sousjacent !== 'CAC 40') {
+                if (!this.filterissuers.includes('UC')) {
                     this.filterissuers.push('UC');
                 }
                 //console.log(sousjacent);
