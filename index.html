@@ -117,7 +117,7 @@
               <v-row no-gutters>
                 <v-col>
                   <table-portfolio :headers="portfolioHeaders" :items="portfolioWarrants"
-                    :sort-by="['maturitejours', 'sous-jacent', 'plage']" :sort-desc="[false, false, true, false]"
+                    :sort-by="['maturitejours', 'sous-jacent', 'perfmin']" :sort-desc="[false, false, false]"
                     :footer-props="{ 'items-per-page-options': [-1, 50, 100] }">
                   </table-portfolio>
                 </v-col>
