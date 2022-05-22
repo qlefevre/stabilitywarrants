@@ -1,25 +1,17 @@
 <template>
-  <v-col>
+  <v-col cols="12">
     <h1 class="text-subtitle-1">
       <v-icon color="gray darken-2">{{ icon }}</v-icon
       >&nbsp;{{ title }}
     </h1>
-    <v-chip-group label="Semaine" v-model="value" class="day-links">
-      <v-chip link v-for="(date, index) in value" :value="date" :key="index">
-        <a
-          :href="
-            'index.html' +
-            (index == 0 && !data ? '' : '?') +
-            (index == 0 ? '' : 'date=' + date.string) +
-            (index != 0 && data ? '&' : '') +
-            (data ? 'portfolio=' + portfoliocodes(false) : '')
-          "
-        >
+    <div class="day-links">
+      <v-btn v-for="(date, index) in value" :value="date" :key="index" rounded>
+        <a :href="link(date, index)">
           {{ date.string }}
         </a>
-        <!--<v-icon small @click="copy(date)">mdi-content-copy</v-icon>-->
-      </v-chip>
-    </v-chip-group>
+        <v-icon dense @click="copy(date, index)">mdi-content-copy</v-icon>
+      </v-btn>
+    </div>
   </v-col>
 </template>
 
@@ -49,14 +41,34 @@ module.exports = {
         .map((isin) => (short ? isin.substring(7) : isin))
         .join();
     },
-    copy: function (date) {
-      console.log("date " + date.string);
+    link: function (date, index) {
+      return (
+        "index.html" +
+        (index == 0 && !this.data ? "" : "?") +
+        (index == 0 ? "" : "date=" + date.string) +
+        (index != 0 && this.data ? "&" : "") +
+        (this.data ? "portfolio=" + this.portfoliocodes(false) : "")
+      );
+    },
+    copy: function (date, index) {
+      var text = window.location.origin + "/" + this.link(date, index);
+      //console.log(text);
+      navigator.clipboard.writeText(text);
     },
   },
 };
 </script>
 
 <style>
+.day-links .v-btn {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.day-links .v-btn a {
+  color: inherit;
+  text-decoration: inherit;
+}
 .day-links .v-icon {
   margin-left: 10px;
 }
