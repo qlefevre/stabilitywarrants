@@ -39,6 +39,7 @@
           {{ pvPotentiellesPourcentage(items[0].maturitejours) }}
         </span>
       </th>
+      <th class="hidden-md-and-down" colspan="2"></th>
     </template>
   </table-stabilitywarrants>
 </template>
