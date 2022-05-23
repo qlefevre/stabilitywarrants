@@ -137,8 +137,7 @@ def handle(event, context):
        Calcule les points pivots en mensuel et sur 4 semaines glissantes
     """
     print('Calcule les points pivots en mensuel et sur 4 semaines glissantes')
-    content = '{'+pivot_point('CAC 40', 'FCHI')+',' + \
-        pivot_point('DAX', 'GDAXI')+'}'
+    content = '{'+pivot_point('CAC 40', 'FCHI')+',' + pivot_point('DAX', 'GDAXI')+','+  pivot_point('S&P 500', 'GSPC')+','+  pivot_point('NASDAQ 100', 'IXIC')+'}'
     print('json')
     print(content)
     pivotpoint_json = utils.create_temp_file()
