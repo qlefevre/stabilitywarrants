@@ -51,7 +51,7 @@ module.exports = {
       );
     },
     copy: function (date, index) {
-      var text = window.location.origin + "/" + this.link(date, index);
+      var text = window.location.href + "/" + this.link(date, index);
       //console.log(text);
       navigator.clipboard.writeText(text);
     },
