@@ -61,7 +61,7 @@ module.exports = {
         .map((str) => Number(str));
       maturities = Array.from(new Set(maturities));
       maturities.sort((a, b) => a - b);
-      console.log("maturites " + maturities);
+      // console.log("maturites " + maturities);
       return maturities;
     },
   },
