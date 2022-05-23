@@ -58,7 +58,7 @@
       <span :class="getPvStyle(item.pvpotentiellespercentage)">{{ item.pvpotentiellespercentage }}</span>
     </template>
     <template v-slot:item.actions="{ item }">
-      <span>test</span>
+      <v-icon>mdi-clock-end</v-icon>
     </template>
     
   </table-stabilitywarrants>
