@@ -58,7 +58,7 @@
       <span :class="getPvStyle(item.pvpotentiellespercentage)">{{ item.pvpotentiellespercentage }}</span>
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-icon>mdi-clock-end</v-icon>
+      <v-icon dense @click="closeLine(item)">mdi-clock-end</v-icon>
     </template>
     
   </table-stabilitywarrants>
@@ -113,6 +113,11 @@ module.exports = {
       }
       return days;
     },
+    closeLine(item){
+      var text = item.isin;
+      //console.log(text);
+      navigator.clipboard.writeText(text);
+    }
   },
   components: {
     "table-stabilitywarrants": httpVueLoader("vuejs/src/components/table-stabilitywarrants.vue"),
