@@ -1,5 +1,7 @@
 <template>
   <table-stabilitywarrants :headers="this.headers" :items="this.items" v-bind="$attrs" group-by="maturitejours">
+  
+    <!-- headers -->
     <template v-slot:group.header="{ items, isOpen, toggle }">
       <th class="group-maturite-jours" colspan="4">
         <span class="hidden-lg-and-up">{{ headers[5].text }}: {{ items[0].maturitejours }} jours<br /></span>
@@ -40,6 +42,20 @@
         </span>
       </th>
       <th class="hidden-md-and-down" colspan="2"></th>
+    </template>
+    
+    <!-- portfolio -->
+    <template v-slot:item.pvlatentes="{ item }">
+      <span :class="getPvStyle(item.pvlatentes)">{{ item.pvlatentes }}</span>
+    </template>
+    <template v-slot:item.pvlatentespercentage="{ item }">
+      <span :class="getPvStyle(item.pvlatentespercentage)">{{ item.pvlatentespercentage }}</span>
+    </template>
+    <template v-slot:item.pvpotentielles="{ item }">
+      <span :class="getPvStyle(item.pvpotentielles)">{{ item.pvpotentielles }}</span>
+    </template>
+    <template v-slot:item.pvpotentiellespercentage="{ item }">
+      <span :class="getPvStyle(item.pvpotentiellespercentage)">{{ item.pvpotentiellespercentage }}</span>
     </template>
     <template v-slot:item.actions="{ item }">
       <span>test</span>
