@@ -31,6 +31,10 @@
       <span :class="getPvStyle(item.pvpotentiellespercentage)">{{ item.pvpotentiellespercentage }}</span>
     </template>
 
+    <template slot="item.actions" slot-scope="data">
+      <slot name="item.actions" v-bind="data"></slot>
+    </template>
+
     <template slot="group.header" slot-scope="data">
       <slot name="group.header" v-bind="data"></slot>
     </template>
