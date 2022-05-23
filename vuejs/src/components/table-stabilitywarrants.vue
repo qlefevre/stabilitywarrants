@@ -8,6 +8,7 @@
     class="elevation-1"
     mobile-breakpoint="100"
   >
+    <!-- stability warrants -->
     <template v-slot:item.isin="{ item }">
       <isin v-model="item"></isin>
     </template>
@@ -18,19 +19,20 @@
       <span :class="getStyle(item.perfmax)">{{ item.perfmax }}</span>
     </template>
     <template v-slot:item.bornes="{ item }"> {{ item.bornebasse }} {{ item.bornehaute }} </template>
-    <template v-slot:item.pvlatentes="{ item }">
-      <span :class="getPvStyle(item.pvlatentes)">{{ item.pvlatentes }}</span>
-    </template>
-    <template v-slot:item.pvlatentespercentage="{ item }">
-      <span :class="getPvStyle(item.pvlatentespercentage)">{{ item.pvlatentespercentage }}</span>
-    </template>
-    <template v-slot:item.pvpotentielles="{ item }">
-      <span :class="getPvStyle(item.pvpotentielles)">{{ item.pvpotentielles }}</span>
-    </template>
-    <template v-slot:item.pvpotentiellespercentage="{ item }">
-      <span :class="getPvStyle(item.pvpotentiellespercentage)">{{ item.pvpotentiellespercentage }}</span>
-    </template>
 
+    <!-- portfolio -->
+    <template slot="item.pvlatentes" slot-scope="data">
+      <slot name="item.pvlatentes" v-bind="data"></slot>
+    </template>
+    <template slot="item.pvlatentespercentage" slot-scope="data">
+      <slot name="item.pvlatentespercentage" v-bind="data"></slot>
+    </template>
+    <template slot="item.pvpotentielles" slot-scope="data">
+      <slot name="item.pvpotentielles" v-bind="data"></slot>
+    </template>
+    <template slot="item.pvpotentiellespercentage" slot-scope="data">
+      <slot name="item.pvpotentiellespercentage" v-bind="data"></slot>
+    </template>
     <template slot="item.actions" slot-scope="data">
       <slot name="item.actions" v-bind="data"></slot>
     </template>
