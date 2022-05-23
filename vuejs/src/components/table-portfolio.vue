@@ -41,6 +41,9 @@
       </th>
       <th class="hidden-md-and-down" colspan="2"></th>
     </template>
+    <template v-slot:item.action="{ item }">
+      <span>test</span>
+    </template>
   </table-stabilitywarrants>
 </template>
 
