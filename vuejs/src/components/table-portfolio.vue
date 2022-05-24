@@ -112,9 +112,9 @@ module.exports = {
       return days;
     },
     closeLine(item) {
-      var text =
-        item.isin+'\t'+'CAC 40'+'\t'+item.bornebasse+'\t'+item.bornehaute+'\t'+item.maturite+'\t'+item.maturitejours+'\t'+item.plage+'\t'+item.quantite+'\t'+item.prixrevient+'\t'+10+'\n';
-      //console.log(text);
+      var pxrevient = item.prixrevient.toString().replace('.',',');
+      var text = item.isin+'\t'+'CAC 40'+'\t'+item.bornebasse+'\t'+item.bornehaute+'\t'+item.maturite+'\t'+item.plage+'\t'+item.quantite+'\t'+pxrevient+'\t'+10+'\n';
+      console.log(text);
       navigator.clipboard.writeText(text);
     },
   },
