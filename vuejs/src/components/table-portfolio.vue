@@ -113,7 +113,7 @@ module.exports = {
     },
     closeLine(item) {
       var text =
-        item.isin+'\'+'CAC 40'+'\t'+item.bornebasse+'\t'+item.bornehaute+'\t'+item.maturite+'\t'+item.maturitejours+'\t'+item.plage+'\t'+item.quantite+'\t'+item.prixrevient+'\t'+10+'\n';
+        item.isin+'\t'+'CAC 40'+'\t'+item.bornebasse+'\t'+item.bornehaute+'\t'+item.maturite+'\t'+item.maturitejours+'\t'+item.plage+'\t'+item.quantite+'\t'+item.prixrevient+'\t'+10+'\n';
       //console.log(text);
       navigator.clipboard.writeText(text);
     },
