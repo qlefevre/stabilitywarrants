@@ -112,8 +112,8 @@ module.exports = {
       return days;
     },
     closeLine(item) {
-      var gain = ((10 - item.prixrevient) * item.quantite).toFixed(2);
-      var perf = ((10 / item.prixrevient - 1) * 100).toFixed(2);
+      var gain = ((10 - item.prixrevient) * item.quantite).toFixed(2).replace('.',',');
+      var perf = ((10 / item.prixrevient - 1) * 100).toFixed(2).replace('.',',');
       var pxrevient = item.prixrevient.toString().replace('.',',');
       var text = item.isin+'\t'+'CAC 40'+'\t'+item.bornebasse+'\t'+item.bornehaute+'\t'+item.maturite+'\t'+item.plage+'\t'+item.quantite+'\t'+pxrevient+'\t'+10+'\t'+gain+'\t'+perf+'\t'+item.maturite+'\n';
       console.log(text);
