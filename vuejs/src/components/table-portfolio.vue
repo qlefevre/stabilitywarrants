@@ -40,7 +40,9 @@
           {{ pvPotentiellesPourcentage(items[0].maturitejours) }}
         </span>
       </th>
-      <th class="hidden-md-and-down" colspan="2"></th>
+      <th class="hidden-md-and-down">
+        <v-icon dense @click="closeLines(items[0].maturitejours)">mdi-clock-end</v-icon>
+      </th>
     </template>
 
     <!-- portfolio -->
@@ -111,12 +113,47 @@ module.exports = {
       }
       return days;
     },
-    closeLine(item) {
-      var gain = ((10 - item.prixrevient) * item.quantite).toFixed(2).replace('.',',');
-      var perf = ((10 / item.prixrevient - 1) * 100).toFixed(2).replace('.',',');
-      var pxrevient = item.prixrevient.toString().replace('.',',');
-      var text = item.isin+'\t'+'CAC 40'+'\t'+item.bornebasse+'\t'+item.bornehaute+'\t'+item.maturite+'\t'+item.plage+'\t'+item.quantite+'\t'+pxrevient+'\t'+10+'\t'+gain+'\t'+perf+'\t'+item.maturite+'\n';
+    doCloseLine(item) {
+      var gain = ((10 - item.prixrevient) * item.quantite).toFixed(2).replace(".", ",");
+      var perf = ((10 / item.prixrevient - 1) * 100).toFixed(2).replace(".", ",");
+      var pxrevient = item.prixrevient.toString().replace(".", ",");
+      var text =
+        item.isin +
+        "\t" +
+        "CAC 40" +
+        "\t" +
+        item.bornebasse +
+        "\t" +
+        item.bornehaute +
+        "\t" +
+        item.maturite +
+        "\t" +
+        item.plage +
+        "\t" +
+        item.quantite +
+        "\t" +
+        pxrevient +
+        "\t" +
+        10 +
+        "\t" +
+        gain +
+        "\t" +
+        perf +
+        "\t" +
+        item.maturite +
+        "\n";
       console.log(text);
+      return text;
+    },
+    closeLine(item) {
+      var text = doCloseLine(item);
+      navigator.clipboard.writeText(text);
+    },
+    closeLines(maturitejours) {
+      var text = this.items
+        .filter((warrant) => warrant.maturitejours == maturitejours)
+        .map((warrant) => this.doCloseLine(warrant))
+        .join("");
       navigator.clipboard.writeText(text);
     },
   },

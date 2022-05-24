@@ -94,7 +94,7 @@ new Vue({
                 { text: '+/- % latentes', value: 'pvlatentespercentage', align: ' hidden-md-and-down', sortable: false },
                 { text: '+/- potentielles', value: 'pvpotentielles', align: ' hidden-md-and-down', sortable: false },
                 { text: '+/- % potentielles', value: 'pvpotentiellespercentage', align: ' hidden-md-and-down', sortable: false },
-                { text: 'Actions', value: 'actions', align: ' hidden-md-and-down', sortable: false }
+                { text: 'Action', value: 'actions', align: ' hidden-md-and-down', sortable: false }
             ],
             warrants: [],
             portfolio: [],
