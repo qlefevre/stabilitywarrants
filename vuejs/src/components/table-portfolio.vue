@@ -1,6 +1,5 @@
 <template>
   <table-stabilitywarrants :headers="this.headers" :items="this.items" v-bind="$attrs" group-by="maturitejours">
-  
     <!-- headers -->
     <template v-slot:group.header="{ items, isOpen, toggle }">
       <th class="group-maturite-jours" colspan="4">
@@ -43,7 +42,7 @@
       </th>
       <th class="hidden-md-and-down" colspan="2"></th>
     </template>
-    
+
     <!-- portfolio -->
     <template v-slot:item.pvlatentes="{ item }">
       <span :class="getPvStyle(item.pvlatentes)">{{ item.pvlatentes }}</span>
@@ -60,7 +59,6 @@
     <template v-slot:item.actions="{ item }">
       <v-icon dense @click="closeLine(item)">mdi-clock-end</v-icon>
     </template>
-    
   </table-stabilitywarrants>
 </template>
 
@@ -113,11 +111,12 @@ module.exports = {
       }
       return days;
     },
-    closeLine(item){
-      var text = item.isin;
+    closeLine(item) {
+      var text =
+        item.isin + "\t" + item.bornebasse + "\t" + item.bornehaute + "\t" + item.maturite + "\t" + item.maturitejours;
       //console.log(text);
       navigator.clipboard.writeText(text);
-    }
+    },
   },
   components: {
     "table-stabilitywarrants": httpVueLoader("vuejs/src/components/table-stabilitywarrants.vue"),
