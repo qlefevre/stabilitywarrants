@@ -12,6 +12,12 @@
     <template v-slot:item.isin="{ item }">
       <isin v-model="item"></isin>
     </template>
+    <template v-slot:item.bornebasse="{ item }>
+      {{item.bornebasse}}
+    </template>
+    <template v-slot:item.bornehaute="{ item }>
+      {{item.bornehaute}}
+    </template>
     <template v-slot:item.perfmin="{ item }">
       <span :class="getStyle(item.perfmin)">{{ item.perfmin }}</span>
     </template>
@@ -21,16 +27,6 @@
     <template v-slot:item.bornes="{ item }"> {{ item.bornebasse }} {{ item.bornehaute }} </template>
 
     <!-- portfolio -->
-    <template slot="item.bornebasse" slot-scope="data">
-      <slot name="item.bornebasse.header" v-bind="data"></slot>
-      {{item.bornebasse}}
-      <slot name="item.bornebasse.footer" v-bind="data"></slot>
-    </template>
-    <template slot="item.bornehaute" slot-scope="data">
-      <slot name="item.bornehaute.header" v-bind="data"></slot>
-      {{item.bornebasse}}
-      <slot name="item.bornehaute.footer" v-bind="data"></slot>
-    </template>
     <template slot="item.pvlatentes" slot-scope="data">
       <slot name="item.pvlatentes" v-bind="data"></slot>
     </template>
