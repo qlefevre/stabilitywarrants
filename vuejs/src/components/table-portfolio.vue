@@ -61,6 +61,19 @@
     <template v-slot:item.actions="{ item }">
       <v-icon dense @click="closeLine(item)">mdi-clock-end</v-icon>
     </template>
+    <template v-slot:item.bornebasse.header="{ item }">
+      <span :class="getPvStyle(item.pvpotentiellespercentage)">
+    </template>
+    <template v-slot:item.bornebasse.footer="{ item }">
+      </span>
+    </template>
+    <template v-slot:item.bornehaute.header="{ item }">
+      <span :class="getPvStyle(item.pvpotentiellespercentage)">
+    </template>
+    <template v-slot:item.bornehaute.footer="{ item }">
+      </span>
+    </template>
+      
   </table-stabilitywarrants>
 </template>
 
