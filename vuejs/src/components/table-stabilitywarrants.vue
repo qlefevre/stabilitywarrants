@@ -12,10 +12,10 @@
     <template v-slot:item.isin="{ item }">
       <isin v-model="item"></isin>
     </template>
-    <template v-slot:item.bornebasse="{ item }>
+    <template v-slot:item.bornebasse="{ item }">
       {{item.bornebasse}}
     </template>
-    <template v-slot:item.bornehaute="{ item }>
+    <template v-slot:item.bornehaute="{ item }">
       {{item.bornehaute}}
     </template>
     <template v-slot:item.perfmin="{ item }">
