@@ -22,10 +22,14 @@
 
     <!-- portfolio -->
     <template slot="item.bornebasse" slot-scope="data">
-      <slot name="item.bornebasse" v-bind="data"></slot>
+      <slot name="item.bornebasse.header" v-bind="data"></slot>
+      {{item.bornebasse}}
+      <slot name="item.bornebasse.footer" v-bind="data"></slot>
     </template>
     <template slot="item.bornehaute" slot-scope="data">
-      <slot name="item.bornehaute" v-bind="data"></slot>
+      <slot name="item.bornehaute.header" v-bind="data"></slot>
+      {{item.bornebasse}}
+      <slot name="item.bornehaute.footer" v-bind="data"></slot>
     </template>
     <template slot="item.pvlatentes" slot-scope="data">
       <slot name="item.pvlatentes" v-bind="data"></slot>
