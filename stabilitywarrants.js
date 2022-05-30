@@ -111,7 +111,7 @@ new Vue({
             if (this.filterperf) {
                 warrants0 = warrants0.filter(warrant =>
                     warrant['perfmax'] > 12 &&
-                    warrant['perfmin'] > 15);
+                    warrant['perfmin'] > 12);
             }
             // Maturité (mois choisi)
             if (this.filtermaturity.length > 0) {
