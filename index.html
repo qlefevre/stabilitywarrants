@@ -27,7 +27,7 @@
           <v-tab key="portfolio" v-show="portfolio.length > 0">Portfolio</v-tab>
           <v-tab key="debug">Debug</v-tab>
 
-          <v-tab-item key="stabilitywarrants" v-bind:class="[filterperf ? '' : 'red lighten-1']">
+          <v-tab-item key="stabilitywarrants" v-bind:class="[filterperf ? 'red darken-4' : '']">
             <v-container fluid>
               <v-row no-gutters>
                 <v-col cols="3">
@@ -77,7 +77,7 @@
                 <v-col>
                   <table-stabilitywarrants :headers="headers" :items="filteredWarrants"
                     :sort-by="['maturitejours','perfmin']" :sort-desc="[false,false]"
-                    :footer-props="{ 'items-per-page-options': [-1, 50, 100] }"></table-stabilitywarrants>
+                    :footer-props="{ 'items-per-page-options': [-1, 50, 100] }" v-bind:class="[filterperf ? 'red lighten-4' : '']"></table-stabilitywarrants>
                 </v-col>
               </v-row>
             </v-container>
