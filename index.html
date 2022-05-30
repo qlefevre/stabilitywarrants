@@ -27,7 +27,7 @@
           <v-tab key="portfolio" v-show="portfolio.length > 0">Portfolio</v-tab>
           <v-tab key="debug">Debug</v-tab>
 
-          <v-tab-item key="stabilitywarrants">
+          <v-tab-item key="stabilitywarrants" v-bind:class="[filterperf ? '' : 'red lighten-1']">
             <v-container fluid>
               <v-row no-gutters>
                 <v-col cols="3">
