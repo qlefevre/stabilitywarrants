@@ -6,7 +6,9 @@
     color: orange;
     font-weight: bold;
 }
-
+.orange .orange-value {
+    color: #EF6C00;
+}
 .red-pv {
     color: red;
 }
