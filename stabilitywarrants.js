@@ -70,7 +70,7 @@ new Vue({
                 { text: 'Ecart cible abs', value: 'ecartcibleabs', align: ' hidden-md-and-down' },
                 { text: 'Perf min %', value: 'perfmin' },
                 { text: 'Perf max %', value: 'perfmax' },
-                { text: 'Achat', value: 'achat' },
+                { text: 'Achat', value: 'achat', align: ' hidden-md-and-down' },
                 { text: 'Vente', value: 'vente' }
             ],
             portfolioHeaders: [
