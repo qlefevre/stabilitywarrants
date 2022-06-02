@@ -43,6 +43,7 @@ new Vue({
             filtersousjacent: 'CAC 40',
             filtermaturity: [],
             filterperf: true,
+            filtervente: true,
             filterissuers: ['SG'],
             headers: [
                 {
@@ -69,7 +70,8 @@ new Vue({
                 { text: 'Ecart cible abs', value: 'ecartcibleabs', align: ' hidden-md-and-down' },
                 { text: 'Perf min %', value: 'perfmin' },
                 { text: 'Perf max %', value: 'perfmax' },
-                { text: 'Valeur Achat', value: 'achat' }
+                { text: 'Achat', value: 'achat' },
+                { text: 'Vente', value: 'vente' }
             ],
             portfolioHeaders: [
                 {
@@ -110,8 +112,13 @@ new Vue({
             // stratégies perf
             if (this.filterperf) {
                 warrants0 = warrants0.filter(warrant =>
-                    warrant['perfmax'] > 12 &&
-                    warrant['perfmin'] > 12);
+                    warrant.perfmax > 12 &&
+                    warrant.perfmin > 12);
+            }
+            // stratégies vente
+            if (this.filtervente) {
+                warrants0 = warrants0.filter(warrant =>
+                    warrant.vente < 9.9);
             }
             // Maturité (mois choisi)
             if (this.filtermaturity.length > 0) {

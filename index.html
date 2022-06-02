@@ -30,7 +30,7 @@
           <v-tab-item key="stabilitywarrants" v-bind:class="[filterperf ? '' : 'orange lighten-2']">
             <v-container fluid>
               <v-row no-gutters>
-                <v-col cols="3">
+                <v-col cols="4">
                   <h1 class="text-subtitle-1">
                     Sous-jacent
                   </h1>
@@ -42,20 +42,26 @@
                   </v-chip-group>
                 </v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="2">
+                <v-col cols="3">
                   <h1 class="text-subtitle-1">
                     Émetteur
                   </h1>
                   <issuer-filter v-model="filterissuers" :warrants="warrants"></issuer-filter>
                 </v-col>
                 <v-spacer></v-spacer>
-                <v-col cols="4">
+                <v-col cols="5">
                   <h1 class="text-subtitle-1">
                     Maturité
                   </h1>
                   <maturity-filter v-model="filtermaturity" :warrants="warrants"></maturity-filter>
                 </v-col>
                 <v-spacer></v-spacer>
+                
+                <!--
+                <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
+                </v-select>-->
+              </v-row>
+              <v-row no-gutters>
                 <v-col cols="2">
                   <h1 class="text-subtitle-1">
                     Filtre perf%
@@ -63,9 +69,13 @@
                   <v-switch v-model="filterperf" label="Borne > 12%" style="margin-top:0px" color="success">
                   </v-switch>
                 </v-col>
-                <!--
-                <v-select v-model="filtersousjacent" :items="sousjacents" label="Sous-jacent" solo dense>
-                </v-select>-->
+                <v-col cols="2">
+                  <h1 class="text-subtitle-1">
+                    Filtre Vente
+                  </h1>
+                  <v-switch v-model="filtervente" label="Vente < 9,9€" style="margin-top:0px" color="success">
+                  </v-switch>
+                </v-col>
               </v-row>
               <v-row no-gutters>
                 <pivot-point v-if="ppArray.length > 0" v-model="ppArray[0]"></pivot-point>
