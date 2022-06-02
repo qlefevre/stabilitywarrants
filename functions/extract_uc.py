@@ -3,9 +3,10 @@ import gzip
 import io
 import urllib.parse
 import urllib.request
-
-import utils
+from utils import create_temp_file
+from utils import upload_file
 from utils import extract_number
+from utils import clean_name
 
 
 def handle(event, context):
@@ -57,8 +58,8 @@ def handle(event, context):
     }
     data = urllib.parse.urlencode(values).encode('ascii')
     req = urllib.request.Request(url, data, headers)
-    stabilitywarrants_uc_csv = utils.create_temp_file()
-    stabilitywarrants_cf_csv = utils.create_temp_file()
+    stabilitywarrants_uc_csv = create_temp_file()
+    stabilitywarrants_cf_csv = create_temp_file()
     with urllib.request.urlopen(req) as response:
         content = gzip.decompress(response.read())
         data = content.decode('iso-8859-1').replace('\r\n', '\r')
@@ -72,14 +73,14 @@ def handle(event, context):
                 datacsv, newline='\r'), delimiter=';')
             for row in reader:
                 file_csv.write(transform_row(row))
-    utils.upload_file(stabilitywarrants_uc_csv,
-                      'raw/uc/csv/%Y/%m/stabilitywarrants-raw-uc-%Y-%m-%d.csv')
-    utils.upload_file(stabilitywarrants_cf_csv,
-                      'sw/uc/%Y/%m/stabilitywarrants-uc-%Y-%m-%d.csv')
+    upload_file(stabilitywarrants_uc_csv,
+                'raw/uc/csv/%Y/%m/stabilitywarrants-raw-uc-%Y-%m-%d.csv')
+    upload_file(stabilitywarrants_cf_csv,
+                'sw/uc/%Y/%m/stabilitywarrants-uc-%Y-%m-%d.csv')
 
 
 def transform_row(row):
-    data = 'UC;'+row['Mnémo'] + ';'+row['ISIN'] + ';' + utils.clean_name(row['Sous-jacent']) + ';' + extract_number(
+    data = 'UC;'+row['Mnémo'] + ';'+row['ISIN'] + ';' + clean_name(row['Sous-jacent']) + ';' + extract_number(
         row['Niveau de la barrière basse']) + ';'
     data += extract_number(row['Niveau de la borne haute']) + ';' + \
         row['Date d\'observation finale'].replace('.', '/') + ';'
