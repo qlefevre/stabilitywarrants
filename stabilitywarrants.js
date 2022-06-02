@@ -108,7 +108,7 @@ new Vue({
     computed: {
         filteredWarrants() {
             // émetteurs
-            var warrants0 = this.warrants.filter(warrant => this.filterissuers.includes(warrant['issuer']));
+            var warrants0 = this.warrants.filter(warrant => this.filterissuers.includes(warrant.issuer));
             // stratégies perf
             if (this.filterperf) {
                 warrants0 = warrants0.filter(warrant =>
@@ -124,7 +124,7 @@ new Vue({
             if (this.filtermaturity.length > 0) {
                 var patterns = this.filtermaturity.map(month => '/' + month.toString().padStart(2, '0') + '/');
                 //console.log('mois: ' + patterns)
-                warrants0 = warrants0.filter(warrant => patterns.some(pattern => warrant['maturite'].includes(pattern)));
+                warrants0 = warrants0.filter(warrant => patterns.some(pattern => warrant.maturite.includes(pattern)));
             }
             return warrants0;
         },
@@ -132,10 +132,10 @@ new Vue({
             // filtrage warrants du portefeuille
             // ajout des infos
             return this.warrants.filter(warrant =>
-                this.portfolio.filter(pFVal => warrant['isin'].endsWith(pFVal.isin)).length > 0)
+                this.portfolio.filter(pFVal => warrant.isin.endsWith(pFVal.isin)).length > 0)
                 .map(warrant => {
                     warrantPf = Object.assign({}, warrant);
-                    pFVal = this.portfolio.filter(pFVal => warrant['isin'].endsWith(pFVal.isin))[0];
+                    pFVal = this.portfolio.filter(pFVal => warrant.isin.endsWith(pFVal.isin))[0];
                     warrantPf.prixrevient = pFVal.prixrevient;
                     warrantPf.quantite = pFVal.quantite;
                     warrantPf.pvlatentes = ((warrantPf.achat - warrantPf.prixrevient) * warrantPf.quantite).toFixed(2);
@@ -313,7 +313,7 @@ new Vue({
             .then(response => response.json())
             .then(data => {
                 this.warrants = data;
-                var strmat = this.warrants.map(warrant => warrant['maturite']).sort()[0];
+                var strmat = this.warrants.map(warrant => warrant.maturite).sort()[0];
                 this.filtermaturity = [Number(strmat.substring(strmat.indexOf('/') + 1, strmat.lastIndexOf('/')))];
                 //console.log('filtermaturity ' + this.filtermaturity)
             });
