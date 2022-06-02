@@ -118,7 +118,7 @@ new Vue({
             // stratégies vente
             if (this.filtervente) {
                 warrants0 = warrants0.filter(warrant =>
-                    warrant.vente < 9.9);
+                    warrant.vente < 9.6);
             }
             // Maturité (mois choisi)
             if (this.filtermaturity.length > 0) {
