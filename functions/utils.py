@@ -135,7 +135,7 @@ def extract_number(value: str) -> str:
     - 7600,0000 POINTS -> 7600
     - 7800,00 Points -> 7800
     - 13,0000 EUR -> 13
-    - 22,50 EUR -> 22
+    - 22,50 EUR -> 22,50
     - 7,5000 -> 7,50
 
     Args:
