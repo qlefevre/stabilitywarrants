@@ -4,7 +4,8 @@ from datetime import datetime
 from datetime import timedelta
 import csv
 import urllib.request
-import utils
+from utils import create_temp_file
+from utils import upload_file
 
 
 class OHLC:
@@ -137,13 +138,15 @@ def handle(event, context):
        Calcule les points pivots en mensuel et sur 4 semaines glissantes
     """
     print('Calcule les points pivots en mensuel et sur 4 semaines glissantes')
-    content = '{'+pivot_point('CAC 40', 'FCHI')+',' + pivot_point('DAX', 'GDAXI')+','+  pivot_point('S&P 500', 'GSPC')+','+  pivot_point('NASDAQ 100', 'IXIC')+'}'
+    content = '{'+pivot_point('CAC 40', 'FCHI')+',' + pivot_point('DAX', 'GDAXI') + \
+        ',' + pivot_point('S&P 500', 'GSPC')+',' + \
+        pivot_point('NASDAQ 100', 'IXIC')+'}'
     print('json')
     print(content)
-    pivotpoint_json = utils.create_temp_file()
+    pivotpoint_json = create_temp_file()
     with open(pivotpoint_json, 'w', encoding='utf8') as file_json:
         file_json.write(content)
-    utils.upload_file(pivotpoint_json, 'json/%Y/%m/pivotpoint-%Y-%m-%d.json')
+    upload_file(pivotpoint_json, 'json/%Y/%m/pivotpoint-%Y-%m-%d.json')
 
 
 if __name__ == '__main__':

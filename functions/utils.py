@@ -131,7 +131,7 @@ def format_number(value: float):
 def extract_number(value: str) -> str:
     """Extracts number from string
 
-    Example:
+    Examples:
     - 7600,0000 POINTS -> 7600
     - 7800,00 Points -> 7800
     - 13,0000 EUR -> 13

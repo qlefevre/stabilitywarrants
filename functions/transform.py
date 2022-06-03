@@ -2,7 +2,9 @@ import csv
 import operator
 from datetime import datetime
 
-import utils
+from utils import create_temp_file
+from utils import upload_file
+from utils import download_file
 from utils import format_number
 from utils import to_number
 
@@ -58,9 +60,9 @@ def handle(event, context):
        Transforme le fichier CSV
     """
     print('Transforme le fichier CSV')
-    stabilitywarrants_raw_csv = utils.download_file(
+    stabilitywarrants_raw_csv = download_file(
         'sw/all/%Y/%m/stabilitywarrants-all-%Y-%m-%d.csv')
-    stabilitywarrants_csv = utils.create_temp_file()
+    stabilitywarrants_csv = create_temp_file()
     lines = []
     with open(stabilitywarrants_raw_csv, newline='') as readcsvfile:
         reader = csv.DictReader(readcsvfile, delimiter=';')
@@ -79,8 +81,8 @@ def handle(event, context):
         writer.writeheader()
         for row in lines:
             writer.writerow(row)
-    utils.upload_file(stabilitywarrants_csv,
-                      'csv/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
+    upload_file(stabilitywarrants_csv,
+                'csv/%Y/%m/stabilitywarrants-%Y-%m-%d.csv')
 
     return {
         "body": "sort ok",
