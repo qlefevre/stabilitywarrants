@@ -10,7 +10,7 @@
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\merge.py#L4"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\merge.py#L6"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ## <kbd>function</kbd> `handle`
 

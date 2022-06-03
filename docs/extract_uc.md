@@ -18,7 +18,7 @@
 handle(event, context)
 ```
 
-Download stability warrants from Unicredit test 
+Download stability warrants from Unicredit 
 
 
 ---

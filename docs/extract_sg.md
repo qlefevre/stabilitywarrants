@@ -10,7 +10,7 @@
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\extract_sg.py#L7"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\extract_sg.py#L9"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ## <kbd>function</kbd> `handle`
 

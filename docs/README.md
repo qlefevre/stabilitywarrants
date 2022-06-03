@@ -10,6 +10,7 @@
 - [`merge`](./merge.md#module-merge)
 - [`pivot_point`](./pivot_point.md#module-pivot_point)
 - [`run_all_functions`](./run_all_functions.md#module-run_all_functions)
+- [`test_utils`](./test_utils.md#module-test_utils)
 - [`transform`](./transform.md#module-transform)
 - [`utils`](./utils.md#module-utils)
 
@@ -17,13 +18,14 @@
 
 - [`pivot_point.OHLC`](./pivot_point.md#class-ohlc)
 - [`pivot_point.PivotPoint`](./pivot_point.md#class-pivotpoint)
+- [`test_utils.TestUtilsMethods`](./test_utils.md#class-testutilsmethods)
 
 ## Functions
 
-- [`csv_to_json.fix_number_and_properties`](./csv_to_json.md#function-fix_number_and_properties)
+- [`csv_to_json.fix_number_and_properties`](./csv_to_json.md#function-fix_number_and_properties): Fix number and properties before transformation into json
 - [`csv_to_json.handle`](./csv_to_json.md#function-handle): Transforme le fichier final csv en json
 - [`extract_sg.handle`](./extract_sg.md#function-handle): Download stability warrants from Société Générale
-- [`extract_uc.handle`](./extract_uc.md#function-handle): Download stability warrants from Unicredit test
+- [`extract_uc.handle`](./extract_uc.md#function-handle): Download stability warrants from Unicredit
 - [`extract_uc.transform_row`](./extract_uc.md#function-transform_row)
 - [`merge.handle`](./merge.md#function-handle): Fusionne les fichiers csv de SG et UC => ALL
 - [`pivot_point.extract_ohlc`](./pivot_point.md#function-extract_ohlc)
@@ -33,12 +35,12 @@
 - [`run_all_functions.handle`](./run_all_functions.md#function-handle)
 - [`transform.handle`](./transform.md#function-handle): Transforme le fichier CSV
 - [`transform.transform_row`](./transform.md#function-transform_row)
-- [`utils.clean_name`](./utils.md#function-clean_name)
+- [`utils.clean_asset_name`](./utils.md#function-clean_asset_name): Cleans up asset's name
 - [`utils.create_temp_file`](./utils.md#function-create_temp_file): Create temporary file
 - [`utils.download_file`](./utils.md#function-download_file)
 - [`utils.extract_number`](./utils.md#function-extract_number): Extracts number from string
-- [`utils.format_number`](./utils.md#function-format_number)
-- [`utils.to_number`](./utils.md#function-to_number)
+- [`utils.format_number`](./utils.md#function-format_number): Formats number into string
+- [`utils.to_number`](./utils.md#function-to_number): Returns number from string
 - [`utils.upload_file`](./utils.md#function-upload_file): Upload a file to an S3 bucket
 - [`utils.xlsx`](./utils.md#function-xlsx)
 

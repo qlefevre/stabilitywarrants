@@ -10,7 +10,7 @@
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L56"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L61"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ## <kbd>function</kbd> `extract_ohlc`
 
@@ -25,7 +25,7 @@ extract_ohlc(values)
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L68"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L73"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ## <kbd>function</kbd> `twenty_day_ohlc`
 
@@ -40,7 +40,7 @@ twenty_day_ohlc(pohlcs)
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L77"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L82"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ## <kbd>function</kbd> `pivot_point`
 
@@ -55,7 +55,7 @@ pivot_point(name, symbol)
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L135"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L140"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ## <kbd>function</kbd> `handle`
 
@@ -68,14 +68,14 @@ Calcule les points pivots en mensuel et sur 4 semaines glissantes
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L10"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L11"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ## <kbd>class</kbd> `OHLC`
 
 
 
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L11"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L12"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ### <kbd>method</kbd> `__init__`
 
@@ -93,14 +93,14 @@ __init__(open_, high, low, close)
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L21"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L22"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ## <kbd>class</kbd> `PivotPoint`
 
 
 
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L22"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L23"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ### <kbd>method</kbd> `__init__`
 
@@ -117,7 +117,7 @@ __init__(ohlc, name, period)
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L52"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L54"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ### <kbd>method</kbd> `json`
 
@@ -131,7 +131,7 @@ json()
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L31"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L32"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ### <kbd>method</kbd> `r1`
 
@@ -145,7 +145,7 @@ r1()
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L37"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L38"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ### <kbd>method</kbd> `r2`
 
@@ -159,7 +159,7 @@ r2()
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L43"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L44"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ### <kbd>method</kbd> `r3`
 
@@ -173,7 +173,7 @@ r3()
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L34"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L35"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ### <kbd>method</kbd> `s1`
 
@@ -187,7 +187,7 @@ s1()
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L40"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L41"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ### <kbd>method</kbd> `s2`
 
@@ -201,7 +201,7 @@ s2()
 
 ---
 
-<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L46"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
+<a href="https://github.com/qlefevre/stabilitywarrants/blob/main/functions\pivot_point.py#L47"><img align="right" style="float:right;" src="https://img.shields.io/badge/-source-cccccc?style=flat-square"></a>
 
 ### <kbd>method</kbd> `s3`
 
