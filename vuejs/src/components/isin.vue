@@ -1,19 +1,10 @@
 <template>
   <div class="isin">
     <!-- desktop -->
-    <a
-      :href="bourso(this.value)"
-      target="_blank"
-      class="desktop hidden-md-and-down"
-      >{{ this.value.isin }}</a
-    >
+    <a :href="bourso(this.value)" target="_blank" class="desktop hidden-md-and-down">{{ this.value.isin }}</a>
+    <span class="hidden-md-and-down">{{ this.value.mnemo }}</span>
     <!-- mobile -->
-    <a
-      :href="bourso(this.value)"
-      target="_blank"
-      class="mobile hidden-lg-and-up"
-      >{{ this.value.mnemo }}</a
-    >
+    <a :href="bourso(this.value)" target="_blank" class="mobile hidden-lg-and-up">{{ this.value.mnemo }}</a>
     <a :href="bourso(this.value)" target="_blank" class="hidden-md-and-down">
       <v-img
         src="https://www.boursorama.com/bundles/boursoramaui/images/favicons/favicon-16x16.png"
@@ -22,31 +13,13 @@
       >
       </v-img>
     </a>
-    <a
-      :href="boursedirect(this.value)"
-      target="_blank"
-      class="hidden-md-and-down"
-    >
-      <v-img
-        src="https://www.boursedirect.fr/favicon.ico"
-        max-width="16"
-        max-height="16"
-      >
-      </v-img>
+    <a :href="boursedirect(this.value)" target="_blank" class="hidden-md-and-down">
+      <v-img src="https://www.boursedirect.fr/favicon.ico" max-width="16" max-height="16"> </v-img>
     </a>
     <a v-if="sg(this.value)" :href="sg(this.value)" target="_blank">
-      <v-img
-        src="https://sgbourse.fr/favicon.ico"
-        max-width="16"
-        max-height="16"
-      >
-      </v-img>
+      <v-img src="https://sgbourse.fr/favicon.ico" max-width="16" max-height="16"> </v-img>
     </a>
-    <a
-      v-if="unicredit(this.value)"
-      :href="unicredit(this.value)"
-      target="_blank"
-    >
+    <a v-if="unicredit(this.value)" :href="unicredit(this.value)" target="_blank">
       <v-img
         src="https://www.bourse.unicredit.fr/etc/designs/onemarkets-relaunch/favicon.ico"
         max-width="16"
@@ -63,24 +36,16 @@ module.exports = {
   methods: {
     bourso: function (item) {
       var prefix = item.issuer == "SG" ? "3rP" : "2rP";
-      return (
-        "https://www.boursorama.com/bourse/produits-de-bourse/cours/stability-warrants/" +
-        prefix +
-        item.isin
-      );
+      return "https://www.boursorama.com/bourse/produits-de-bourse/cours/stability-warrants/" + prefix + item.isin;
     },
     boursedirect: function (item) {
       return "https://www.boursedirect.fr/api/search/" + item.isin + "/lucky";
     },
     unicredit: function (item) {
-      return item.issuer != "UC"
-        ? ""
-        : "https://www.bourse.unicredit.fr/fr/productpage.html/" + item.isin;
+      return item.issuer != "UC" ? "" : "https://www.bourse.unicredit.fr/fr/productpage.html/" + item.isin;
     },
     sg: function (item) {
-      return item.issuer != "SG"
-        ? ""
-        : "https://sgbourse.fr/product-details/" + item.mnemo;
+      return item.issuer != "SG" ? "" : "https://sgbourse.fr/product-details/" + item.mnemo;
     },
   },
 };
@@ -97,7 +62,8 @@ module.exports = {
 .isin .mobile {
   width: 50px;
 }
-.isin a {
+.isin a,
+.isin span {
   padding-right: 5px;
 }
 </style>
