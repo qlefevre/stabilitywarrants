@@ -123,9 +123,21 @@ def to_number(value: str):
     return int(result) if result.isdigit() else round(float(result), 2)
 
 
-def format_number(value: float):
+def format_number(value: float) -> str:
+    """Formats number into string
+
+    Examples:
+    - 7600.0000 -> 7600
+    - 5.8523 -> 5,85
+
+    Args:
+      value (float): the value to format 
+
+    Returns:
+      str: the number as string
+    """
     result = round(value, 2)
-    return int(result) if float(result).is_integer() else ('%0.2f' % result).replace('.', ',')
+    return str(int(result)) if float(result).is_integer() else ('%0.2f' % result).replace('.', ',')
 
 
 def extract_number(value: str) -> str:

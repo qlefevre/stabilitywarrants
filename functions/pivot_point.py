@@ -48,10 +48,14 @@ class PivotPoint:
         return round(self.s1() - (self.high - self.low))
 
     def __repr__(self):
-        return 'Pivot Point s3 '+str(self.s3())+' s2 '+str(self.s2())+' s1 '+str(self.s1())+' p '+str(self.p)+' r1 '+str(self.r1())+' r2 ' + str(self.r2())+' r3 ' + str(self.r3())
+        return 'Pivot Point s3 '+str(self.s3())+' s2 '+str(self.s2())+' s1 '+str(self.s1())+' p '+str(self.p)
+        +' r1 '+str(self.r1())+' r2 ' + str(self.r2())+' r3 ' + str(self.r3())
 
     def json(self):
-        return '{"period":"'+self.period+'", "name":"'+self.name+'", "pivotpoint" : { "S3": '+str(self.s3())+', "S2": '+str(self.s2()) + ', "S1": '+str(self.s1())+', "P": '+str(self.p)+', "R1": '+str(self.r1())+', "R2": '+str(self.r2()) + ', "R3": '+str(self.r3())+' }}'
+        return '{"period":"'+self.period+'", "name":"'+self.name+'", "pivotpoint" : { "S3": '+str(self.s3())
+        +', "S2": '+str(self.s2()) + ', "S1": '+str(self.s1())+', "P": '+str(self.p)+', "R1": ' + \
+            str(self.r1())+', "R2": '+str(self.r2()) + \
+            ', "R3": '+str(self.r3())+' }}'
 
 
 def extract_ohlc(values):

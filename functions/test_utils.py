@@ -1,8 +1,13 @@
 import unittest
 from utils import extract_number
+from utils import format_number
 
 
 class TestUtilsMethods(unittest.TestCase):
+
+    def test_format_number(self):
+        self.assertEqual(format_number(7600.0000), '7600')
+        self.assertEqual(format_number(5.8523), '5,85')
 
     def test_extract_number(self):
         self.assertEqual(extract_number('7600,0000 POINTS'), '7600')
