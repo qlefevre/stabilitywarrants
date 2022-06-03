@@ -116,6 +116,21 @@ def create_temp_file():
 
 
 def to_number(value: str):
+    """Returns number from string
+
+    Examples:
+    - '12892,886214' -> 12892.89
+    - '162,12' -> 162.12
+    - '135,0000' -> 135
+    - '13000' -> 13000
+    - '-' -> 0
+
+    Args:
+      value (str): the value to convert
+
+    Returns:
+      number: the number from string
+    """
     if value == '-':
         value = '0'
     result = value.partition(' ')[0].replace(',', '.')
@@ -164,7 +179,22 @@ def extract_number(value: str) -> str:
     return result
 
 
-def clean_name(name: str):
+def clean_asset_name(name: str):
+    """Cleans up asset's name
+
+    Examples:
+    - TotalEnergies SE -> TotalEnergies
+    - Sanofi SA -> Sanofi
+    - Carrefour S.A. -> Carrefour
+    - STMicroelectronics N.V. -> STMicroelectronics
+    - CAC 40® -> CAC 40
+
+    Args:
+      name (str): the asset's name
+
+    Returns:
+      str: the cleaned name
+    """
     name = name.replace('.', '')
     name = name.replace(' SA', '').replace(' SE', '')
     name = name.split(' NV')[0]

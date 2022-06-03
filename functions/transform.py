@@ -29,8 +29,6 @@ def transform_row(row):
         perf_min = round((1-(borne_basse / prixsousjacent)) * 100, 2)
         perf_max = round((borne_haute/prixsousjacent-1)*100, 2)
 
-    achat = to_number(row['achat'])
-
     new_row = {
         'issuer': row['issuer'],
         'mnemo': row['mnemo'],

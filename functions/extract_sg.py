@@ -2,7 +2,7 @@ import urllib.request
 from utils import create_temp_file
 from utils import upload_file
 from utils import extract_number
-from utils import clean_name
+from utils import clean_asset_name
 from utils import xlsx
 
 
@@ -36,7 +36,7 @@ def handle(event, context):
                 if idx > 0:
                     cf_csv_file.write(
                         'SG;'+row['A']+';'+row['B'] + ';' +
-                        clean_name(row['C']) + ';'
+                        clean_asset_name(row['C']) + ';'
                         + extract_number(row['D']) + ';'
                         + extract_number(row['E']) + ';'
                         + extract_number(row['F']) + ';'

@@ -6,7 +6,7 @@ import urllib.request
 from utils import create_temp_file
 from utils import upload_file
 from utils import extract_number
-from utils import clean_name
+from utils import clean_asset_name
 
 
 def handle(event, context):
@@ -80,7 +80,7 @@ def handle(event, context):
 
 
 def transform_row(row):
-    data = 'UC;'+row['Mnémo'] + ';'+row['ISIN'] + ';' + clean_name(row['Sous-jacent']) + ';' + extract_number(
+    data = 'UC;'+row['Mnémo'] + ';'+row['ISIN'] + ';' + clean_asset_name(row['Sous-jacent']) + ';' + extract_number(
         row['Niveau de la barrière basse']) + ';'
     data += extract_number(row['Niveau de la borne haute']) + ';' + \
         row['Date d\'observation finale'].replace('.', '/') + ';'
