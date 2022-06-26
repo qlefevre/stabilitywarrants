@@ -113,7 +113,7 @@ new Vue({
             if (this.filterperf) {
                 warrants0 = warrants0.filter(warrant =>
                     warrant.perfmax > 12 &&
-                    warrant.perfmin > 12);
+                    warrant.perfmin > 17);
             }
             // stratégies vente
             if (this.filtervente) {
