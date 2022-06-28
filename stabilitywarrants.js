@@ -44,6 +44,7 @@ new Vue({
             filtermaturity: [],
             filterperf: true,
             filtervente: true,
+            filterrange: true,
             filterissuers: ['SG'],
             headers: [
                 {
@@ -109,6 +110,8 @@ new Vue({
         filteredWarrants() {
             // émetteurs
             var warrants0 = this.warrants.filter(warrant => this.filterissuers.includes(warrant.issuer));
+            // Sous-jacent
+            warrants0 = warrants0.filter(warrant => warrant['sous-jacent'] == this.filtersousjacent);
             // stratégies perf
             if (this.filterperf) {
                 warrants0 = warrants0.filter(warrant =>
@@ -119,6 +122,27 @@ new Vue({
             if (this.filtervente) {
                 warrants0 = warrants0.filter(warrant =>
                     warrant.vente < 9.6 && warrant.vente != 0);
+            }
+            // stratégies plage
+            if (this.filterrange) {
+                var warrants0Sort = warrants0.sort((a, b) => b.plage - a.plage);
+                var bornesMin = [];
+                var minPlages = [];
+                warrants0Sort.forEach(warrant => {
+                    var hash = warrant.maturitejours + '_' + warrant.plage + '_' + warrant.bornebasse;
+                    var minHash = warrant.bornebasse + '_' + warrant.maturitejours;
+                    if (!bornesMin.includes(minHash)) {
+                        minPlages.push(hash);
+                        bornesMin.push(minHash);
+                    }
+                });
+                // console.log(bornesMin);
+                minPlages.sort();
+                // console.log(minPlages);
+                warrants0 = warrants0.filter(warrant => {
+                    var hash = warrant.maturitejours + '_' + warrant.plage + '_' + warrant.bornebasse;
+                    return minPlages.includes(hash);
+                });
             }
             // Maturité (mois choisi)
             if (this.filtermaturity.length > 0) {

@@ -76,6 +76,13 @@
                   <v-switch v-model="filtervente" label="Vente < 9,6€" style="margin-top:0px" color="success">
                   </v-switch>
                 </v-col>
+                <v-col cols="2">
+                  <h1 class="text-subtitle-1">
+                    Filtre Plage
+                  </h1>
+                  <v-switch v-model="filterrange" label="borne min / max" style="margin-top:0px" color="success">
+                  </v-switch>
+                </v-col>
               </v-row>
               <v-row no-gutters>
                 <pivot-point v-if="ppArray.length > 0" v-model="ppArray[0]"></pivot-point>
