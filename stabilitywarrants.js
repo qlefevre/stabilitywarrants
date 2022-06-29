@@ -107,7 +107,7 @@ new Vue({
         }
     },
     computed: {
-        filteredWarrants() {
+        preFilteredWarrants() {
             // émetteurs
             var warrants0 = this.warrants.filter(warrant => this.filterissuers.includes(warrant.issuer));
             // Sous-jacent
@@ -144,6 +144,11 @@ new Vue({
                     return minPlages.includes(hash);
                 });
             }
+            return warrants0;
+        },
+        filteredWarrants() {
+            // Applique les filtres en cours
+            var warrants0 = this.preFilteredWarrants;
             // Maturité (mois choisi)
             if (this.filtermaturity.length > 0) {
                 var patterns = this.filtermaturity.map(month => '/' + month.toString().padStart(2, '0') + '/');
@@ -337,9 +342,8 @@ new Vue({
             .then(response => response.json())
             .then(data => {
                 this.warrants = data;
-                var strmat = this.warrants.map(warrant => warrant.maturite).sort()[0];
+                var strmat = this.preFilteredWarrants.map(warrant => warrant.maturite).sort()[0];
                 this.filtermaturity = [Number(strmat.substring(strmat.indexOf('/') + 1, strmat.lastIndexOf('/')))];
-                //console.log('filtermaturity ' + this.filtermaturity)
             });
         // stockage local du portefeuille
         if (!this.portfolio.length && localStorage.portfolio) {
