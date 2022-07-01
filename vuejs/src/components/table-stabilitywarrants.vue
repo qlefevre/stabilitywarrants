@@ -13,10 +13,10 @@
       <isin v-model="item"></isin>
     </template>
     <template v-slot:item.bornebasse="{ item }">
-      {{item.bornebasse}}
+      {{ item.bornebasse }}
     </template>
     <template v-slot:item.bornehaute="{ item }">
-      {{item.bornehaute}}
+      {{ item.bornehaute }}
     </template>
     <template v-slot:item.perfmin="{ item }">
       <span :class="getStyle(item.perfmin)">{{ item.perfmin }}</span>
@@ -36,8 +36,13 @@
     <template slot="item.pvpotentielles" slot-scope="data">
       <slot name="item.pvpotentielles" v-bind="data"></slot>
     </template>
-    <template slot="item.pvpotentiellespercentage" slot-scope="data">
-      <slot name="item.pvpotentiellespercentage" v-bind="data"></slot>
+    <template v-slot:item.pvpercentage="{ item }">
+      <v-tooltip right>
+        <template v-slot:activator="{ on, attrs }">
+          <span v-bind="attrs" v-on="on" :class="getPvStyle(pvPercentage(item))">{{ pvPercentage(item) }}</span>
+        </template>
+        <span>{{ pvPercentagePerMonth(item) }}</span>
+      </v-tooltip>
     </template>
     <template slot="item.actions" slot-scope="data">
       <slot name="item.actions" v-bind="data"></slot>
@@ -55,6 +60,14 @@ module.exports = {
   mixins: [tableMixin],
   components: {
     isin: httpVueLoader("vuejs/src/components/isin.vue"),
+  },
+  methods: {
+    pvPercentage(warrant) {
+      return ((10 / warrant.vente - 1) * 100).toFixed(2);
+    },
+    pvPercentagePerMonth(warrant) {
+      return (this.pvPercentage(warrant) * 30) / warrant.maturitejours;
+    },
   },
 };
 </script>

@@ -72,7 +72,8 @@ new Vue({
                 { text: 'Perf min %', value: 'perfmin' },
                 { text: 'Perf max %', value: 'perfmax' },
                 { text: 'Achat', value: 'achat', align: ' hidden-md-and-down' },
-                { text: 'Vente', value: 'vente' }
+                { text: 'Vente', value: 'vente' },
+                { text: '+/- % potentielles', value: 'pvpercentage', align: ' hidden-md-and-down' }
             ],
             portfolioHeaders: [
                 {
