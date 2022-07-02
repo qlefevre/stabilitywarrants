@@ -52,12 +52,12 @@ functions:
       # 00h10
       - schedule:
           rate: "10 2 * * *"
-      # 8h05   
+      # 8h05
       - schedule:
-          rate: "05 10 * * *"
-      # 9h05   
+          rate: "5 10 * * *"
+      # 9h05
       - schedule:
-          rate: "05 11 * * *"
+          rate: "5 11 * * *"
       # 12h00
       - schedule:
           rate: "0 14 * * *"
@@ -88,7 +88,7 @@ functions:
     events:
       # 22h05
       - schedule:
-          rate: "05 0 * * *"
+          rate: "5 0 * * *"
 
 plugins:
   - serverless-scaleway-functions
