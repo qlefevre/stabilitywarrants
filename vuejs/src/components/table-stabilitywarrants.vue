@@ -37,11 +37,12 @@
       <slot name="item.pvpotentielles" v-bind="data"></slot>
     </template>
     <template v-slot:item.pvpercentage="{ item }">
-      <v-tooltip right>
+      <v-tooltip left>
         <template v-slot:activator="{ on, attrs }">
           <span v-bind="attrs" v-on="on" :class="getPvStyle(pvPercentage(item))">{{ pvPercentage(item) }}</span>
         </template>
-        <span>{{ pvPercentagePerMonth(item) }}</span>
+        <span>{{ pvPercentagePerPeriod(item,30) }} / Mois</span></br>
+        <span>{{ pvPercentagePerPeriod(item,365) }} / An</span>
       </v-tooltip>
     </template>
     <template slot="item.actions" slot-scope="data">
@@ -65,8 +66,8 @@ module.exports = {
     pvPercentage(warrant) {
       return ((10 / warrant.vente - 1) * 100).toFixed(2);
     },
-    pvPercentagePerMonth(warrant) {
-      return (this.pvPercentage(warrant) * 30) / warrant.maturitejours;
+    pvPercentagePerPeriod(warrant, days) {
+      return ((this.pvPercentage(warrant) * days) / warrant.maturitejours).toFixed(2);
     },
   },
 };
