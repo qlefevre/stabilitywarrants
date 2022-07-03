@@ -18,6 +18,14 @@
     <template v-slot:item.bornehaute="{ item }">
       {{ item.bornehaute }}
     </template>
+    <template v-slot:item.maturitejours="{ item }">
+      <v-tooltip right>
+        <template v-slot:activator="{ on, attrs }">
+          <span v-bind="attrs" v-on="on"> {{ item.maturitejours }}</span>
+        </template>
+        <span>{{ maturiteJoursOuvrables(item.maturitejours) }} jours ouvrables</span>
+      </v-tooltip>
+    </template>
     <template v-slot:item.perfmin="{ item }">
       <span :class="getStyle(item.perfmin)">{{ item.perfmin }}</span>
     </template>
@@ -68,6 +76,14 @@ module.exports = {
     },
     pvPercentagePerPeriod(warrant, days) {
       return ((this.pvPercentage(warrant) * days) / warrant.maturitejours).toFixed(2);
+    },
+    maturiteJoursOuvrables(maturitejours) {
+      var days = maturitejours;
+      if (days >= 7) {
+        var weeks = Math.floor(maturitejours / 7);
+        days = maturitejours - 2 * weeks;
+      }
+      return days;
     },
   },
 };
