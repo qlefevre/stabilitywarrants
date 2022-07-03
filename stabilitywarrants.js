@@ -111,6 +111,8 @@ new Vue({
         preFilteredWarrants() {
             // émetteurs
             var warrants0 = this.warrants.filter(warrant => this.filterissuers.includes(warrant.issuer));
+            // on filtre les valeurs ayant un prix de vente à 10€
+            warrants0 = warrants0.filter(warrant => warrant.vente < 10);
             // Sous-jacent
             warrants0 = warrants0.filter(warrant => warrant['sous-jacent'] == this.filtersousjacent);
             // stratégies perf
