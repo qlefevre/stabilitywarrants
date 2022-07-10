@@ -24,6 +24,43 @@ functions:
     maxScale: 1
     memorySize: 128
     description: Télécharge les stability warrants d'Unicredit
+  extract-sg:
+    handler: functions/extract_sg_cfw.handle
+    minScale: 0
+    maxScale: 1
+    memorySize: 128
+    description: Télécharge les cappés et floorés de la Société Générale
+    events:
+      # 00h10
+      - schedule:
+          rate: "10 2 * * *"
+      # 8h05
+      - schedule:
+          rate: "5 10 * * *"
+      # 9h05
+      - schedule:
+          rate: "5 11 * * *"
+      # 12h00
+      - schedule:
+          rate: "0 14 * * *"
+      # 13h00
+      - schedule:
+          rate: "0 15 * * *"
+      # 14h00
+      - schedule:
+          rate: "0 16 * * *"
+      # 17h30
+      - schedule:
+          rate: "30 19 * * *"
+      # 18h
+      - schedule:
+          rate: "0 20 * * *"
+      # 19h
+      - schedule:
+          rate: "0 21 * * *"
+      # 22h
+      - schedule:
+          rate: "0 0 * * *"
   merge:
     handler: functions/merge.handle
     minScale: 0

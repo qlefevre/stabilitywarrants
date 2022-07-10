@@ -101,6 +101,7 @@ new Vue({
                 { text: 'Action', value: 'actions', align: ' hidden-md-and-down', sortable: false }
             ],
             warrants: [],
+            cappedflooreds: [],
             portfolio: [],
             boursoPortfolio: '',
             pivotpoint: {},
