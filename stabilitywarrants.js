@@ -75,6 +75,17 @@ new Vue({
                 { text: 'Vente', value: 'vente' },
                 { text: '+/- % potentielles', value: 'pvpercentage', align: ' hidden-md-and-down' }
             ],
+            cfwfiltermaturity: [],
+            cfwfiltercapped: true,
+            cfwheaders: [
+                { text: 'Isin', align: 'start', sortable: false, value: 'isin' },
+                { text: 'Type', value: 'cappefloore' },
+                { text: 'Prix d\'exercice', value: 'prixexercice' },
+                { text: 'Cap', value: 'cap' },
+                { text: 'Maturité', value: 'maturite' },
+                { text: 'Achat', value: 'achat', align: ' hidden-md-and-down' },
+                { text: 'Vente', value: 'vente' }
+            ],
             portfolioHeaders: [
                 {
                     text: 'Isin',
@@ -156,6 +167,21 @@ new Vue({
             // Maturité (mois choisi)
             if (this.filtermaturity.length > 0) {
                 var patterns = this.filtermaturity.map(month => '/' + month.toString().padStart(2, '0') + '/');
+                //console.log('mois: ' + patterns)
+                warrants0 = warrants0.filter(warrant => patterns.some(pattern => warrant.maturite.includes(pattern)));
+            }
+            return warrants0;
+        },
+        preFilteredCappedFloored() {
+            // Cappés ou Floorés
+            return this.cappedflooreds.filter(warrant => this.cfwfiltercapped ? warrant.cappefloore == 'Cappés' : warrant.cappefloore == 'Floorés');
+        },
+        filteredCappedFloored() {
+            // Applique les filtres en cours
+            var warrants0 = this.preFilteredCappedFloored;
+            // Maturité (mois choisi)
+            if (this.cfwfiltermaturity.length > 0) {
+                var patterns = this.cfwfiltermaturity.map(month => '/' + month.toString().padStart(2, '0') + '/');
                 //console.log('mois: ' + patterns)
                 warrants0 = warrants0.filter(warrant => patterns.some(pattern => warrant.maturite.includes(pattern)));
             }

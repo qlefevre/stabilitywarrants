@@ -24,9 +24,9 @@
       <v-main>
         <v-tabs>
           <v-tab key="stabilitywarrants">Stability warrants</v-tab>
+          <v-tab key="cappedflooredwarrants">Cappés & Floorés</v-tab>
           <v-tab key="portfolio" v-show="portfolio.length > 0">Portfolio</v-tab>
           <v-tab key="debug">Debug</v-tab>
-
           <v-tab-item key="stabilitywarrants" v-bind:class="[filterperf ? '' : 'orange lighten-2']">
             <v-container fluid>
               <v-row no-gutters>
@@ -99,6 +99,42 @@
                 </v-col>
               </v-row>
             </v-container>
+          </v-tab-item>
+          <v-tab-item key="cappedflooredwarrants">
+            <v-container fluid>
+              <v-container fluid>
+                <v-row no-gutters>
+                  <v-col cols="2">
+                    <h1 class="text-subtitle-1">
+                      Cappés / Floorés
+                    </h1>
+                    <v-switch v-model="cfwfiltercapped" style="margin-top:0px" color="success">
+                    </v-switch>
+                  </v-col>
+                  <v-spacer></v-spacer>
+                  <v-col cols="5">
+                    <h1 class="text-subtitle-1">
+                      Maturité
+                    </h1>
+                    <maturity-filter v-model="cfwfiltermaturity" :warrants="preFilteredCappedFloored"></maturity-filter>
+                  </v-col>
+                  <v-spacer></v-spacer>
+                </v-row>
+                <v-row no-gutters>
+                  <pivot-point v-if="ppArray.length > 0" v-model="ppArray[0]"></pivot-point>
+                </v-row>
+                <v-row no-gutters>
+                  <pivot-point v-if="ppArray.length > 0" v-model="ppArray[1]"></pivot-point>
+                </v-row>
+                <v-row no-gutters>
+                  <v-col>
+                    <v-data-table :headers="this.cfwheaders" :items="filteredCappedFloored"
+                      :sort-by="['maturite','prixexercice']" :footer-props="{ 'items-per-page-options': [-1, 50, 100] }"
+                      multi-sort dense class="elevation-1" mobile-breakpoint="100">
+                    </v-data-table>
+                  </v-col>
+                </v-row>
+              </v-container>
           </v-tab-item>
           <v-tab-item key="portfolio">
             <v-container fluid>
