@@ -230,8 +230,17 @@ new Vue({
         }
     },
     methods: {
-        url: function (date) {
-            var url = 'https://testqle.s3.nl-ams.scw.cloud/json/%Y/%m/stabilitywarrants-%Y-%m-%d.json';
+        url: function (date, type) {
+            var url = undefined;
+            switch (type) {
+                case 'stabilitywarrants':
+                    url = 'https://testqle.s3.nl-ams.scw.cloud/json/%Y/%m/stabilitywarrants-%Y-%m-%d.json';
+                    break;
+                case 'cappedflooredwarrants':
+                    url = 'https://testqle.s3.nl-ams.scw.cloud/json/cf/%Y/%m/cappedflooredwarrants-%Y-%m-%d.json';
+                    break;
+            }
+
             url = url.replaceAll('%Y', date.year);
             url = url.replaceAll('%m', date.month);
             url = url.replaceAll('%d', date.date);
@@ -327,8 +336,10 @@ new Vue({
 
         // télécharge les stability warrants /json/2022/04/stabilitywarrants-2022-04-12.json
         // télécharge les points pivots /json/2022/04/pivotpoint-2022-04-12.json
-        var url = this.url(date);
-        var ppUrl = url.replace('stabilitywarrants', 'pivotpoint');
+        var swUrl = this.url(date, 'stabilitywarrants');
+        var cfwUrl = this.url(date, 'cappedflooredwarrants');
+        var ppUrl = swUrl.replace('stabilitywarrants', 'pivotpoint');
+        // fetch pivot point
         fetch(ppUrl)
             .then(response => {
                 if (!response.ok) {
@@ -342,12 +353,19 @@ new Vue({
                 this.pivotpoint = data
                 console.log('pivot point: ' + this.pivotpoint)
             })
-        fetch(url)
+        // fetch stabilitywarrants
+        fetch(swUrl)
             .then(response => response.json())
             .then(data => {
                 this.warrants = data;
                 var strmat = this.preFilteredWarrants.map(warrant => warrant.maturite).sort()[0];
                 this.filtermaturity = [Number(strmat.substring(strmat.indexOf('/') + 1, strmat.lastIndexOf('/')))];
+            });
+        // fetch cappedflooredwarrants
+        fetch(cfwUrl)
+            .then(response => response.json())
+            .then(data => {
+                this.cappedflooreds = data;
             });
         // stockage local du portefeuille
         if (!this.portfolio.length && localStorage.portfolio) {

@@ -53,7 +53,7 @@ def handle(event, context):
                               separators=(',', ':'))
             file_json.write(']')
     upload_file(cappedflooredwarrants_cf_json,
-                'json/cf/%Y/%m/stabilitywarrants-%Y-%m-%d.json')
+                'json/cf/%Y/%m/cappedflooredwarrants-%Y-%m-%d.json')
 
     return {
         "message": "csv to json ok"
