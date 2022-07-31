@@ -3,6 +3,8 @@ import extract_uc
 import merge
 import transform
 import csv_to_json
+import extract_sg_cfw
+import csv_to_json_cfw
 
 
 def handle(event, context):
@@ -11,6 +13,8 @@ def handle(event, context):
     merge.handle(None, None)
     transform.handle(None, None)
     csv_to_json.handle(None, None)
+    extract_sg_cfw.handle(None, None)
+    csv_to_json_cfw.handle(None, None)
 
 
 if __name__ == '__main__':
