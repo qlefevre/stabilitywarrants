@@ -15,3 +15,10 @@
 .green-pv {
     color: forestgreen;
 }
+
+.greenred .v-input--switch__track, .greenred .v-input--switch__thumb {
+    background-color: red;
+}
+.greenred .v-input--switch__track.success--text,  .greenred .v-input--switch__thumb.success--text {
+    background-color:#4caf50;
+}

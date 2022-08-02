@@ -16,11 +16,11 @@
     <a :href="boursedirect(this.value)" target="_blank" class="hidden-md-and-down">
       <v-img src="https://www.boursedirect.fr/favicon.ico" max-width="16" max-height="16"> </v-img>
     </a>
-    <a :href="fortuneo(this.value)" target="_blank" class="hidden-md-and-down">
+    <a :href="fortuneo(this.value)" target="_blank" class="hidden-md-and-down" v-if="!this.capped">
       <v-img src="https://bourse.fortuneo.fr/static/assets/img/favicon/favicon.ico" max-width="16" max-height="16">
       </v-img>
     </a>
-    <a :href="easybourse(this.value)" target="_blank" class="hidden-md-and-down">
+    <a :href="easybourse(this.value)" target="_blank" class="hidden-md-and-down" v-if="!this.capped">
       <v-img
         src="https://media.easybourse.com/upload/media/image/144000/144081/favicon.jpg"
         max-width="16"
@@ -44,11 +44,12 @@
 
 <script>
 module.exports = {
-  props: ["value"],
+  props: ["value", "capped"],
   methods: {
     bourso: function (item) {
       var prefix = item.issuer == "SG" ? "3rP" : "2rP";
-      return "https://www.boursorama.com/bourse/produits-de-bourse/cours/stability-warrants/" + prefix + item.isin;
+      var suffix = this.capped ? "" : "stability-warrants/";
+      return "https://bourse.boursorama.com/bourse/produits-de-bourse/cours/" + suffix + prefix + item.isin;
     },
     boursedirect: function (item) {
       return "https://www.boursedirect.fr/api/search/" + item.isin + "/lucky";

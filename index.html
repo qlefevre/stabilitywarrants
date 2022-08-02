@@ -104,15 +104,15 @@
             <v-container fluid>
               <v-container fluid>
                 <v-row no-gutters>
-                  <v-col cols="2">
+                  <v-col cols="3">
                     <h1 class="text-subtitle-1">
                       Cappés / Floorés
                     </h1>
-                    <v-switch v-model="cfwfiltercapped" style="margin-top:0px" color="success">
+                    <v-switch v-model="cfwfiltercapped" style="margin-top:0px" color="success" class="greenred">
                     </v-switch>
                   </v-col>
                   <v-spacer></v-spacer>
-                  <v-col cols="5">
+                  <v-col cols="8">
                     <h1 class="text-subtitle-1">
                       Maturité
                     </h1>
@@ -130,7 +130,11 @@
                   <v-col>
                     <v-data-table :headers="this.cfwheaders" :items="filteredCappedFloored"
                       :sort-by="['maturite','prixexercice']" :footer-props="{ 'items-per-page-options': [-1, 50, 100] }"
-                      multi-sort dense class="elevation-1" mobile-breakpoint="100">
+                      :sort-desc="[false,!this.cfwfiltercapped]" multi-sort dense class="elevation-1"
+                      mobile-breakpoint="100">
+                      <template v-slot:item.isin="{item}">
+                        <isin v-model="item" capped="true"></isin>
+                      </template>
                     </v-data-table>
                   </v-col>
                 </v-row>
