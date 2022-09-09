@@ -4,7 +4,7 @@ frameworkVersion: "2 || 3"
 
 provider:
   name: scaleway
-  runtime: python3
+  runtime: python310
   scwToken: ${env:AWS_SECRET_ACCESS_KEY}
   scwProject: ${env:AWS_PROJECT_ID}
   env:
